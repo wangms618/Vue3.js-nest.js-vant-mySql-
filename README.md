@@ -20,7 +20,7 @@ vue3.0 + nestJS + mySql
 
 1.  终端命令行输入 git clone https://gitee.com/wang-mingshun/graduation-project.git将本项目拷贝至本地
 2.  终端在forum-frontend目录下输入yarn serve以启动前端项目
-3.  终端在forum-rearend目录下输入yarn run start以启动后端项目
+3.  终端在forum-rearend目录下输入yarn run start以启动后端项目ZZ
 
 #### 使用说明
 
