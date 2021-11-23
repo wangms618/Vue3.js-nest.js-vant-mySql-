@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import Tabbar from "./components/Tabbar"
+import { Tabbar } from "./components/Tabbar"
 export default {
     components: {
         Tabbar,
