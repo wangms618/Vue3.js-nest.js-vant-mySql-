@@ -1,6 +1,6 @@
-<template>111</template>
+<template>注册</template>
 
-<script>
+<script lang="ts">
 export default {}
 </script>
 

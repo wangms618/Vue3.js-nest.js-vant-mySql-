@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <van-tabbar v-model="active">
+        <van-tabbar v-model="active" @click="$emit('hangleChangeTitle', title)">
             <router-link class="link" to="/Community">
                 <van-tabbar-item class="iconfont icon-shequ1">
                     <span>社区</span>
@@ -26,18 +26,30 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue"
+import { ref, computed, reactive, watch } from "vue"
 
 export default {
+    prpos: {},
     setup() {
+        const titles = new Map([
+            [0, "社区热门"],
+            [1, "话题分类"],
+            [2, "我的回复"],
+            [3, "我的主页"],
+        ])
+        const title = computed(()=>{
+            return titles.get(active.value)
+        })
         const active = ref(0)
-        const icon = {
-            active: "https://img.yzcdn.cn/vant/user-active.png",
-            inactive: "https://img.yzcdn.cn/vant/user-inactive.png",
-        }
+        // watch(
+        //     () => active.value,
+        //     () => {
+        //         console.log(titles.get(active.value))
+        //     }
+        // )
         return {
-            icon,
             active,
+            title,
         }
     },
 }
