@@ -1,7 +1,5 @@
 <template>
-    <div class="container">
-        <tabbar></tabbar>
-    </div>
+    <tabbar></tabbar>
 </template>
 
 <script lang="ts">
