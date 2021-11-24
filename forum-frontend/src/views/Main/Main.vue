@@ -1,5 +1,6 @@
 <template>
     <tabbar></tabbar>
+    <router-view></router-view>
 </template>
 
 <script lang="ts">
