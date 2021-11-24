@@ -1,14 +1,17 @@
 <template>
     <van-tabbar v-model="active">
-        <van-tabbar-item badge="3">
-            <span>自定义</span>
-            <template #icon="props">
-                <img :src="props.active ? icon.active : icon.inactive" />
-            </template>
-        </van-tabbar-item>
-        <van-tabbar-item icon="search">标签</van-tabbar-item>
-        <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
-        <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
+        <van-tabbar-item class="iconfont icon-shequ1"
+            ><span>社区</span></van-tabbar-item
+        >
+        <van-tabbar-item class="iconfont icon-fenlei">
+            <span>分类</span></van-tabbar-item
+        >
+        <van-tabbar-item class="iconfont icon-pinglun3">
+            <span>回复</span></van-tabbar-item
+        >
+        <van-tabbar-item class="iconfont icon-My">
+            <span>我的</span></van-tabbar-item
+        >
     </van-tabbar>
 </template>
 
@@ -30,4 +33,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.iconfont {
+    font-size: 32px;
+    span {
+        font-size: 8px;
+    }
+}
+
+.van-tabbar-item {
+    margin-top: 10px;
+    line-height: 10px;
+}
+</style>

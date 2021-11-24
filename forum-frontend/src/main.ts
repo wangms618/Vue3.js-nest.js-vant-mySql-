@@ -4,7 +4,8 @@ import router from "./router"
 import store from "./store"
 import { Button, Tabbar, TabbarItem } from "vant"
 import "vant/lib/index.css"
-
+import fastClick from "fastclick"
+fastClick.attach(document.body)
 createApp(App)
     .use(store)
     .use(router)
