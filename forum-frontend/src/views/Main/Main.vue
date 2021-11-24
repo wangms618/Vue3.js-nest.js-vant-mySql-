@@ -17,11 +17,11 @@ export default {
     },
     setup() {
         // 对应NavBar的标题
-        let title = ref("社区热门")
+        let title = ref("冻梨社区")
 
         // 不同页面路径对应的页面标题
         const titles = {
-            "/Community": "社区热门",
+            "/Community": "冻梨社区",
             "/Sort": "话题分类",
             "/Reply": "我的回复",
             "/Home": "我的主页",

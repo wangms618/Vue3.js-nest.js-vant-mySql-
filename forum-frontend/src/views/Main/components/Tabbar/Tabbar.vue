@@ -33,13 +33,13 @@ export default {
         // 页面名称
         pagesName: {
             type: String,
-            default: "社区热门",
+            default: "冻梨社区",
         },
     },
 
     setup(props) {
         // 页面名称数组
-        const pages = ["社区热门", "话题分类", "我的回复", "我的主页"]
+        const pages = ["冻梨社区", "话题分类", "我的回复", "我的主页"]
 
         // 页面当前标题
         const title = computed(() => {
