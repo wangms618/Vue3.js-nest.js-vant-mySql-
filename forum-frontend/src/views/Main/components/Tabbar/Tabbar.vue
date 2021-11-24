@@ -26,27 +26,36 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, reactive, watch } from "vue"
+import { ref, computed, watch } from "vue"
 
 export default {
-    prpos: {},
-    setup() {
-        const titles = new Map([
-            [0, "社区热门"],
-            [1, "话题分类"],
-            [2, "我的回复"],
-            [3, "我的主页"],
-        ])
-        const title = computed(()=>{
-            return titles.get(active.value)
+    props: {
+        // 页面名称
+        pagesName: {
+            type: String,
+            default: "社区热门",
+        },
+    },
+
+    setup(props) {
+        // 页面名称数组
+        const pages = ["社区热门", "话题分类", "我的回复", "我的主页"]
+
+        // 页面当前标题
+        const title = computed(() => {
+            return pages[active.value]
         })
+        // 监听传入的页面名称，激活对应Tabbar图标
+        watch(
+            () => props.pagesName,
+            () => {
+                active.value = pages.indexOf(props.pagesName)
+            }
+        )
+
+        // 当前所在页面下标
         const active = ref(0)
-        // watch(
-        //     () => active.value,
-        //     () => {
-        //         console.log(titles.get(active.value))
-        //     }
-        // )
+
         return {
             active,
             title,
