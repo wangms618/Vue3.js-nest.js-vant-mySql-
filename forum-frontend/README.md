@@ -8,3 +8,6 @@
   - 分类页 Sort.vue
   - 我的回复页 Reply.vue
   - 我的主页 Home.vue
+
+
+绝对路径是src下的路径 @/
