@@ -2,10 +2,8 @@
     <div class="container">
         <van-search v-model="value" placeholder="请输入搜索关键词" />
         <van-tabs v-model:active="active">
-            <van-tab title="热门">{{ random }}</van-tab>
-            <van-tab title="关注">
-                <button type="button" @click="init">按钮</button>
-            </van-tab>
+            <van-tab title="热门">{{ data.title }}{{ data.context }}</van-tab>
+            <van-tab title="关注">222 </van-tab>
             <van-tab title="话题">内容 3</van-tab>
             <van-tab title="本校">内容 4</van-tab>
         </van-tabs>
@@ -13,23 +11,41 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted, ref, reactive, toRefs } from "vue"
 // import _ from "lodash"
+import { Toast } from "vant"
 import { getData } from "@/api/servies/Communtiy"
 export default {
     setup() {
-        const random = ref(0)
+        let state = reactive({
+            data: {},
+        })
         const value = ref("")
         const active = ref(0)
-        const init = async () => {
-            const data = await getData()
-            random.value = data.data
-        }
+        onMounted(async () => {
+            Toast.loading({ message: "加载中", forbidClick: true })
+            const { data } = await getData()
+            state.data = data
+            Toast.clear()
+        })
+        // onMounted(async () => {
+        //     Toast.loading({ message: "加载中", forbidClick: true })
+        //     const { data } = await getCart({ pageNumber: 1 })
+        //     console.log(data)
+        //     state.list = data
+        //     init()
+        // })
+        // const init = async () => {
+        //     Toast.loading({ message: "加载中...", forbidClick: true })
+        //     const { data } = await getCart({ pageNumber: 1 })
+        //     state.list = data
+        //     state.result = data.map((item) => item.cartItemId)
+        //     Toast.clear()
+        // }
         return {
             value,
             active,
-            random,
-            init,
+            ...toRefs(state),
         }
     },
 }
