@@ -14,9 +14,10 @@
 import { onMounted, ref, reactive, toRefs } from "vue"
 // import _ from "lodash"
 import { Toast } from "vant"
-import { getData } from "@/api/servies/Communtiy"
+import { getData } from "@/api/services/Community"
 export default {
     setup() {
+        // debugger
         let state = reactive({
             data: {},
         })
