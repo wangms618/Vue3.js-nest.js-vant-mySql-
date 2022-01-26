@@ -1,9 +1,9 @@
 <template>
-    <nav-bar :title="title" @back="handlePageBack"></nav-bar>
-
-    <tabbar @hangleChangeTitle="hangleChangeTitle" :pagesName="title"></tabbar>
-
-    <router-view></router-view>
+    <div>
+        <nav-bar :title="title" @back="handlePageBack"></nav-bar>
+        <tabbar @change-title="handleChangeTitle" :pagesName="title"></tabbar>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script lang="ts">
@@ -27,7 +27,7 @@ export default {
             "/Home": "我的主页",
         }
         // 子组件Tabbar变动时，调用这个函数传给子组件Navbar标题
-        const hangleChangeTitle = (value) => {
+        const handleChangeTitle = (value) => {
             title.value = value
         }
         // 返回上一次页面时，触发这个函数
@@ -37,7 +37,7 @@ export default {
 
         return {
             title,
-            hangleChangeTitle,
+            handleChangeTitle,
             handlePageBack,
         }
     },

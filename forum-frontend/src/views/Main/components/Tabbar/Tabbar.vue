@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <van-tabbar v-model="active" @click="$emit('hangleChangeTitle', title)">
+        <van-tabbar v-model="active" @click="$emit('change-title', title)">
             <router-link class="link" to="/Community">
                 <van-tabbar-item class="iconfont icon-shequ1">
                     <span>社区</span>

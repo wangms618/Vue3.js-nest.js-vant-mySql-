@@ -1,4 +1,6 @@
-import axios from '../axios'
-export function getData() {
-    return axios.get('/community/list')
+import axios from "../axios"
+export async function getData() {
+    const data = await axios.get("/community/list")
+    if (data) return data
+    return
 }
