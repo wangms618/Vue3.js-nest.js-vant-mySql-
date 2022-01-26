@@ -7,6 +7,8 @@ export interface PostsRo {
   list: PostsEntity[];
   count: number;
 }
+
+// todo CRUD操作
 @Injectable()
 export class PostsService {
   constructor(
