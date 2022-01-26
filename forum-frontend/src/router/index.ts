@@ -3,42 +3,42 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
-        name: "Main",
-        component: () => import("../views/Main/Main.vue"),
-        redirect: "/Community",
+        name: "forum",
+        component: () => import("../views/forum/index.vue"),
+        redirect: "/community",
         children: [
             {
-                path: "/Home",
-                name: "home",
-                component: () => import("../views/Main/views/Home/index.vue"),
+                path: "/homepage",
+                name: "homepage",
+                component: () => import("../views/forum/homepage/index.vue"),
             },
             {
-                path: "/Community",
-                name: "Community",
+                path: "/community",
+                name: "community",
                 component: () =>
-                    import("../views/Main/views/Community/index.vue"),
+                    import("../views/forum/community/index.vue"),
             },
             {
-                path: "/Reply",
-                name: "Reply",
-                component: () => import("../views/Main/views/Reply/index.vue"),
+                path: "/reply",
+                name: "reply",
+                component: () => import("../views/forum/reply/index.vue"),
             },
             {
-                path: "/Sort",
-                name: "Sort",
-                component: () => import("../views/Main/views/Sort/index.vue"),
+                path: "/sort",
+                name: "sort",
+                component: () => import("../views/forum/sort/index.vue"),
             },
         ],
     },
     {
-        path: "/Login",
-        name: "Login",
-        component: () => import("../views/Login/Login.vue"),
+        path: "/login",
+        name: "login",
+        component: () => import("../views/login/index.vue"),
     },
     {
-        path: "/Register",
-        name: "Register",
-        component: () => import("../views/Register/Register.vue"),
+        path: "/register",
+        name: "register",
+        component: () => import("../views/register/index.vue"),
     },
 ]
 

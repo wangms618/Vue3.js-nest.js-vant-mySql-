@@ -1,22 +1,22 @@
 <template>
     <div class="container">
         <van-tabbar v-model="active" @click="$emit('change-title', title)">
-            <router-link class="link" to="/Community">
+            <router-link class="link" to="/community">
                 <van-tabbar-item class="iconfont icon-shequ1">
                     <span>社区</span>
                 </van-tabbar-item>
             </router-link>
-            <router-link class="link" to="/Sort">
+            <router-link class="link" to="/sort">
                 <van-tabbar-item class="iconfont icon-fenlei">
                     <span>分类</span>
                 </van-tabbar-item>
             </router-link>
-            <router-link class="link" to="/Reply">
+            <router-link class="link" to="/reply">
                 <van-tabbar-item class="iconfont icon-pinglun3">
                     <span>回复</span>
                 </van-tabbar-item>
             </router-link>
-            <router-link class="link" to="/Home">
+            <router-link class="link" to="/homepage">
                 <van-tabbar-item class="iconfont icon-My">
                     <span>我的</span>
                 </van-tabbar-item>
