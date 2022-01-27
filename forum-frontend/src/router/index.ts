@@ -4,29 +4,29 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
         name: "forum",
-        component: () => import("../views/forum/index.vue"),
+        component: () => import("../views/index.vue"),
         redirect: "/community",
         children: [
             {
                 path: "/homepage",
                 name: "homepage",
-                component: () => import("../views/forum/homepage/index.vue"),
+                component: () => import("../views/homepage/index.vue"),
             },
             {
                 path: "/community",
                 name: "community",
                 component: () =>
-                    import("../views/forum/community/index.vue"),
+                    import("../views/community/index.vue"),
             },
             {
                 path: "/reply",
                 name: "reply",
-                component: () => import("../views/forum/reply/index.vue"),
+                component: () => import("../views/reply/index.vue"),
             },
             {
                 path: "/sort",
                 name: "sort",
-                component: () => import("../views/forum/sort/index.vue"),
+                component: () => import("../views/sort/index.vue"),
             },
         ],
     },

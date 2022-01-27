@@ -1,15 +1,17 @@
 <template>
     <div>
+        <!-- 顶部标签栏 -->
         <HeaderBar :title="title" @back="handlePageBack"></HeaderBar>
-        <TabBar @change-title="handleChangeTitle" :pagesName="title"></TabBar>
         <router-view></router-view>
+        <!-- 底部标签栏 -->
+        <TabBar @change-title="handleChangeTitle" :pagesName="title"></TabBar>
     </div>
 </template>
 
 <script lang="ts">
-import { TabBar,HeaderBar } from "../bars"
+import { TabBar, HeaderBar } from "./bars"
 import { ref } from "@vue/reactivity"
-import { Title } from "./const"
+import { TitleTextByType } from "./types"
 export default {
     components: {
         HeaderBar,
@@ -25,7 +27,8 @@ export default {
         }
         // 返回上一次页面
         const handlePageBack = (path) => {
-            title.value = Title[path]
+            const titleType = path.replace(/\//, "")
+            title.value = TitleTextByType[titleType]
         }
 
         return {
