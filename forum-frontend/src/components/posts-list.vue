@@ -10,7 +10,7 @@
             </div>
             <div class="posts-foot">
                 <div class="posts-user">
-                    <span>@茶叶蛋你你您阿萨德撒多撒</span>
+                    <span>@董董董董董</span>
                 </div>
                 <div class="posts-date">
                     <span>2019/10/8</span>
@@ -30,6 +30,217 @@
             </div>
         </div>
     </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="posts-list">
+        <div class="posts-left">
+            <div class="posts-title">
+                <span>健身房恶习吐槽大会啦啦啦啦啦啦</span>
+            </div>
+            <div class="posts-context">
+                健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿
+            </div>
+            <div class="posts-foot">
+                <div class="posts-user">
+                    <span>@董董董董董</span>
+                </div>
+                <div class="posts-date">
+                    <span>2019/10/8</span>
+                </div>
+            </div>
+        </div>
+        <div class="posts-right">
+            <div class="posts-views">1000人围观<van-icon name="arrow" /></div>
+            <div class="posts-img">
+                <van-image
+                    fit="contain"
+                    width="78"
+                    height="76"
+                    :src="url"
+                    radius="4"
+                />
+            </div>
+        </div>
+    </div>
+    
 </template>
 
 <script lang="ts">
