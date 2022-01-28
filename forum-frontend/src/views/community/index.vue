@@ -8,7 +8,9 @@
             <van-tab title="关注" name="follow">
                 <FollowPage></FollowPage>
             </van-tab>
-            <van-tab title="话题" name="topic">内容 3</van-tab>
+            <van-tab title="话题" name="topic">
+                <TopicPage></TopicPage>
+            </van-tab>
             <van-tab title="本校" name="school">内容 4</van-tab>
         </van-tabs>
     </div>
@@ -22,6 +24,7 @@ import * as service from "@/api/services"
 import { SearchBar } from "@/components"
 import HotPage from "./hot-page.vue"
 import FollowPage from "./follow-page.vue"
+import TopicPage from "./topic-page.vue"
 export default {
     name: "community",
     props: {},
@@ -29,6 +32,7 @@ export default {
         SearchBar,
         HotPage,
         FollowPage,
+        TopicPage,
     },
     setup() {
         let state = reactive({

@@ -1,5 +1,5 @@
 <template>
-    <div class="hot-page">
+    <div class="hot-page community-page">
         <PostsList v-if="listInfo.length" :posts-list="listInfo"></PostsList>
         <EmptyTip v-else></EmptyTip>
     </div>
@@ -59,8 +59,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.hot-page {
+<style lang="less">
+.community-page {
     width: calc(100vw - 32px);
     height: 76vh;
     margin: 0 16px;
