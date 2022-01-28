@@ -1,11 +1,12 @@
 <template>
     <div class="empty-area">
-        <img src="@/common/images/empty.png" />
+        <img :src="EmptyImg" />
         <span :key="text" v-for="text in emptyTextList">{{ text }}</span>
     </div>
 </template>
 
 <script lang="ts">
+import EmptyImg from "../common/images/empty.png"
 import { computed, PropType } from "vue"
 export default {
     name: "empty-tip",
@@ -22,6 +23,7 @@ export default {
                 : props.emptyText
         })
         return {
+            EmptyImg,
             emptyTextList,
         }
     },

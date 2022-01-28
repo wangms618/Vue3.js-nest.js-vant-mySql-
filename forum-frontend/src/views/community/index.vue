@@ -2,8 +2,12 @@
     <div class="container">
         <SearchBar @search="handleSearch" :list-info="listInfo"></SearchBar>
         <van-tabs active="active" animated swipeable>
-            <van-tab title="热门" name="hot"><HotPage></HotPage></van-tab>
-            <van-tab title="关注" name="follow">222 </van-tab>
+            <van-tab title="热门" name="hot">
+                <HotPage></HotPage>
+            </van-tab>
+            <van-tab title="关注" name="follow">
+                <FollowPage></FollowPage>
+            </van-tab>
             <van-tab title="话题" name="topic">内容 3</van-tab>
             <van-tab title="本校" name="school">内容 4</van-tab>
         </van-tabs>
@@ -15,14 +19,16 @@ import { onMounted, ref, reactive, toRefs } from "vue"
 // import _ from "lodash"
 import { Toast } from "vant"
 import * as service from "@/api/services"
-import SearchBar from "@/components/search-bar.vue"
+import { SearchBar } from "@/components"
 import HotPage from "./hot-page.vue"
+import FollowPage from "./follow-page.vue"
 export default {
     name: "community",
     props: {},
     components: {
         SearchBar,
         HotPage,
+        FollowPage,
     },
     setup() {
         let state = reactive({
