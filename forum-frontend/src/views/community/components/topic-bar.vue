@@ -1,5 +1,5 @@
 <template>
-    <div class="topic community-page">
+    <div class="topic">
         <div class="topic-options">
             <div
                 :class="`topic-option  ${
@@ -17,7 +17,7 @@
 
 <script>
 import { ref } from "vue"
-import { TopicOptions } from "./const"
+import { TopicOptions } from "../const"
 export default {
     name: "topic-page",
     props: {},
@@ -36,28 +36,31 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.topic-options {
-    height: 30px;
-    margin-top: 16px;
-    display: flex;
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    .topic-option {
-        min-width: 58px;
-        height: 100%;
-        margin-right: 12px;
+.topic {
+    background-color: #fff;
+    .topic-options {
+        height: 30px;
+        margin-top: 16px;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f5f5f5;
-        color: #615d64;
-        border-radius: 16px;
-    }
-    .is-active {
-        color: #fff;
-        background-color: #25c689;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .topic-option {
+            min-width: 58px;
+            height: 100%;
+            margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            color: #615d64;
+            border-radius: 16px;
+        }
+        .is-active {
+            color: #fff;
+            background-color: #25c689;
+        }
     }
 }
 </style>

@@ -15,6 +15,7 @@ import {
     Cell,
     Popover,
     Divider,
+    Sticky,
     Image as VanImage,
 } from "vant"
 import "vant/lib/index.css"
@@ -32,6 +33,7 @@ createApp(App)
     .use(Tabs)
     .use(List)
     .use(Cell)
+    .use(Sticky)
     .use(Divider)
     .use(Popover)
     .use(VanImage)

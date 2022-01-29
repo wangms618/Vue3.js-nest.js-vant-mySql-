@@ -1,5 +1,8 @@
 <template>
-    <div class="hot-page community-page">
+    <div class="community-page">
+        <van-sticky>
+            <TopicBar v-if="pageInfo.name === 'topic'"></TopicBar>
+        </van-sticky>
         <PostsList v-if="listInfo.length" :posts-list="listInfo"></PostsList>
         <EmptyTip v-else></EmptyTip>
     </div>
@@ -7,13 +10,20 @@
 
 <script lang="ts">
 import { PostsList, EmptyTip } from "@/components"
+import TopicBar from "./components/topic-bar.vue"
 export default {
-    name: "hot-page",
+    name: "community-page",
     components: {
         PostsList,
         EmptyTip,
+        TopicBar,
     },
-    props: {},
+    props: {
+        pageInfo: {
+            type: Object,
+            required: true,
+        },
+    },
     setup() {
         const listInfo = [
             {
@@ -50,8 +60,47 @@ export default {
                 views: 1000,
                 imgUrl: [],
             },
+            {
+                id: 4,
+                title: "健身房恶习吐槽大会",
+                context:
+                    "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
+                user: "董董董董董",
+                date: "2019/10/8",
+                views: 1000,
+                imgUrl: [],
+            },
+            {
+                id: 5,
+                title: "健身房恶习吐槽大会",
+                context:
+                    "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
+                user: "董董董董董",
+                date: "2019/10/8",
+                views: 1000,
+                imgUrl: [],
+            },
+            {
+                id: 6,
+                title: "健身房恶习吐槽大会",
+                context:
+                    "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
+                user: "董董董董董",
+                date: "2019/10/8",
+                views: 1000,
+                imgUrl: [],
+            },
+            {
+                id: 7,
+                title: "健身房恶习吐槽大会",
+                context:
+                    "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
+                user: "董董董董董",
+                date: "2019/10/8",
+                views: 1000,
+                imgUrl: [],
+            },
         ]
-        // const listInfo = []
         return {
             listInfo,
         }

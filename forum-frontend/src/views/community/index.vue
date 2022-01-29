@@ -2,16 +2,14 @@
     <div class="container">
         <SearchBar @search="handleSearch" :list-info="listInfo"></SearchBar>
         <van-tabs active="active" animated swipeable>
-            <van-tab title="热门" name="hot">
-                <HotPage></HotPage>
+            <van-tab
+                v-for="pageInfo in PageInfo"
+                :title="pageInfo.title"
+                :name="pageInfo.name"
+                :key="pageInfo.id"
+            >
+                <CommunityPage :page-info="pageInfo"></CommunityPage>
             </van-tab>
-            <van-tab title="关注" name="follow">
-                <FollowPage></FollowPage>
-            </van-tab>
-            <van-tab title="话题" name="topic">
-                <TopicPage></TopicPage>
-            </van-tab>
-            <van-tab title="本校" name="school">内容 4</van-tab>
         </van-tabs>
     </div>
 </template>
@@ -19,20 +17,17 @@
 <script lang="ts">
 import { onMounted, ref, reactive, toRefs } from "vue"
 // import _ from "lodash"
-import { Toast } from "vant"
-import * as service from "@/api/services"
+// import { Toast } from "vant"
+// import * as service from "@/api/services"
 import { SearchBar } from "@/components"
-import HotPage from "./hot-page.vue"
-import FollowPage from "./follow-page.vue"
-import TopicPage from "./topic-page.vue"
+import CommunityPage from "./community-page.vue"
+import { PageInfo } from "./const"
 export default {
     name: "community",
     props: {},
     components: {
         SearchBar,
-        HotPage,
-        FollowPage,
-        TopicPage,
+        CommunityPage,
     },
     setup() {
         let state = reactive({
@@ -50,17 +45,18 @@ export default {
             listInfo.value = ["1", "2", "3", val]
         }
         // TODO 后续接上后端再写，现在先用假数据
-        // onMounted(async () => {
-        //     Toast.loading({ message: "加载中", forbidClick: true })
-        //     const data = await service.getData()
-        //     state.data = data
-        //     Toast.clear()
-        // })
+        onMounted(async () => {
+            // Toast.loading({ message: "加载中", forbidClick: true })
+            // const data = await service.getData()
+            // state.data = data
+            // Toast.clear()
+        })
         return {
             ...toRefs(state),
             value,
             active,
             listInfo,
+            PageInfo,
             handleSearch,
         }
     },
