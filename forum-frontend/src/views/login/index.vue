@@ -14,6 +14,7 @@
                     label="账号"
                     placeholder="请输入账号"
                     :rules="[{ required: true, message: '请填写账号' }]"
+                    clearable
                 />
                 <van-field
                     v-model="password"
@@ -22,15 +23,23 @@
                     label="密码"
                     placeholder="请输入密码"
                     :rules="[{ required: true, message: '请填写密码' }]"
+                    clearable
                 />
-                <div style="margin: 16px">
-                    <van-button round block type="primary" native-type="submit">
+                <div class="login-body__button">
+                    <van-button
+                        color="linear-gradient(90deg,#188A60,#A3E5C7)"
+                        block
+                        native-type="submit"
+                    >
                         提交
                     </van-button>
                 </div>
             </van-form>
+            <div class="login-foot">
+                <div class="login-foot__reset">忘记密码</div>
+                <div class="login-foot__register">注册账号</div>
+            </div>
         </div>
-        <div class="login-foot"></div>
     </div>
 </template>
 
@@ -73,7 +82,7 @@ export default {
         }
     }
     &-body {
-        height: 300px;
+        height: 240px;
         margin-top: 32px;
         .van-field {
             padding: 8px 0;
@@ -81,6 +90,24 @@ export default {
             /deep/&__label {
                 width: 40px;
             }
+        }
+        &__button {
+            overflow: hidden;
+            .van-button {
+                margin: 16px 0;
+            }
+        }
+    }
+    &-foot {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        &__reset {
+            color: #c7c7cc;
+        }
+        &__register {
+            color: #34c758;
         }
     }
 }
