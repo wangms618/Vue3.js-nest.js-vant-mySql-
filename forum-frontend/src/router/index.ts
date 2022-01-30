@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/",
         name: "forum",
         component: () => import("../views/index.vue"),
-        redirect: "/community",
+        redirect: "/login",
         children: [
             {
                 path: "/homepage",

@@ -2,6 +2,7 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
+import "@/common/style/reset.css"
 import {
     Icon,
     Button,
@@ -16,6 +17,9 @@ import {
     Popover,
     Divider,
     Sticky,
+    Form,
+    Field,
+    CellGroup,
     Image as VanImage,
 } from "vant"
 import "vant/lib/index.css"
@@ -34,6 +38,9 @@ createApp(App)
     .use(List)
     .use(Cell)
     .use(Sticky)
+    .use(Form)
+    .use(Field)
+    .use(CellGroup)
     .use(Divider)
     .use(Popover)
     .use(VanImage)
