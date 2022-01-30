@@ -20,6 +20,7 @@ import {
     Form,
     Field,
     CellGroup,
+    Uploader,
     Image as VanImage,
 } from "vant"
 import "vant/lib/index.css"
@@ -44,6 +45,7 @@ createApp(App)
     .use(Divider)
     .use(Popover)
     .use(VanImage)
+    .use(Uploader)
     .use(NavBar)
     .use(Tabbar)
     .use(TabbarItem)
