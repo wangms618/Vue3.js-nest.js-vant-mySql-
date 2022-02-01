@@ -9,7 +9,7 @@
         <div class="register-body">
             <van-uploader :after-read="afterRead">
                 <div class="user-picture">
-                    <van-image width="100" height="100" :src="picture" />
+                    <van-image width="70" :src="picture" />
                 </div>
             </van-uploader>
         </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import DefaultUserPicture from "@/common/images/default-user-picture.png"
+import DefaultUserPicture from "@/common/images/upload-picture.png"
 import { ref, computed } from "vue"
 export default {
     setup() {
@@ -64,6 +64,11 @@ export default {
         .user-picture {
             width: 100px;
             height: 100px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }
