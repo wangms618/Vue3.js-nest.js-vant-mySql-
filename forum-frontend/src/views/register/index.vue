@@ -7,10 +7,12 @@
             <div class="register-header__title">注册账户</div>
         </div>
         <div class="register-body">
+            <div class="user-picture">
+                <van-image width="60" :src="picture" />
+            </div>
             <van-uploader :after-read="afterRead">
-                <div class="user-picture">
-                    <van-image width="70" :src="picture" />
-                </div>
+                <van-button type="default" round>请选择你的头像</van-button>
+                <p>仅限jpg.png等格式</p>
             </van-uploader>
         </div>
         <div class="register-foot"></div>
@@ -61,14 +63,24 @@ export default {
         }
     }
     &-body {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
         .user-picture {
-            width: 100px;
-            height: 100px;
-            border: 1px solid #000;
+            width: 85px;
+            height: 85px;
+            margin-right: 40px;
+            border: 1px solid #bbbbbb;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .van-button{
+            margin-bottom: 4px;
+        }
+        p{
+            margin-left: 12px;
         }
     }
 }
