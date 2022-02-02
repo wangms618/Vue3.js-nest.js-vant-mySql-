@@ -21,6 +21,10 @@ import {
     Field,
     CellGroup,
     Uploader,
+    Step,
+    Steps,
+    Popup,
+    DatetimePicker,
     Image as VanImage,
 } from "vant"
 import "vant/lib/index.css"
@@ -40,12 +44,16 @@ createApp(App)
     .use(Cell)
     .use(Sticky)
     .use(Form)
+    .use(Popup)
     .use(Field)
     .use(CellGroup)
     .use(Divider)
     .use(Popover)
     .use(VanImage)
     .use(Uploader)
+    .use(DatetimePicker)
+    .use(Step)
+    .use(Steps)
     .use(NavBar)
     .use(Tabbar)
     .use(TabbarItem)
