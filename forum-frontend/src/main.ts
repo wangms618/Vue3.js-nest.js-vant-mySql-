@@ -24,6 +24,7 @@ import {
     Step,
     Steps,
     Popup,
+    ActionSheet,
     DatetimePicker,
     Image as VanImage,
 } from "vant"
@@ -51,6 +52,7 @@ createApp(App)
     .use(Popover)
     .use(VanImage)
     .use(Uploader)
+    .use(ActionSheet)
     .use(DatetimePicker)
     .use(Step)
     .use(Steps)

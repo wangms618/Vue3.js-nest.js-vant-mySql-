@@ -10,10 +10,8 @@
   "dependencies": {
     "@types/fastclick": "^1.0.30",
     "axios": "^0.24.0",
-    "base64-js": "^1.5.1",
     "core-js": "^3.6.5",
     "fastclick": "^1.0.6",
-    "js-base64": "^3.7.2",
     "lib-flexible": "^0.3.2",
     "lodash": "^4.17.21",
     "vant": "3",
