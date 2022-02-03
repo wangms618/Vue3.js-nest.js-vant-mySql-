@@ -94,6 +94,7 @@
 
 <script lang="ts">
 import DefaultUserPicture from "@/common/images/upload-picture.png"
+import dayjs from "dayjs"
 import { ref, toRefs, reactive } from "vue"
 export default {
     setup() {
@@ -103,23 +104,30 @@ export default {
             nickname: "",
             birthday: "",
         })
+
         const userPicture = ref("")
         const datePickerState = ref(false)
         const stepActive = ref(0)
         const currentDate = ref(new Date(2021, 0, 17))
+
         const handleDatePicker = () => {
             datePickerState.value = true
         }
+
         const afterRead = (file) => {
             // todo 此时可以自行将文件上传至服务器
             userPicture.value = file.content
         }
+
         const onSubmit = (values) => {
             console.log("submit", values)
         }
 
         const handleDateConfirm = () => {
-            console.log(currentDate)
+            // @ts-ignore
+            const date = dayjs(currentDate.value as Date)
+            console.log(date)
+            datePickerState.value = false
         }
 
         return {
