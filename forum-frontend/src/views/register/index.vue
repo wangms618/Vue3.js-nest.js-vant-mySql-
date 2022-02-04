@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="register-foot"></div>
-        <van-action-sheet v-model:show="datePickerState" title="生日">
+        <van-action-sheet v-model:show="datePickerState">
             <van-datetime-picker
                 v-if="datePickerState"
                 v-model="currentDate"
@@ -108,7 +108,7 @@ export default {
         const userPicture = ref("")
         const datePickerState = ref(false)
         const stepActive = ref(0)
-        const currentDate = ref(new Date(2021, 0, 17))
+        const currentDate = ref(new Date(2000, 0, 1))
 
         const handleDatePicker = () => {
             datePickerState.value = true
@@ -124,9 +124,8 @@ export default {
         }
 
         const handleDateConfirm = () => {
-            // @ts-ignore
-            const date = dayjs(currentDate.value as Date)
-            console.log(date)
+            const date = currentDate.value.toString()
+            userInfo.birthday = dayjs(date).format("YYYY/MM/DD")
             datePickerState.value = false
         }
 
@@ -135,7 +134,7 @@ export default {
             stepActive,
             userPicture,
             currentDate,
-            minDate: new Date(2020, 0, 1),
+            minDate: new Date(1990, 0, 1),
             maxDate: new Date(2025, 10, 1),
             DefaultUserPicture,
             datePickerState,
