@@ -48,7 +48,7 @@ export default {
         onMounted(async () => {
             // Toast.loading({ message: "加载中", forbidClick: true })
             // const data = await service.getData()
-            // state.data = data
+            // console.log(data)
             // Toast.clear()
         })
         return {
