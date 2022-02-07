@@ -14,10 +14,11 @@ export class PostsService {
   constructor(
     @InjectRepository(PostsEntity)
     private readonly postsRepository: Repository<PostsEntity>,
-  ) { }
+  ) {}
 
   // 创建文章
   async create(post: Partial<PostsEntity>): Promise<PostsEntity> {
+    console.log(post);
     const { title } = post;
     if (!title) {
       throw new HttpException('缺少文章标题', 401);
@@ -68,4 +69,3 @@ export class PostsService {
     return await this.postsRepository.remove(existPost);
   }
 }
-
