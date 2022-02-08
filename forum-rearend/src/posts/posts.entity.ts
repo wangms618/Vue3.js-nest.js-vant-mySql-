@@ -6,26 +6,35 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class PostsEntity {
     // @PrimaryGeneratedColumn装饰器作用：在用户表里面创建一个id字段，并将其设置为主键 ，并自增
     @PrimaryGeneratedColumn()
-    id:number; // 标记为主列，值自动生成
+    posts_id: number; // 标记为主列，值自动生成
 
-    @Column({ length:50 })
-    title: string;
+    @Column()
+    user_id: number
 
-    @Column({ length: 20})
-    author: string;
+    @Column({ length: 50 })
+    posts_title: string
 
     @Column("text")
-    content:string;
+    posts_content: string
 
-    @Column({default:''})
-    thumb_url: string;
+    @Column({ default: 0 })
+    posts_replyNum: number
 
-    @Column('tinyint')
-    type:number
+    @Column({ default: 0 })
+    posts_upNum: number
 
-    @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
+    @Column({ default: 0 })
+    posts_collectionNum: number
+
+    @Column({ default: 0 })
+    posts_clickNum: number
+
+    @Column({ default: 1 })
+    postsType_id: number
+
+    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
     create_time: Date
 
-    @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
+    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
     update_time: Date
 }
