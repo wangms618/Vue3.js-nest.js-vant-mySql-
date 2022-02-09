@@ -19,11 +19,11 @@ export class PostsService {
   // 创建文章
   async create(post: Partial<PostsEntity>): Promise<PostsEntity> {
     console.log(post);
-    const { posts_title } = post;
-    if (!posts_title) {
+    const { title } = post;
+    if (!title) {
       throw new HttpException('缺少文章标题', 401);
     }
-    const doc = await this.postsRepository.findOne({ where: { posts_title } });
+    const doc = await this.postsRepository.findOne({ where: { title } });
     if (doc) {
       throw new HttpException('文章已存在', 401);
     }
@@ -49,7 +49,7 @@ export class PostsService {
 
   // 获取指定文章
   async findById(id): Promise<PostsEntity> {
-    const data = await this.postsRepository.findOne(id);
+    const data = await this.postsRepository.findOne(id, { relations: ["reply"] });
     return data
   }
 

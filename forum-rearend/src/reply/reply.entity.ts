@@ -1,4 +1,4 @@
-import { Column, OneToMany, ManyToOne, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, JoinColumn, ManyToOne, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { PostsEntity } from '../posts/posts.entity'
 // 一级评论
 // 和文章表应该是多对一的关系，多条评论对应一篇文章
@@ -18,7 +18,8 @@ export class ReplyEntity {
 
     // 和子评论表是一对多的关系
     @ManyToOne((type) => PostsEntity, (posts) => posts.reply)
-    posts: PostsEntity
+    @JoinColumn({ name: "posts_id" })
+    posts: PostsEntity;
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     create_time: Date;

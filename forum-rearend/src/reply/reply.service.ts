@@ -24,13 +24,9 @@ export class ReplyService {
     async create(replyInfo: Partial<ReplyEntity>): Promise<ReplyEntity> {
         const data = await this.replyRepository.save(replyInfo);
         // @ts-ignore
-        // const { postsId } = replyInfo
-
-        // const posts = await this.postsRepository.findOne(postsId)
-        // console.log(posts)
-        // posts.reply = [data]
-        // const post = await this.postsRepository.save(posts)
-        // console.log(post);
+        const { posts_id: id } = replyInfo
+        const posts = await this.postsRepository.findOne(id);
+        data.posts = posts
         return data
 
     }

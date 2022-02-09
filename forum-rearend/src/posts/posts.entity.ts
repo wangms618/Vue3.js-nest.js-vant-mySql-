@@ -12,22 +12,22 @@ export class PostsEntity {
     user_id: number;
 
     @Column({ length: 50 })
-    posts_title: string;
+    title: string;
 
     @Column('text')
-    posts_content: string;
+    content: string;
 
     @Column({ default: 0 })
-    posts_replyNum: number;
+    replyNum: number;
 
     @Column({ default: 0 })
-    posts_upNum: number;
+    upNum: number;
 
     @Column({ default: 0 })
-    posts_collectionNum: number;
+    collectionNum: number;
 
     @Column({ default: 0 })
-    posts_clickNum: number;
+    clickNum: number;
 
     @Column({ default: 1 })
     postsType_id: number;
@@ -38,6 +38,8 @@ export class PostsEntity {
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     update_time: Date;
 
-    @OneToMany((type) => ReplyEntity, (reply) => reply.id)
+    @OneToMany((type) => ReplyEntity, (reply) => reply.posts, {
+        cascade: true
+    })
     reply: ReplyEntity[];
 }
