@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, getManager } from 'typeorm';
 import { ReplyEntity } from './reply.entity'
 import { PostsEntity } from '../posts/posts.entity'
 
@@ -25,8 +25,11 @@ export class ReplyService {
         const data = await this.replyRepository.save(replyInfo);
         // @ts-ignore
         const { posts_id: id } = replyInfo
+        // 取到对应文章
         const posts = await this.postsRepository.findOne(id);
         data.posts = posts
+        // 存回对应评论
+        await this.replyRepository.save(data)
         return data
 
     }
