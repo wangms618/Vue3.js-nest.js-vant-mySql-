@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
 import { ReplyEntity } from './reply.entity'
 import { PostsEntity } from '../posts/posts.entity'
-
 export interface ReplyRo {
     list: ReplyEntity[];
     count: number
@@ -17,7 +16,8 @@ export class ReplyService {
         private readonly replyRepository: Repository<ReplyEntity>,
 
         @InjectRepository(PostsEntity)
-        private readonly postsRepository: Repository<PostsEntity>
+        private readonly postsRepository: Repository<PostsEntity>,
+
     ) { }
 
     // 新建评论
@@ -34,12 +34,10 @@ export class ReplyService {
 
     }
 
-    // 获取对应文章id评论
-    async findById(id: number): Promise<ReplyRo> {
-        const reply = await getRepository(ReplyEntity).createQueryBuilder('reply').where(`PostsId=${id}`)
-        const count = await reply.getCount()
-        const replies = await reply.getMany()
-        return { list: replies, count }
+    // 获取具体评论的信息
+    async findById(id: number): Promise<ReplyEntity> {
+        const reply = await this.replyRepository.findOne(id, { relations: ["replyTwo"] })
+        return reply
     }
 
 }

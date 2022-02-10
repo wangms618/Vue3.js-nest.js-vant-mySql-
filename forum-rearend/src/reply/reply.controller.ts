@@ -15,7 +15,7 @@ export class ReplyController {
     }
 
     /**
-     * 获取指定文章评论
+     * 获取指定评论具体信息
      * @param id
      */
     @Get(':id')

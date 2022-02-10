@@ -9,9 +9,8 @@ import { ReplyModule } from './reply/reply.module';
 import { PostsTypeModule } from './posts-type/posts-type.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { CollectsModule } from './collects/collects.module';
-import { Level2ReplyModule } from './level-2-reply/level-2-reply.module';
 import { LevelTwoReplyModule } from './level-two-reply/level-two-reply.module';
-import { Level2ReplyController } from './level-2-reply/level-2-reply.controller';
+import { UserdataModule } from './userdata/userdata.module';
 @Module({
   // * 导出服务的列表，供其他模块导入使用。如果希望当前模块下的服务可以被其他模块共享，需要在这里配置导出
   imports: [
@@ -22,11 +21,12 @@ import { Level2ReplyController } from './level-2-reply/level-2-reply.controller'
     ReplyModule, // 二级评论
     PostsTypeModule, // 文章类别
     FavoritesModule, // 点赞
-    CollectsModule, Level2ReplyModule, LevelTwoReplyModule, // 收藏
+    CollectsModule,// 收藏
+    LevelTwoReplyModule, UserdataModule,
   ],
   // * 处理http请求，包括路由控制，向客户端返回响应，将具体业务逻辑委托给providers处理
-  controllers: [AppController, Level2ReplyController],
+  controllers: [AppController],
   // * Nest.js注入器实例化的提供者（服务提供者），处理具体的业务逻辑，各个模块之间可以共享
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
