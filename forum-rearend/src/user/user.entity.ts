@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, OneToMany, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { UserdataEntity } from 'src/userdata/userdata.entity';
 @Entity('users')
 export class UsersEntity {
     // id
@@ -49,6 +49,9 @@ export class UsersEntity {
     // 自我介绍
     @Column({ default: '' })
     user_show: string
+
+    @OneToMany(() => UserdataEntity, (userdata) => userdata.user)
+    userdata: UserdataEntity[]
 
     // 创建时间
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
