@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsModule } from './posts/posts.module';
 import { UserModule } from './user/user.module';
-import { CommentModule } from './comment/comment.module';
 import { ReplyModule } from './reply/reply.module';
 import { PostsTypeModule } from './posts-type/posts-type.module';
 import { FavoritesModule } from './favorites/favorites.module';
@@ -17,12 +16,12 @@ import { UserdataModule } from './userdata/userdata.module';
     TypeOrmModule.forRoot({ autoLoadEntities: true }),
     PostsModule, // 文章
     UserModule, // 用户
-    CommentModule, // 一级评论
-    ReplyModule, // 二级评论
+    ReplyModule, // 一级评论
     PostsTypeModule, // 文章类别
     FavoritesModule, // 点赞
     CollectsModule,// 收藏
-    LevelTwoReplyModule, UserdataModule,
+    LevelTwoReplyModule, // 二级评论
+    UserdataModule, // 用户操作表
   ],
   // * 处理http请求，包括路由控制，向客户端返回响应，将具体业务逻辑委托给providers处理
   controllers: [AppController],
