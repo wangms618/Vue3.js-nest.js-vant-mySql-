@@ -6,8 +6,6 @@ import { PostsModule } from './posts/posts.module';
 import { UserModule } from './user/user.module';
 import { ReplyModule } from './reply/reply.module';
 import { PostsTypeModule } from './posts-type/posts-type.module';
-import { FavoritesModule } from './favorites/favorites.module';
-import { CollectsModule } from './collects/collects.module';
 import { LevelTwoReplyModule } from './level-two-reply/level-two-reply.module';
 import { UserdataModule } from './userdata/userdata.module';
 @Module({
@@ -18,8 +16,6 @@ import { UserdataModule } from './userdata/userdata.module';
     UserModule, // 用户
     ReplyModule, // 一级评论
     PostsTypeModule, // 文章类别
-    FavoritesModule, // 点赞
-    CollectsModule,// 收藏
     LevelTwoReplyModule, // 二级评论
     UserdataModule, // 用户操作表
   ],

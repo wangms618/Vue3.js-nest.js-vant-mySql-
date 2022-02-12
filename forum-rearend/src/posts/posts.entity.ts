@@ -1,7 +1,8 @@
 //    posts/posts.entity.ts
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ReplyEntity } from '../reply/reply.entity'
 import { UserdataEntity } from 'src/userdata/userdata.entity';
+import { PostsTypeEntity } from 'src/posts-type/posts-type.entity';
 // * @Entity 装饰器作用: 告诉typeorm，PostsEntity是一个实体，这个实体是映射到数据库的一个表格
 @Entity('posts')
 export class PostsEntity {
@@ -30,9 +31,6 @@ export class PostsEntity {
     @Column({ default: 0 })
     clickNum: number;
 
-    @Column({ default: 1 })
-    postsType_id: number;
-
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     create_time: Date;
 
@@ -43,6 +41,9 @@ export class PostsEntity {
         cascade: true
     })
     reply: ReplyEntity[];
+
+    @ManyToOne(() => PostsTypeEntity, (postsType) => postsType.posts)
+    postsType: PostsTypeEntity
 
     @OneToMany(() => UserdataEntity, (userdata) => userdata.posts)
     userdata: UserdataEntity[];

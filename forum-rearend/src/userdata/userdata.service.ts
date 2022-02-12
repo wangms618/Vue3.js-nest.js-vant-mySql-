@@ -17,8 +17,8 @@ export class UserdataService {
         private readonly usersRepository: Repository<UsersEntity>,
     ) { }
 
-    // 用户点赞
-    async thumbsUp(param: Partial<UserdataEntity>): Promise<any> {
+    // 用户点赞收藏
+    async  userAction(param: Partial<UserdataEntity>): Promise<any> {
         // @ts-ignore
         const { userId, postsId } = param
         const user = await this.usersRepository.findOne(userId)
@@ -29,7 +29,6 @@ export class UserdataService {
         if (!posts) {
             throw new HttpException('无此文章id', 403);
         }
-
         return await this.userdataRepository.save(param)
     }
 }

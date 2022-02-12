@@ -8,8 +8,10 @@ export class UserdataController {
      *  添加点赞
      * @param params
      */
-    @Get('thumbsUp')
-    async addThumbsUp(@Param() params): Promise<any> {
-        return await this.userdataService.thumbsUp(params)
+    @Get('userAction')
+    async userAction(@Param() params): Promise<any> {
+        return await this.userdataService.userAction(params)
     }
+
+
 }

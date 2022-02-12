@@ -18,14 +18,13 @@ export class PostsService {
 
   // 创建文章
   async create(post: Partial<PostsEntity>): Promise<PostsEntity> {
-    console.log(post);
     const { title } = post;
     if (!title) {
-      throw new HttpException('缺少文章标题', 401);
+      throw new HttpException('缺少文章标题', 403);
     }
     const doc = await this.postsRepository.findOne({ where: { title } });
     if (doc) {
-      throw new HttpException('文章已存在', 401);
+      throw new HttpException('文章已存在', 403);
     }
     return await this.postsRepository.save(post);
   }
@@ -35,7 +34,7 @@ export class PostsService {
     const qb = await getRepository(PostsEntity).createQueryBuilder('post')
 
     qb.where('1 = 1');
-    qb.orderBy('post.create_time', 'DESC');
+    // qb.orderBy('post.create_time', 'DESC');
 
     const count = await qb.getCount();
     const { pageNum = 1, pageSize = 10, ...params } = query;
@@ -43,7 +42,6 @@ export class PostsService {
     qb.offset(pageSize * (pageNum - 1));
 
     const posts = await qb.getMany();
-    console.log(posts)
     return { list: posts, count: count };
   }
 
@@ -57,7 +55,7 @@ export class PostsService {
   async updateById(id, post): Promise<PostsEntity> {
     const existPost = await this.postsRepository.findOne(id);
     if (!existPost) {
-      throw new HttpException(`id为${id}的文章不存在`, 401);
+      throw new HttpException(`id为${id}的文章不存在`, 403);
     }
     const updatePost = this.postsRepository.merge(existPost, post);
     return this.postsRepository.save(updatePost);
@@ -67,7 +65,7 @@ export class PostsService {
   async remove(id) {
     const existPost = await this.postsRepository.findOne(id);
     if (!existPost) {
-      throw new HttpException(`id为${id}的文章不存在`, 401);
+      throw new HttpException(`id为${id}的文章不存在`, 403);
     }
     return await this.postsRepository.remove(existPost);
   }
