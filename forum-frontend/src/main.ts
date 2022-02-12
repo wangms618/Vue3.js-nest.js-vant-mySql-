@@ -24,6 +24,7 @@ import {
     Step,
     Steps,
     Popup,
+    Picker,
     ActionSheet,
     DatetimePicker,
     Image as VanImage,
@@ -45,6 +46,7 @@ createApp(App)
     .use(Cell)
     .use(Sticky)
     .use(Form)
+    .use(Picker)
     .use(Popup)
     .use(Field)
     .use(CellGroup)

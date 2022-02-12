@@ -60,12 +60,27 @@
                     />
                     <van-field
                         v-model="birthday"
-                        :disabled="datePickerState"
+                        :disabled="showDatePicker"
                         name="birthday"
                         label="出生日期"
                         placeholder="出生日期"
-                        @click="datePickerState = true"
+                        @click="showDatePicker = true"
                     />
+                    <van-field
+                        v-model="college"
+                        name="college"
+                        label="学校"
+                        placeholder="学校"
+                        @click="handleCheckType(true)"
+                    />
+                    <van-field
+                        v-model="grade"
+                        name="grade"
+                        label="年级"
+                        placeholder="年级"
+                        @click="handleCheckType(false)"
+                    />
+
                     <van-button
                         color="linear-gradient(90deg,#188A60,#A3E5C7)"
                         block
@@ -78,9 +93,9 @@
             </div>
         </div>
         <div class="register-foot"></div>
-        <van-action-sheet v-model:show="datePickerState">
+        <van-action-sheet v-model:show="showDatePicker">
             <van-datetime-picker
-                v-if="datePickerState"
+                v-if="showDatePicker"
                 v-model="currentDate"
                 type="date"
                 title="选择年月日"
@@ -89,13 +104,23 @@
                 @confirm="handleDateConfirm"
             />
         </van-action-sheet>
+        <van-action-sheet v-model:show="showPicker">
+            <van-picker
+                v-if="showPicker"
+                :title="isCollect ? '选择学校' : '选择年级'"
+                :columns="isCollect ? Collects : Grade"
+                @confirm="handlePickerConfirm"
+                @cancel="showPicker = false"
+            />
+        </van-action-sheet>
     </div>
 </template>
 
 <script lang="ts">
-import DefaultUserPicture from "@/common/images/upload-picture.png"
-import dayjs from "dayjs"
-import { ref, toRefs, reactive } from "vue"
+import DefaultUserPicture from "@/common/images/upload-picture.png";
+import dayjs from "dayjs";
+import { ref, toRefs, reactive } from "vue";
+import { Collects, Grade } from "./const";
 export default {
     setup() {
         const userInfo = reactive({
@@ -103,48 +128,78 @@ export default {
             password: "",
             nickname: "",
             birthday: "",
-        })
+            college: "",
+            grade: "",
+        });
 
-        const userPicture = ref("")
-        const datePickerState = ref(false)
-        const stepActive = ref(0)
-        const currentDate = ref(new Date(2000, 0, 1))
+        const isCollect = ref(false);
+        const userPicture = ref("");
+        const showDatePicker = ref(false);
+        const showPicker = ref(false);
+        const stepActive = ref(0);
+        const currentDate = ref(new Date(2000, 0, 1));
+
+        const handleCheckType = (value: boolean) => {
+            if (value) {
+                isCollect.value = true;
+            } else {
+                isCollect.value = false;
+            }
+            showPicker.value = true;
+        };
 
         const handleDatePicker = () => {
-            datePickerState.value = true
-        }
+            showDatePicker.value = true;
+        };
 
-        const afterRead = (file) => {
+        const afterRead = file => {
             // todo 此时可以自行将文件上传至服务器
-            userPicture.value = file.content
-        }
+            userPicture.value = file.content;
+        };
 
-        const onSubmit = (values) => {
-            console.log("submit", values)
-        }
+        const onSubmit = values => {
+            values.grade = Grade.indexOf(values.grade);
+            console.log("submit", values);
+        };
 
         const handleDateConfirm = () => {
-            const date = currentDate.value.toString()
-            userInfo.birthday = dayjs(date).format("YYYY/MM/DD")
-            datePickerState.value = false
-        }
+            const date = currentDate.value.toString();
+            userInfo.birthday = dayjs(date).format("YYYY/MM/DD");
+            showDatePicker.value = false;
+        };
+
+        const handlePickerConfirm = (value: string) => {
+            if (isCollect.value) {
+                userInfo.college = value;
+            } else {
+                userInfo.grade = value;
+            }
+
+            showPicker.value = false;
+        };
 
         return {
             ...toRefs(userInfo),
+            Grade,
+            Collects,
+            isCollect,
             stepActive,
             userPicture,
             currentDate,
             minDate: new Date(1990, 0, 1),
             maxDate: new Date(2025, 10, 1),
             DefaultUserPicture,
-            datePickerState,
+            showPicker,
+            showDatePicker,
             afterRead,
             onSubmit,
+            handleCheckType,
             handleDatePicker,
             handleDateConfirm,
-        }
+            handlePickerConfirm,
+        };
     },
-}
+};
 </script>
 
 <style lang="less" scoped>
