@@ -119,6 +119,7 @@
 <script lang="ts">
 import DefaultUserPicture from "@/common/images/upload-picture.png";
 import dayjs from "dayjs";
+import bcrypt from "bcryptjs";
 import { ref, toRefs, reactive } from "vue";
 import { Collects, Grade } from "./const";
 export default {
@@ -158,8 +159,13 @@ export default {
         };
 
         const onSubmit = values => {
-            values.grade = Grade.indexOf(values.grade);
+            const { passWord, grade } = values;
+            const salt = bcrypt.genSaltSync(12);
+            const hash = bcrypt.hashSync(passWord, salt);
+            values.grade = Grade.indexOf(grade);
+            values.password = hash;
             console.log("submit", values);
+            // TODO 传入数据库
         };
 
         const handleDateConfirm = () => {
