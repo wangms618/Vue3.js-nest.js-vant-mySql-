@@ -4,11 +4,6 @@
             <div class="register-header__back">
                 <van-icon name="arrow-left" />返回
             </div>
-            <van-steps :active="stepActive">
-                <van-step>头像上传</van-step>
-                <van-step>个人信息填写</van-step>
-                <van-step>注册完成</van-step>
-            </van-steps>
             <div class="register-header__title">注册账户</div>
         </div>
         <div class="register-body">
@@ -37,8 +32,8 @@
             <div class="register-body__form">
                 <van-form @submit="onSubmit">
                     <van-field
-                        v-model="username"
-                        name="userName"
+                        v-model="userAccount"
+                        name="userAccount"
                         label="账号"
                         placeholder="账号"
                         :rules="[{ required: true, message: '请填写用户名' }]"
@@ -57,6 +52,18 @@
                         label="昵称"
                         placeholder="昵称"
                         :rules="[{ required: true, message: '请填写昵称' }]"
+                    />
+                    <van-field
+                        v-model="username"
+                        name="username"
+                        label="真实姓名"
+                        placeholder="可选填"
+                    />
+                    <van-field
+                        v-model="phone"
+                        name="phone"
+                        label="手机号"
+                        placeholder="可选填"
                     />
                     <van-field
                         v-model="birthday"
@@ -120,26 +127,30 @@
 import DefaultUserPicture from "@/common/images/upload-picture.png";
 import dayjs from "dayjs";
 import bcrypt from "bcryptjs";
+// TODO 图片上传问题需要解决
+import * as qiniu from "qiniu-js";
+import * as services from "@/api/services";
 import { ref, toRefs, reactive } from "vue";
 import { Collects, Grade } from "./const";
+import { random } from "lodash";
 export default {
     setup() {
         const userInfo = reactive({
-            username: "",
+            userAccount: "",
             password: "",
+            username: "",
             nickname: "",
             birthday: "",
             college: "",
             grade: "",
+            phone: "",
         });
-
         const isCollect = ref(false);
         const userPicture = ref("");
         const showDatePicker = ref(false);
         const showPicker = ref(false);
         const stepActive = ref(0);
         const currentDate = ref(new Date(2000, 0, 1));
-
         const handleCheckType = (value: boolean) => {
             if (value) {
                 isCollect.value = true;
@@ -153,9 +164,33 @@ export default {
             showDatePicker.value = true;
         };
 
-        const afterRead = file => {
-            // todo 此时可以自行将文件上传至服务器
+        const afterRead = async file => {
+            uploadPicture(file.file);
             userPicture.value = file.content;
+            //
+        };
+
+        const uploadPicture = async file => {
+            const token = await services.getToken();
+            const fname = random(111111111, 999999999) + file.name;
+            const putExtra = {
+                fname: file.name,
+                params: {},
+                mimeType: null,
+            };
+            const observable = qiniu.upload(file, fname, token, putExtra);
+            const observer = {
+                next(res) {
+                    console.log(res);
+                },
+                error(err) {
+                    console.log(err);
+                },
+                complete(res) {
+                    console.log(res);
+                },
+            };
+            const subscription = observable.subscribe(observer); // 上传开始
         };
 
         const onSubmit = values => {
@@ -166,6 +201,7 @@ export default {
             values.password = hash;
             console.log("submit", values);
             // TODO 传入数据库
+            // TODO 缺少姓名，性别，手机号，自我介绍
         };
 
         const handleDateConfirm = () => {
