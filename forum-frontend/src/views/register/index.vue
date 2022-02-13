@@ -87,7 +87,17 @@
                         placeholder="年级"
                         @click="handleCheckType(false)"
                     />
-
+                    <van-field name="userSex" label="性别">
+                        <template #input>
+                            <van-radio-group
+                                v-model="userSex"
+                                direction="horizontal"
+                            >
+                                <van-radio name="男">男</van-radio>
+                                <van-radio name="女">女</van-radio>
+                            </van-radio-group>
+                        </template>
+                    </van-field>
                     <van-button
                         color="linear-gradient(90deg,#188A60,#A3E5C7)"
                         block
@@ -144,6 +154,7 @@ export default {
             college: "",
             grade: "",
             phone: "",
+            userSex: "男",
         });
         const isCollect = ref(false);
         const userPicture = ref("");
@@ -199,6 +210,7 @@ export default {
             const hash = bcrypt.hashSync(passWord, salt);
             values.grade = Grade.indexOf(grade);
             values.password = hash;
+            console.log(userInfo.userSex);
             console.log("submit", values);
             // TODO 传入数据库
             // TODO 缺少姓名，性别，手机号，自我介绍

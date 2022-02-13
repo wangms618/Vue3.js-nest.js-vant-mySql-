@@ -1,8 +1,8 @@
-import { createApp } from "vue"
-import App from "./App.vue"
-import router from "./router"
-import store from "./store"
-import "@/common/style/reset.css"
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import "@/common/style/reset.css";
 import {
     Icon,
     Button,
@@ -20,6 +20,8 @@ import {
     Form,
     Field,
     CellGroup,
+    RadioGroup,
+    Radio,
     Uploader,
     Step,
     Steps,
@@ -28,11 +30,11 @@ import {
     ActionSheet,
     DatetimePicker,
     Image as VanImage,
-} from "vant"
-import "vant/lib/index.css"
+} from "vant";
+import "vant/lib/index.css";
 // import fastClick from "fastclick"
 // 移动端适配
-import "lib-flexible/flexible"
+import "lib-flexible/flexible";
 // fastClick.attach(document.body)
 createApp(App)
     .use(store)
@@ -61,4 +63,6 @@ createApp(App)
     .use(NavBar)
     .use(Tabbar)
     .use(TabbarItem)
-    .mount("#app")
+    .use(RadioGroup)
+    .use(Radio)
+    .mount("#app");
