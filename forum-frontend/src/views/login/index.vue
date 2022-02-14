@@ -44,16 +44,20 @@
 </template>
 
 <script>
-import Logo from "../../common/images/logo.png"
-import { ref } from "vue"
+import Logo from "../../common/images/logo.png";
+import { ref } from "vue";
+// import bcrypt from "bcryptjs";
 export default {
     setup() {
-        const username = ref("")
-        const password = ref("")
-        const sms = ref("")
-        const onSubmit = (values) => {
-            console.log("submit", values)
-        }
+        const username = ref("");
+        const password = ref("");
+        const sms = ref("");
+        const onSubmit = values => {
+            console.log("submit", values);
+            // 检验密码是否正确
+            // salt是数据库取出来的密码 
+            // bcrypt.compareSync(values.password,salt);
+        };
 
         return {
             username,
@@ -61,9 +65,9 @@ export default {
             onSubmit,
             Logo,
             sms,
-        }
+        };
     },
-}
+};
 </script>
 
 <style lang="less" scoped>
