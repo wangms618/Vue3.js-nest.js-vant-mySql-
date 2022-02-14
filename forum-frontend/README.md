@@ -5,7 +5,7 @@
 ----------------------------------------------------------------
 - 功能页 Main.vue
   - 社区页 Community.vue
-  - 分类页 Sort.vue
+  - 发布帖子 Posts.vue
   - 我的回复页 Reply.vue
   - 我的主页 Home.vue
 

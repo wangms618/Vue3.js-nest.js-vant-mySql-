@@ -6,9 +6,9 @@
                     <span>社区</span>
                 </van-tabbar-item>
             </router-link>
-            <router-link class="link" to="/sort">
+            <router-link class="link" to="/posts">
                 <van-tabbar-item class="iconfont icon-fenlei">
-                    <span>分类</span>
+                    <span>发帖</span>
                 </van-tabbar-item>
             </router-link>
             <router-link class="link" to="/reply">

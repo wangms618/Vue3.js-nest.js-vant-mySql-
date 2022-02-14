@@ -3,7 +3,7 @@
 
 六个路由页面
 1. 社区 community
-2. 分类 sort
+2. 发帖 posts
 3. 回复 reply
 4. 主页 homepage
 5. 登录 login

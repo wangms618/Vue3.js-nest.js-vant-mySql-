@@ -15,13 +15,10 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref, reactive, toRefs } from "vue"
-// import _ from "lodash"
-// import { Toast } from "vant"
-// import * as service from "@/api/services"
-import { SearchBar } from "@/components"
-import CommunityPage from "./community-page.vue"
-import { PageInfo } from "./const"
+import { ref, reactive, toRefs } from "vue";
+import { SearchBar } from "@/components";
+import CommunityPage from "./community-page.vue";
+import { PageInfo } from "./const";
 export default {
     name: "community",
     props: {},
@@ -32,25 +29,18 @@ export default {
     setup() {
         let state = reactive({
             data: {},
-        })
-        const value = ref("")
-        const listInfo = ref([])
-        const active = ref<string>("hot")
+        });
+        const value = ref("");
+        const listInfo = ref([]);
+        const active = ref<string>("hot");
         const handleSearch = (val: string) => {
             // TODO 这里进行对应的关键词搜索功能，这里先实现传值过去
             if (!val) {
-                listInfo.value = []
-                return
+                listInfo.value = [];
+                return;
             }
-            listInfo.value = ["1", "2", "3", val]
-        }
-        // TODO 后续接上后端再写，现在先用假数据
-        onMounted(async () => {
-            // Toast.loading({ message: "加载中", forbidClick: true })
-            // const data = await service.getData()
-            // console.log(data)
-            // Toast.clear()
-        })
+            listInfo.value = ["1", "2", "3", val];
+        };
         return {
             ...toRefs(state),
             value,
@@ -58,9 +48,9 @@ export default {
             listInfo,
             PageInfo,
             handleSearch,
-        }
+        };
     },
-}
+};
 </script>
 
 <style></style>
