@@ -6,7 +6,7 @@
                     <span>社区</span>
                 </van-tabbar-item>
             </router-link>
-            <router-link class="link" to="/posts">
+            <router-link class="link" to="/edit-posts">
                 <van-tabbar-item class="iconfont icon-fenlei">
                     <span>发帖</span>
                 </van-tabbar-item>
@@ -39,7 +39,7 @@ export default {
 
     setup(props) {
         // 页面名称数组
-        const pages = ["冻梨社区", "话题分类", "我的回复", "我的主页"]
+        const pages = ["冻梨社区", "发布帖子", "我的回复", "我的主页"]
 
         // 页面当前标题
         const title = computed(() => {
