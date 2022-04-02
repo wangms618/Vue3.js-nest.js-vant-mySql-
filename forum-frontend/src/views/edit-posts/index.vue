@@ -14,4 +14,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.edit-posts {
+    height: 90vh;
+    background: #f2f3f5;
+}
 </style>
