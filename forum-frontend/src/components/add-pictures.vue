@@ -16,18 +16,10 @@ export default {
     setup() {
         const fileList = ref([
             { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
         ]);
         const afterRead = file => {
             // 此时可以自行将文件上传至服务器
-            console.log(file);
+            console.log(file, fileList);
         };
 
         return {

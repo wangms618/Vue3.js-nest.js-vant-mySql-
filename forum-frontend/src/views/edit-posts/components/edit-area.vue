@@ -40,7 +40,7 @@
 <script>
 import { ref } from "vue";
 import { TopicOptions } from "../const";
-import AddPictures from "./add-pictures.vue";
+import AddPictures from "@/components/add-pictures.vue";
 export default {
     components: {
         AddPictures,
