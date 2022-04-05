@@ -49,9 +49,9 @@ export default {
     }
     &__content {
         background: #fff;
-        height: 60vh;
+        height: 80vh;
         /deep/.van-field__body {
-            height: 20vh;
+            height: 30vh;
             textarea {
                 height: 100%;
                 font-size: 16px;

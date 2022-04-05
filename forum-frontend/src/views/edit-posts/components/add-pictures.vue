@@ -1,15 +1,17 @@
 <template>
     <div class="upload">
         <van-uploader
+            max-count="9"
             v-model="fileList"
             preview-size="80"
             :after-read="afterRead"
+            upload-text="上传照片"
         />
     </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 export default {
     setup() {
         const fileList = ref([
@@ -39,6 +41,5 @@ export default {
 <style lang="less" scoped>
 .upload {
     padding: 11px;
-    
 }
 </style>
