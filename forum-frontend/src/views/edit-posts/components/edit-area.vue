@@ -18,23 +18,50 @@
                 show-word-limit
             />
             <AddPictures></AddPictures>
+            <div class="edit-area__sort">
+                <van-cell
+                    is-link
+                    value="选择话题"
+                    :title="topicTitle"
+                    @click="topicShow = true"
+                />
+                <van-action-sheet
+                    v-model:show="topicShow"
+                    :actions="TopicOptions"
+                    cancel-text="取消"
+                    close-on-click-action
+                    @select="handleSelect"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import { TopicOptions } from "../const";
 import AddPictures from "./add-pictures.vue";
 export default {
     components: {
         AddPictures,
     },
     setup() {
+        const topicTitle = ref("");
+        const topicShow = ref(false);
         const titleValue = ref("");
         const contentValue = ref("");
+        const handleSelect = item => {
+            topicShow.value = false;
+            console.log(item.name);
+            topicTitle.value = item.name;
+        };
         return {
+            topicTitle,
+            topicShow,
             titleValue,
             contentValue,
+            handleSelect,
+            TopicOptions,
         };
     },
 };
