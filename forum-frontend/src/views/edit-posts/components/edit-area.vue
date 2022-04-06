@@ -5,14 +5,14 @@
                 label="标题"
                 clearable
                 label-width="40"
-                v-model="titleValue"
+                v-model="title"
                 placeholder="请输入标题"
             />
         </div>
         <div class="edit-area__content">
             <van-field
                 type="textarea"
-                v-model="contentValue"
+                v-model="content"
                 placeholder="文章内容"
                 :maxlength="240"
                 show-word-limit
@@ -24,7 +24,7 @@
                 <van-cell
                     is-link
                     value="选择话题"
-                    :title="topicTitle"
+                    :title="topic"
                     @click="topicShow = true"
                 />
                 <van-action-sheet
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { TopicOptions } from "../const";
 import AddPictures from "@/components/add-pictures.vue";
 import { useStore } from "vuex";
@@ -50,24 +50,32 @@ export default {
     },
     setup() {
         const store = useStore();
-        const topicTitle = ref("");
+        const posts = store.state.posts;
+        const topic = ref(posts.topic);
         const topicShow = ref(false);
-        const titleValue = ref("");
-        const contentValue = ref("");
+        const title = ref(posts.title);
+        const content = ref(posts.content);
         const handleSelect = item => {
             topicShow.value = false;
             console.log(item.name);
-            topicTitle.value = item.name;
+            topic.value = item.name;
         };
         const handleChangeFileList = list => {
             store.dispatch("changeFileList", list);
         };
+
+        watch([topic, title, content], ([newTopic, newTitle, newContent]) => {
+            store.dispatch("changeTopic", newTopic);
+            store.dispatch("changeTitle", newTitle);
+            store.dispatch("changeContent", newContent);
+        });
+
         return {
-            TopicOptions,
-            topicTitle,
+            topic,
+            title,
+            content,
             topicShow,
-            titleValue,
-            contentValue,
+            TopicOptions,
             handleSelect,
             handleChangeFileList,
         };

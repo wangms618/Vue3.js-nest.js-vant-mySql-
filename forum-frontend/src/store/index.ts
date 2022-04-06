@@ -8,7 +8,7 @@ import {
 export default createStore({
     state: {
         posts: {
-            title: "标题",
+            title: "",
             content: "",
             topic: "",
             fileList: [],
