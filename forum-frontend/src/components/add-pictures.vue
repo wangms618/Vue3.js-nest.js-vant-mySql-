@@ -10,23 +10,17 @@
     </div>
 </template>
 
-<script>
-import { computed, ref } from "vue";
-export default {
-    setup() {
-        const fileList = ref([
-            { url: "https://cdn.jsdelivr.net/npm/@vant/assets/leaf.jpeg" },
-        ]);
-        const afterRead = file => {
-            // 此时可以自行将文件上传至服务器
-            console.log(file, fileList);
-        };
+<script setup>
+import { ref } from "vue";
+import { useStore } from "vuex";
 
-        return {
-            fileList,
-            afterRead,
-        };
-    },
+// 图片列表
+const fileList = ref([]);
+// vuex仓库,store.state取到数据
+const store = useStore();
+const afterRead = file => {
+    // todo 在这里将fileList代码更新到vuex仓库
+    
 };
 </script>
 
