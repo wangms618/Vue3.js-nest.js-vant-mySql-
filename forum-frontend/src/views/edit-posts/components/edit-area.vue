@@ -17,7 +17,9 @@
                 :maxlength="240"
                 show-word-limit
             />
-            <AddPictures></AddPictures>
+            <AddPictures
+                @handleChangeFileList="handleChangeFileList"
+            ></AddPictures>
             <div class="edit-area__sort">
                 <van-cell
                     is-link
@@ -41,11 +43,13 @@
 import { ref } from "vue";
 import { TopicOptions } from "../const";
 import AddPictures from "@/components/add-pictures.vue";
+import { useStore } from "vuex";
 export default {
     components: {
         AddPictures,
     },
     setup() {
+        const store = useStore();
         const topicTitle = ref("");
         const topicShow = ref(false);
         const titleValue = ref("");
@@ -55,13 +59,17 @@ export default {
             console.log(item.name);
             topicTitle.value = item.name;
         };
+        const handleChangeFileList = list => {
+            store.dispatch("changeFileList", list);
+        };
         return {
+            TopicOptions,
             topicTitle,
             topicShow,
             titleValue,
             contentValue,
             handleSelect,
-            TopicOptions,
+            handleChangeFileList,
         };
     },
 };

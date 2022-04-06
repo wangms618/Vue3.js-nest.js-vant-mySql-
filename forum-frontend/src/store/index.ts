@@ -22,7 +22,7 @@ export default createStore({
             posts.content = value;
         },
         [CHANGE_FILELIST]({ posts }, value) {
-            posts.fileList.push(value);
+            posts.fileList = value;
         },
         [CHANGE_TOPIC]({ posts }, value) {
             posts.topic = value;

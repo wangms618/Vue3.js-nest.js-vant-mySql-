@@ -11,16 +11,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useStore } from "vuex";
-
+import { ref, defineEmits } from "vue";
+const emit = defineEmits(["handleChangeFileList"]);
 // 图片列表
 const fileList = ref([]);
 // vuex仓库,store.state取到数据
-const store = useStore();
 const afterRead = file => {
     // todo 在这里将fileList代码更新到vuex仓库
-    
+    emit("handleChangeFileList", fileList.value);
 };
 </script>
 
