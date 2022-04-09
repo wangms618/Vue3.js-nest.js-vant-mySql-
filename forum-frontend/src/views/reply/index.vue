@@ -3,12 +3,13 @@
         <div class="reply-header">
             <ReplyOption></ReplyOption>
         </div>
-        <div class="reply-content"></div>
+        <ReplyList></ReplyList>
     </div>
 </template>
 
 <script setup>
 import ReplyOption from "./components/reply-option.vue";
+import ReplyList from "./components/reply-list.vue";
 </script>
 
 <style lang="less" scoped>
@@ -16,10 +17,9 @@ import ReplyOption from "./components/reply-option.vue";
     width: 100vw;
     background: #f2f3f5;
     &-header {
-        top: 0;
         height: 10vh;
         width: 100vw;
-        margin-bottom: 20px;
+        margin-bottom: 6px;
         background: #fff;
     }
 }

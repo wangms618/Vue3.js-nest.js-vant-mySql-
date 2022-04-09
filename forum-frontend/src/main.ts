@@ -10,6 +10,7 @@ import {
     TabbarItem,
     NavBar,
     Search,
+    Lazyload,
     Tab,
     Tabs,
     List,
@@ -45,6 +46,7 @@ createApp(App)
     .use(Icon)
     .use(Tabs)
     .use(List)
+    .use(Lazyload)
     .use(Cell)
     .use(Sticky)
     .use(Form)
