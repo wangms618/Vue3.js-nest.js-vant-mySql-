@@ -1,7 +1,4 @@
 <template>
-    <div class="reply-title">
-        <span>最新回复</span>
-    </div>
     <div class="reply-list">
         <div class="reply-list__item">
             <div class="list-left">
@@ -12,14 +9,15 @@
                     src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
                 />
             </div>
-            <div class="list-right">
+            <div class="list-center">
                 <div class="list-posts">
-                    来自你你你你你你你你你您来自你你你你你你你你你您来自你你你你你你你你你您来自你你你你你你你你你您
+                    <span>某某某回复了你的评论</span>
                 </div>
-                <div class="list-content">
-                    我觉得你这个有问题呀觉得你这个有问题觉得你这个有问题觉得你这个有问题觉得你这个有问题
-                </div>
+                <div class="list-content">二级评论</div>
                 <div class="list-timer">一小时前</div>
+            </div>
+            <div class="list-right">
+                你好我机械厂撒大声地械厂撒大声械厂撒大声阿达未收到
             </div>
         </div>
     </div>
@@ -30,22 +28,9 @@ export default {};
 </script>
 
 <style lang="less" scoped>
-.reply-title {
-    font-size: 16px;
-    background: #fff;
-    height: 40px;
-    margin-bottom: 1px;
-    display: flex;
-    align-items: center;
-    color: rgba(153, 153, 153, 80);
-    span {
-        margin-left: 20px;
-    }
-}
 .reply-list {
     width: 100vw;
     background: #fff;
-
     &__item {
         height: 80px;
         display: flex;
@@ -57,7 +42,7 @@ export default {};
             justify-content: center;
             align-items: center;
         }
-        .list-right {
+        .list-center {
             flex: 1;
             height: 80px;
             padding: 10px 10px 10px 0px;
@@ -73,7 +58,7 @@ export default {};
                 text-overflow: ellipsis;
             }
             .list-content {
-                width: 300px;
+                width: 220px;
                 font-size: 16px;
                 margin-bottom: 10px;
                 white-space: nowrap;
@@ -81,8 +66,22 @@ export default {};
                 text-overflow: ellipsis;
             }
             .list-timer {
-                color: rgb(195, 195, 195);
+                color: rgb(167, 165, 165);
             }
+        }
+        .list-right {
+            color: rgb(139, 132, 132);
+            width: 60px;
+            height: 60px;
+            margin: 10px;
+            box-sizing: border-box;
+            line-height: 20px;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical; /*设置方向*/
+            -webkit-line-clamp: 3; /*设置超过为省略号的行数*/
         }
     }
 }
