@@ -16,7 +16,9 @@
                 <div class="list-posts">
                     来自你你你你你你你你你您来自你你你你你你你你你您来自你你你你你你你你你您来自你你你你你你你你你您
                 </div>
-                <div class="list-content">我觉得你这个有问题呀觉得你这个有问题觉得你这个有问题觉得你这个有问题觉得你这个有问题</div>
+                <div class="list-content">
+                    我觉得你这个有问题呀觉得你这个有问题觉得你这个有问题觉得你这个有问题觉得你这个有问题
+                </div>
                 <div class="list-timer">一小时前</div>
             </div>
         </div>
