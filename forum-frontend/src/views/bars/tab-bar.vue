@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch } from "vue"
+import { ref, computed, watch } from "vue";
 
 export default {
     props: {
@@ -39,29 +39,28 @@ export default {
 
     setup(props) {
         // 页面名称数组
-        const pages = ["冻梨社区", "发布帖子", "我的回复", "我的主页"]
-
+        const pages = ["冻梨社区", "发布帖子", "我的回复", "我的主页"];
+        const active = ref(0);
         // 页面当前标题
         const title = computed(() => {
-            return pages[active.value]
-        })
+            return pages[active.value];
+        });
         // 监听传入的页面名称，激活对应Tabbar图标
         watch(
             () => props.pagesName,
             () => {
-                active.value = pages.indexOf(props.pagesName)
+                active.value = pages.indexOf(props.pagesName);
             }
-        )
+        );
 
         // 当前所在页面下标
-        const active = ref(0)
 
         return {
             active,
             title,
-        }
+        };
     },
-}
+};
 </script>
 
 <style lang="less" scoped>
