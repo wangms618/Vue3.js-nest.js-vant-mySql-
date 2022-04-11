@@ -1,13 +1,13 @@
 <template>
-    <span>我的主页</span>
+    <div class="homepage">
+        <UserCard></UserCard>
+    </div>
 </template>
 
-<script>
-export default {
-
-}
+<script setup>
+import UserCard from "./components/user-card.vue";
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>
