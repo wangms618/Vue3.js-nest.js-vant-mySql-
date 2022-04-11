@@ -5,13 +5,15 @@
                 <DynamicItem></DynamicItem>
             </div>
         </div>
-        <!-- <div class="user-posts"></div> -->
+        <div class="user-posts">
+            
+        </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import DynamicItem from "@/components/dynamic-item.vue";
+
 </script>
 
 <style lang="less"></style>

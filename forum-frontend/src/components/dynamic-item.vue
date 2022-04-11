@@ -51,6 +51,7 @@ export default {};
         margin-left: 80px;
         &__type {
             font-size: 16px;
+            margin-bottom: 10px;
         }
         &__info {
             height: 60px;
