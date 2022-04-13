@@ -1,6 +1,11 @@
 <template>
     <!-- TODO 搞个v-for -->
-    <div class="posts-list" v-for="list in postsList" :key="list.id">
+    <div
+        class="posts-list"
+        v-for="list in postsList"
+        :key="list.id"
+        @click="handleOpen(list)"
+    >
         <div class="posts-left">
             <div class="posts-title">
                 <span>{{ list.title }}</span>
@@ -35,6 +40,7 @@
 </template>
 
 <script lang="ts">
+import { useRouter } from "vue-router";
 export default {
     name: "posts-list",
     props: {
@@ -45,12 +51,18 @@ export default {
     },
     setup() {
         const url =
-            "https://img2.baidu.com/it/u=2831053164,2846492010&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
+            "https://img2.baidu.com/it/u=2831053164,2846492010&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
+        const router = useRouter();
+        const handleOpen = value => {
+            console.log(value);
+            router.push({ name: "posts", params: { id: 1 } });
+        };
         return {
             url,
-        }
+            handleOpen,
+        };
     },
-}
+};
 </script>
 
 <style lang="less" scoped>

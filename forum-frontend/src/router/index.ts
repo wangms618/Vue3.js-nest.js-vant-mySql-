@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -15,8 +15,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "/community",
                 name: "community",
-                component: () =>
-                    import("../views/community/index.vue"),
+                component: () => import("../views/community/index.vue"),
             },
             {
                 path: "/reply",
@@ -40,11 +39,16 @@ const routes: Array<RouteRecordRaw> = [
         name: "register",
         component: () => import("../views/register/index.vue"),
     },
-]
+    {
+        path: "/posts/:id",
+        name: "posts",
+        component: () => import("../views/community/components/posts-page.vue"),
+    },
+];
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
-})
+});
 
-export default router
+export default router;
