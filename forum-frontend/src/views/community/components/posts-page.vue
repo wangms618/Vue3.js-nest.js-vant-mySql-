@@ -20,14 +20,16 @@
                 中国传统的杀猪场面确实挺大，对猪不是很友好，但是几千年流传下来的手艺，自然有其特有的优点。看了好几个中国的杀猪视频，有一个疑点，不知道为什么杀猪的时候总有人叼着烟，有什么说法吗?
             </div>
             <div class="picture">
-                <!-- <van-image
+                <van-image
+                    v-if="showPictureOne"
                     class="picture-one"
                     width="358"
                     height="202"
                     fit="cover"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                /> -->
+                    :src="images[0]"
+                />
                 <van-image
+                    v-else
                     v-for="(url, index) in images"
                     :key="index"
                     @click="showImage(index)"
@@ -43,7 +45,7 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { HeaderBar } from "@/views/bars";
 import { ImagePreview } from "vant";
 export default {
@@ -57,6 +59,7 @@ export default {
             "https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg",
             "https://cdn.jsdelivr.net/npm/@vant/assets/apple-2.jpeg",
         ];
+        const showPictureOne = computed(() => images.length <= 1);
         const showImage = position => {
             ImagePreview({
                 images,
@@ -70,6 +73,7 @@ export default {
 
         return {
             images,
+            showPictureOne,
             showImage,
         };
     },
