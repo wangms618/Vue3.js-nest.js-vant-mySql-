@@ -28,58 +28,13 @@
                     src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
                 /> -->
                 <van-image
+                    v-for="(url, index) in images"
+                    :key="index"
+                    @click="showImage(index)"
                     class="picture-more"
                     width="112"
                     height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                />
-                <van-image
-                    class="picture-more"
-                    width="112"
-                    height="112"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                    :src="url"
                 />
             </div>
         </div>
@@ -90,16 +45,33 @@
 import { useRoute } from "vue-router";
 import { onMounted } from "vue";
 import { HeaderBar } from "@/views/bars";
+import { ImagePreview } from "vant";
 export default {
     components: {
         HeaderBar,
+        [ImagePreview.Component.name]: ImagePreview.Component,
     },
     setup() {
         const route = useRoute();
+        const images = [
+            "https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg",
+            "https://cdn.jsdelivr.net/npm/@vant/assets/apple-2.jpeg",
+        ];
+        const showImage = position => {
+            ImagePreview({
+                images,
+                startPosition: position,
+            });
+        };
         // 取到id，然后调用接口获取数据
         onMounted(() => {
             console.log(route.params);
         });
+
+        return {
+            images,
+            showImage,
+        };
     },
 };
 </script>

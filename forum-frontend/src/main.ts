@@ -22,6 +22,7 @@ import {
     Field,
     CellGroup,
     RadioGroup,
+    ImagePreview,
     Radio,
     Uploader,
     Step,
@@ -67,4 +68,5 @@ createApp(App)
     .use(TabbarItem)
     .use(RadioGroup)
     .use(Radio)
+    .use(ImagePreview)
     .mount("#app");
