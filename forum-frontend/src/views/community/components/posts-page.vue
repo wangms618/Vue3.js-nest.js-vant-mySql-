@@ -2,24 +2,11 @@
     <div class="posts">
         <HeaderBar title="文章详情"></HeaderBar>
         <div class="posts-detail">
-            <div class="author">
-                <div class="author-img">
-                    <van-image
-                        round
-                        width="48"
-                        height="48"
-                        src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                    />
-                </div>
-                <div class="author-info">
-                    <div class="author-info__nickname">叫我大哥</div>
-                    <div class="author-info__time">1小时前 东华理工大学</div>
-                </div>
-            </div>
+            <UserBar></UserBar>
             <div class="content">
                 中国传统的杀猪场面确实挺大，对猪不是很友好，但是几千年流传下来的手艺，自然有其特有的优点。看了好几个中国的杀猪视频，有一个疑点，不知道为什么杀猪的时候总有人叼着烟，有什么说法吗?
             </div>
-            <div class="picture">
+            <div class="picture" v-if="images.length > 0">
                 <van-image
                     v-if="showPictureOne"
                     class="picture-one"
@@ -39,6 +26,15 @@
                     :src="url"
                 />
             </div>
+            <div class="sort">
+                <span>#萨达</span>
+            </div>
+        </div>
+        <div class="posts-comments">
+            <div class="comment-header">全部评论 8</div>
+            <div class="comment-content">
+                <UserBar :type="2" :img-height="32" :img-width="32"></UserBar>
+            </div>
         </div>
     </div>
 </template>
@@ -46,19 +42,17 @@
 <script>
 import { useRoute } from "vue-router";
 import { onMounted, computed } from "vue";
-import { HeaderBar } from "@/views/bars";
+import { HeaderBar, UserBar } from "@/views/bars";
 import { ImagePreview } from "vant";
 export default {
     components: {
         HeaderBar,
+        UserBar,
         [ImagePreview.Component.name]: ImagePreview.Component,
     },
     setup() {
         const route = useRoute();
-        const images = [
-            "https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg",
-            "https://cdn.jsdelivr.net/npm/@vant/assets/apple-2.jpeg",
-        ];
+        const images = [];
         const showPictureOne = computed(() => images.length <= 1);
         const showImage = position => {
             ImagePreview({
@@ -85,29 +79,10 @@ export default {
     width: 100vw;
     box-sizing: border-box;
     padding: 16px;
-    .author {
-        height: 48px;
-        box-sizing: border-box;
-        padding: 0 4px;
-        margin-bottom: 10px;
-        display: flex;
-        &-info {
-            margin-left: 10px;
-            line-height: 24px;
-            &__nickname {
-                height: 24px;
-                font-size: 16px;
-                letter-spacing: 6px;
-                font-family: SourceHanSansSC-bold;
-                font-weight: 600;
-            }
-            &__time {
-                color: #666970;
-            }
-        }
-    }
+    border-bottom: 10px solid rgb(244, 241, 241);
+
     .content {
-        line-height: 20px;
+        line-height: 24px;
         font-size: 16px;
         letter-spacing: 1px;
         font-family: SourceHanSansSC-regular;
@@ -146,6 +121,31 @@ export default {
         .picture-more:nth-child(9) {
             margin-right: 0px;
         }
+    }
+    .sort {
+        line-height: 25px;
+        height: 25px;
+        font-size: 12px;
+        display: inline-block;
+        background: rgba(64, 243, 222, 0.8);
+        border-radius: 30px;
+        color: #fff;
+        text-align: center;
+        min-width: 50px;
+        box-sizing: border-box;
+        padding: 0 10px;
+    }
+}
+.posts-comments {
+    box-sizing: border-box;
+    padding: 16px;
+    .comment-header {
+        font-size: 20px;
+        font-weight: bold;
+        height: 26px;
+        line-height: 26px;
+    }
+    .comment-content {
     }
 }
 </style>
