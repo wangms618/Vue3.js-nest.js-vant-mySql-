@@ -58,9 +58,20 @@
         v-model:show="showPopup"
         position="bottom"
         round
-        :style="{ height: '30%' }"
+        :style="{ height: '20%' }"
     >
-        <div class="reply-popup">123</div>
+        <div class="reply-popup">
+            <van-field
+                class="reply-content"
+                v-model="replyValue"
+                type="textarea"
+                maxlength="100"
+                show-word-limit
+            />
+        </div>
+        <div class="reply-push">
+            <span class="push-button">发送</span>
+        </div>
     </van-popup>
 </template>
 
@@ -76,6 +87,7 @@ export default {
         [ImagePreview.Component.name]: ImagePreview.Component,
     },
     setup() {
+        const replyValue = ref("你您");
         const route = useRoute();
         const images = [];
         const showPictureOne = computed(() => images.length <= 1);
@@ -97,6 +109,7 @@ export default {
         return {
             showPopup,
             images,
+            replyValue,
             showPictureOne,
             showImage,
             handleOpenPopup,
@@ -224,7 +237,38 @@ export default {
         }
     }
 }
-/deep/.van-popup {
+
+.reply-popup {
+    width: 100%;
     padding: 20px;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    .reply-content {
+        background: #e0e0e0;
+        border-radius: 6px;
+        height: 100px;
+        padding: 10px;
+    }
+}
+.reply-push {
+    height: 48px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    bottom: 10px;
+    position: relative;
+    .push-button {
+        display: inline-block;
+        line-height: 28px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        color: #fff;
+        background: rgba(64, 243, 222, 0.8);
+        width: 48px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+    }
 }
 </style>
