@@ -34,14 +34,39 @@
             <div class="comment-header">全部评论 8</div>
             <div class="comment-content">
                 <UserBar :type="2" :img-height="32" :img-width="32"></UserBar>
+                <div class="comment-content__info">回复在此</div>
+                <div class="comment-content__reply">
+                    <span class="timer">1小时前</span>
+                    <span class="reply">回复</span>
+                </div>
             </div>
         </div>
     </div>
+    <div class="reply">
+        <div class="reply-container" @click="handleOpenPopup">
+            <van-image
+                round
+                width="25"
+                height="25"
+                fit="cover"
+                src="https://img1.baidu.com/it/u=3489534312,3743866914&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=375"
+            />
+            <span>我来评论</span>
+        </div>
+    </div>
+    <van-popup
+        v-model:show="showPopup"
+        position="bottom"
+        round
+        :style="{ height: '30%' }"
+    >
+        <div class="reply-popup">123</div>
+    </van-popup>
 </template>
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { HeaderBar, UserBar } from "@/views/bars";
 import { ImagePreview } from "vant";
 export default {
@@ -54,6 +79,10 @@ export default {
         const route = useRoute();
         const images = [];
         const showPictureOne = computed(() => images.length <= 1);
+        const showPopup = ref(false);
+        const handleOpenPopup = () => {
+            showPopup.value = true;
+        };
         const showImage = position => {
             ImagePreview({
                 images,
@@ -66,9 +95,11 @@ export default {
         });
 
         return {
+            showPopup,
             images,
             showPictureOne,
             showImage,
+            handleOpenPopup,
         };
     },
 };
@@ -146,6 +177,54 @@ export default {
         line-height: 26px;
     }
     .comment-content {
+        box-sizing: border-box;
+        padding: 10px 0;
+        border-bottom: 1px solid rgb(244, 241, 241);
+        .author {
+            margin-bottom: 0;
+        }
+        &__info {
+            line-height: 24px;
+            font-size: 14px;
+            padding-left: 42px;
+            padding-right: 32px;
+            margin-bottom: 10px;
+        }
+        &__reply {
+            padding-left: 42px;
+            .timer {
+                color: rgb(200, 198, 196);
+                margin-right: 20px;
+            }
+        }
     }
+}
+.reply {
+    position: fixed;
+    width: 100%;
+    height: 30px;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
+    bottom: 0;
+    padding: 5px;
+    padding-left: 10px;
+    display: flex;
+    &-container {
+        width: 200px;
+        height: 25px;
+        background: #e0e0e0;
+        border-radius: 15px;
+        padding: 3px;
+        display: flex;
+        color: rgb(120, 120, 120);
+        span {
+            margin: auto 0;
+            padding-left: 15px;
+            font-size: 16px;
+        }
+    }
+}
+/deep/.van-popup {
+    padding: 20px;
 }
 </style>

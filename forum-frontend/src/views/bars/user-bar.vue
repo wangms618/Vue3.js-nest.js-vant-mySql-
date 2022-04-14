@@ -8,9 +8,19 @@
                 src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
             />
         </div>
-        <div class="author-info" v-if="showState">
-            <div class="author-info__nickname">叫我大哥</div>
-            <div class="author-info__time">1小时前 东华理工大学</div>
+        <div class="author-info">
+            <div
+                :class="`${
+                    showState
+                        ? 'author-info__nickname'
+                        : 'responder-info__nickname'
+                }`"
+            >
+                叫我大哥
+            </div>
+            <div class="author-info__time" v-if="showState == 1">
+                1小时前 东华理工大学
+            </div>
         </div>
     </div>
 </template>
@@ -45,7 +55,6 @@ export default {
 <style lang="less" scoped>
 .author {
     box-sizing: border-box;
-    padding: 0 4px;
     margin-bottom: 10px;
     display: flex;
     &-info {
@@ -57,6 +66,11 @@ export default {
             letter-spacing: 6px;
             font-family: SourceHanSansSC-bold;
             font-weight: 600;
+        }
+        .responder-info__nickname {
+            font-weight: bold;
+            line-height: 20px;
+            height: 20px;
         }
         &__time {
             color: #666970;
