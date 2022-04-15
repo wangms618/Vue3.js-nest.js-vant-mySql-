@@ -24,6 +24,8 @@ import {
     RadioGroup,
     ImagePreview,
     Radio,
+    Toast,
+    Dialog,
     Uploader,
     Step,
     Steps,
@@ -68,5 +70,24 @@ createApp(App)
     .use(TabbarItem)
     .use(RadioGroup)
     .use(Radio)
+    .use(Dialog)
     .use(ImagePreview)
+    .use(Toast)
     .mount("#app");
+
+router.beforeEach((to, form, next) => {
+    if (form.path == "/" && !localStorage.getItem("firstEnter")) {
+        Dialog.confirm({
+            message: "查询到当前您未登录，是否跳转登录页",
+        })
+            .then(() => {
+                localStorage.setItem("firstEnter", "true");
+                next({ name: "login" });
+            })
+            .catch(() => {
+                next();
+            });
+    } else {
+        next();
+    }
+});
