@@ -36,20 +36,16 @@ export default {
         const userPicture = ref("");
         const afterRead = async file => {
             const token = await services.getToken();
-            console.log(123);
-
             if (!token) {
                 Toast.fail("获取token失败");
             }
             uploadPicture(token, file.file);
 
-            // userPicture.value = file.content;
+            userPicture.value = file.content;
         };
 
         const uploadPicture = async (token: string, file: any) => {
             const fname = random(111111111, 999999999) + file.name;
-
-            userPicture.value = "http://wfish.asia/" + fname;
             context.emit("upload-img", fname);
             const putExtra = {
                 fname: file.name,

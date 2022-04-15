@@ -14,20 +14,23 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import Form from "./components/form.vue";
 import UploadImg from "./components/upload-img.vue";
+import { createUrl } from "@/hooks/useCreateURL";
 import { ref } from "vue";
+import * as services from "@/api/services";
 export default {
     components: {
         Form,
         UploadImg,
     },
     setup() {
-        // 初始头像
-        const baseImg = "http://wfish.asia/头像.png";
-        const imgHost = ref("http://wfish.asia/");
-        const handleConfirm = value => {
+        // 默认头像url
+        const baseUrl = ref(
+            "http://wfish.asia/%E7%A9%BA%E5%A4%B4%E5%83%8F.png"
+        );
+        const handleConfirm = async value => {
             const {
                 birthday,
                 college,
@@ -39,11 +42,26 @@ export default {
                 userSex,
                 username,
             } = value;
+            let payload = {
+                user_name: username,
+                user_account: userAccount,
+                user_password: passWord,
+                user_nickname: nickName,
+                user_birthday: birthday,
+                user_colleges: college,
+                user_sex: userSex,
+                user_phone: phone,
+                user_grade: grade,
+                user_imgUrl: baseUrl.value,
+            };
+            console.log(123);
+            const data = await services.postRegister(payload);
+            console.log(data);
             // 传入数据库
             // 页面跳转至login
         };
         const handleUpload = url => {
-            imgHost.value = imgHost.value + url;
+            baseUrl.value = createUrl(url);
         };
         return {
             handleConfirm,
