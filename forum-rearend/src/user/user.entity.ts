@@ -19,7 +19,7 @@ export class UsersEntity {
     user_nickname: string;
 
     // 密码
-    @Column({ length: 50 })
+    @Column()
     user_password: string;
 
     // 生日
