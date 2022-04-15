@@ -37,7 +37,9 @@
             </van-form>
             <div class="login-foot">
                 <div class="login-foot__reset">忘记密码</div>
-                <div class="login-foot__register">注册账号</div>
+                <div class="login-foot__register" @click="handleRegister">
+                    注册账号
+                </div>
             </div>
         </div>
     </div>
@@ -46,17 +48,22 @@
 <script>
 import Logo from "../../common/images/logo.png";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 // import bcrypt from "bcryptjs";
 export default {
     setup() {
+        const router = useRouter();
         const username = ref("");
         const password = ref("");
-        const sms = ref("");
         const onSubmit = values => {
             console.log("submit", values);
             // 检验密码是否正确
-            // salt是数据库取出来的密码 
+            // salt是数据库取出来的密码
             // bcrypt.compareSync(values.password,salt);
+        };
+
+        const handleRegister = () => {
+            router.push("/register");
         };
 
         return {
@@ -64,7 +71,7 @@ export default {
             password,
             onSubmit,
             Logo,
-            sms,
+            handleRegister,
         };
     },
 };

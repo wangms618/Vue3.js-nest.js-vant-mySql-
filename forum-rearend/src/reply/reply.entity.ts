@@ -23,11 +23,11 @@ export class ReplyEntity {
     user_id: number;
 
     // 回复目标评论id
-    @Column()
+    @Column({ default: null })
     toCommentId: number;
 
     // 点赞数
-    @Column()
+    @Column({ default: 0 })
     commentLikeCount: number;
 
     // 回复顶级评论的id
