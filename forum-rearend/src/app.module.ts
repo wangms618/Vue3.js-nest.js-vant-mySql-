@@ -6,7 +6,6 @@ import { PostsModule } from './posts/posts.module';
 import { UserModule } from './user/user.module';
 import { ReplyModule } from './reply/reply.module';
 import { PostsTypeModule } from './posts-type/posts-type.module';
-import { LevelTwoReplyModule } from './level-two-reply/level-two-reply.module';
 import { UserdataModule } from './userdata/userdata.module';
 @Module({
   // * 导出服务的列表，供其他模块导入使用。如果希望当前模块下的服务可以被其他模块共享，需要在这里配置导出
@@ -14,9 +13,8 @@ import { UserdataModule } from './userdata/userdata.module';
     TypeOrmModule.forRoot({ autoLoadEntities: true }),
     PostsModule, // 文章
     UserModule, // 用户
-    ReplyModule, // 一级评论
+    ReplyModule, // 评论
     PostsTypeModule, // 文章类别
-    LevelTwoReplyModule, // 二级评论
     UserdataModule, // 用户操作表
   ],
   // * 处理http请求，包括路由控制，向客户端返回响应，将具体业务逻辑委托给providers处理

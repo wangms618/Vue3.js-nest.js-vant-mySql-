@@ -36,7 +36,7 @@ export class ReplyService {
 
     // 获取具体评论的信息
     async findById(id: number): Promise<ReplyEntity> {
-        const reply = await this.replyRepository.findOne(id, { relations: ["replyTwo"] })
+        const reply = await this.replyRepository.findOne(id)
         return reply
     }
 
