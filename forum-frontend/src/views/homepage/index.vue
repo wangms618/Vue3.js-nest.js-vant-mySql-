@@ -1,6 +1,6 @@
 <template>
     <div class="homepage">
-        <UserCard></UserCard>
+        <UserCard :is-login="isLogin"></UserCard>
         <div class="info">
             <van-tabs v-model:active="active">
                 <van-tab title="动态">
@@ -16,88 +16,17 @@
 </template>
 
 <script setup>
+import { useStore } from "vuex";
+
 import UserCard from "./components/user-card.vue";
 import UserInfo from "./components/user-info.vue";
 import { PostsList } from "@/components/index";
-import { ref } from "vue";
+import { EmptyTip } from "@/components/index";
+import { ref, computed } from "vue";
 const active = ref(0);
-
-const listInfo = [
-    {
-        id: 1,
-        title: "健身房恶习吐槽大会nnnnnn",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [
-            "https://img2.baidu.com/it/u=2831053164,2846492010&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-        ],
-    },
-    {
-        id: 2,
-        title: "健身房恶习吐槽大会",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [
-            "https://img2.baidu.com/it/u=2831053164,2846492010&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-        ],
-    },
-    {
-        id: 3,
-        title: "健身房恶习吐槽大会",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [],
-    },
-    {
-        id: 4,
-        title: "健身房恶习吐槽大会",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [],
-    },
-    {
-        id: 5,
-        title: "健身房恶习吐槽大会",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [],
-    },
-    {
-        id: 6,
-        title: "健身房恶习吐槽大会",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [],
-    },
-    {
-        id: 7,
-        title: "健身房恶习吐槽大会",
-        context:
-            "健身房恶习有很多，诸如此类啦啦啦啦啦啦啦啦啦啦绿绿喵喵喵喵喵喵木木木木木木木木木木木木木木木木木啦啦绿绿",
-        user: "董董董董董",
-        date: "2019/10/8",
-        views: 1000,
-        imgUrl: [],
-    },
-];
+const listInfo = [];
+const store = useStore();
+const isLogin = computed(() => (store.state.userInfo !== "" ? true : false));
 </script>
 
 <style lang="less" scoped>

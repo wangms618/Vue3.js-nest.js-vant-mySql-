@@ -53,6 +53,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import bcryptjs from "bcryptjs";
 import { Toast } from "vant";
+// import dayjs from "dayjs";
 export default {
     setup() {
         const store = useStore();
@@ -64,6 +65,14 @@ export default {
             if (bcryptjs.compareSync(values.password, data.user_password)) {
                 Toast.success("登录成功");
                 store.dispatch("insertUserInfo", data);
+                
+                const time = new Date().getTime();
+                let token = {
+                    id: data.id,
+                    timeout: time,
+                };
+                // 在localStoreage里面，存用户id和过期时间
+                localStorage.setItem("userId", JSON.stringify(token));
                 router.push("/community");
             } else {
                 Toast.fail("账号或密码错误");

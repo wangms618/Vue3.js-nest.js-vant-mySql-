@@ -9,8 +9,11 @@
                     src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
                 />
             </div>
-            <div class="card-header__name">
+            <div class="card-header__name" v-if="isLogin">
                 <span>来自外星的怪兽</span>
+            </div>
+            <div class="card-header__name" v-else @click="handleLogin">
+                <span>登录/注册></span>
             </div>
         </div>
         <div class="card-content">
@@ -24,7 +27,24 @@
 </template>
 
 <script>
-export default {};
+import { useRouter } from "vue-router";
+export default {
+    props: {
+        isLogin: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    setup() {
+        const router = useRouter();
+        const handleLogin = () => {
+            router.push("/login");
+        };
+        return {
+            handleLogin,
+        };
+    },
+};
 </script>
 
 <style lang="less" scoped>
