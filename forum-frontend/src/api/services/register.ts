@@ -7,18 +7,30 @@ export async function postRegister(payload) {
 }
 
 // 写一个判断昵称的请求
-export async function checkNickname(nickname: string): Promise<boolean> {
-    return await instance.get("/user/checkNickname", {
+export async function checkNickname(nickname: string) {
+    const data = await instance.get("/user/checkNickname", {
         params: {
             nickname,
         },
     });
+    return data.data;
 }
+checkNickname("sadas");
 // 写一个判断账号的请求
-export async function checkAccount(param: string): Promise<boolean> {
-    return false;
+export async function checkAccount(account: string) {
+    const data = await instance.get("/user/checkAccount", {
+        params: {
+            account,
+        },
+    });
+    return data.data;
 }
 // 写一个判断手机号的请求
-export async function checkPhone(param: number): Promise<boolean> {
-    return false;
+export async function checkPhone(phone: number) {
+    const data = await instance.get("/user/checkPhone", {
+        params: {
+            phone,
+        },
+    });
+    return data.data;
 }

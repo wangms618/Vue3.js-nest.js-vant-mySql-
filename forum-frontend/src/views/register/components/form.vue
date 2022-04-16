@@ -130,6 +130,11 @@ import bcrypt from "bcryptjs";
 import dayjs from "dayjs";
 import { Collects, Grade } from "../const";
 import { Toast } from "vant";
+import {
+    checkNickname,
+    checkAccount,
+    checkPhone,
+} from "@/hooks/useCheckRepeat";
 export default {
     props: {},
     setup(props, { emit }) {
@@ -178,13 +183,25 @@ export default {
             showDatePicker.value = false;
         };
 
-        const onSubmit = values => {
+        const onSubmit = async values => {
             const { passWord, grade } = values;
             const salt = bcrypt.genSaltSync(12);
             const hash = bcrypt.hashSync(passWord, salt);
             values.grade = Grade.indexOf(grade);
             values.passWord = hash;
-            emit("formConfirm", values);
+
+            if (!(await checkAccount(values.userAccount))) {
+                Toast.fail("该账号已存在！");
+                return;
+            } else if (!(await checkNickname(values.nickName))) {
+                Toast.fail("该昵称已存在！");
+                return;
+            } else if (!(await checkPhone(values.phone))) {
+                Toast.fail("该手机号已存在！");
+                return;
+            } else {
+                emit("formConfirm", values);
+            }
         };
 
         const handleFailed = error => {
