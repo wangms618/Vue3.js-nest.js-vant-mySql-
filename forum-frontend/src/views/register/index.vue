@@ -20,12 +20,15 @@ import UploadImg from "./components/upload-img.vue";
 import { createUrl } from "@/hooks/useCreateURL";
 import { ref } from "vue";
 import * as services from "@/api/services";
+import { useRouter } from "vue-router";
+import { Toast } from "vant";
 export default {
     components: {
         Form,
         UploadImg,
     },
     setup() {
+        const router = useRouter();
         // 默认头像url
         const baseUrl = ref(
             "http://wfish.asia/%E7%A9%BA%E5%A4%B4%E5%83%8F.png"
@@ -54,9 +57,11 @@ export default {
                 user_grade: grade,
                 user_imgUrl: baseUrl.value,
             };
-            console.log(123);
-            const data = await services.postRegister(payload);
-            console.log(data);
+            let data = await services.postRegister(payload);
+            if (data) {
+                Toast.success("创建账号成功,请登录", 2000);
+                router.push("/login");
+            }
             // 传入数据库
             // 页面跳转至login
         };
