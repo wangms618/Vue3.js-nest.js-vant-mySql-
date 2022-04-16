@@ -189,7 +189,6 @@ export default {
             const hash = bcrypt.hashSync(passWord, salt);
             values.grade = Grade.indexOf(grade);
             values.passWord = hash;
-
             if (!(await checkAccount(values.userAccount))) {
                 Toast.fail("该账号已存在！");
                 return;

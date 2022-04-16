@@ -4,6 +4,7 @@ import {
     CHANGE_CONTENT,
     CHANGE_FILELIST,
     CHANGE_TOPIC,
+    INSERT_USER_INFO,
 } from "./types";
 export default createStore({
     state: {
@@ -13,6 +14,7 @@ export default createStore({
             topic: "",
             fileList: [],
         },
+        userInfo: "",
     },
     mutations: {
         [CHANGE_TITLE]({ posts }, value) {
@@ -27,6 +29,11 @@ export default createStore({
         [CHANGE_TOPIC]({ posts }, value) {
             posts.topic = value;
         },
+        [INSERT_USER_INFO](state, value) {
+            console.log(value);
+
+            state.userInfo = value;
+        },
     },
     actions: {
         [CHANGE_TITLE]({ commit }, value) {
@@ -40,6 +47,9 @@ export default createStore({
         },
         [CHANGE_TOPIC]({ commit }, value) {
             commit(CHANGE_TOPIC, value);
+        },
+        [INSERT_USER_INFO]({ commit }, value) {
+            commit(INSERT_USER_INFO, value);
         },
     },
     modules: {},

@@ -10,7 +10,7 @@
             <van-form @submit="onSubmit">
                 <van-field
                     v-model="username"
-                    name="userName"
+                    name="username"
                     label="账号"
                     placeholder="请输入账号"
                     :rules="[{ required: true, message: '请填写账号' }]"
@@ -19,7 +19,7 @@
                 <van-field
                     v-model="password"
                     type="password"
-                    name="passWord"
+                    name="password"
                     label="密码"
                     placeholder="请输入密码"
                     :rules="[{ required: true, message: '请填写密码' }]"
@@ -48,18 +48,26 @@
 <script>
 import Logo from "../../common/images/logo.png";
 import { ref } from "vue";
+import * as service from "@/api/services";
 import { useRouter } from "vue-router";
-// import bcrypt from "bcryptjs";
+import { useStore } from "vuex";
+import bcryptjs from "bcryptjs";
+import { Toast } from "vant";
 export default {
     setup() {
+        const store = useStore();
         const router = useRouter();
         const username = ref("");
         const password = ref("");
-        const onSubmit = values => {
-            console.log("submit", values);
-            // 检验密码是否正确
-            // salt是数据库取出来的密码
-            // bcrypt.compareSync(values.password,salt);
+        const onSubmit = async values => {
+            const data = await service.login(username.value);
+            if (bcryptjs.compareSync(values.password, data.user_password)) {
+                Toast.success("登录成功");
+                store.dispatch("insertUserInfo", data);
+                router.push("/community");
+            } else {
+                Toast.fail("账号或密码错误");
+            }
         };
 
         const handleRegister = () => {
