@@ -5,5 +5,14 @@ export async function login(account: string) {
             account,
         },
     });
-    return data.data[0]
+    return data.data[0];
+}
+
+export async function getUserInfo(id: number) {
+    const data = await instance.get("user", {
+        params: {
+            id,
+        },
+    });
+    return data
 }

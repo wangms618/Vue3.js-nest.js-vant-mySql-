@@ -30,8 +30,6 @@ export default createStore({
             posts.topic = value;
         },
         [INSERT_USER_INFO](state, value) {
-            console.log(value);
-
             state.userInfo = value;
         },
     },
