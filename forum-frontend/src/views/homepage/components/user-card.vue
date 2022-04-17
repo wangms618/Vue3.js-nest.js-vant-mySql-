@@ -10,14 +10,14 @@
                 />
             </div>
             <div class="card-header__name" v-if="isLogin">
-                <span>来自外星的怪兽</span>
+                <span>{{ nickname }}</span>
             </div>
             <div class="card-header__name" v-else @click="handleLogin">
                 <span>登录/注册></span>
             </div>
         </div>
         <div class="card-content">
-            <span>个性签名等等等等</span>
+            <span>{{ show }}</span>
         </div>
         <div class="card-footer">
             <div class="card-footer__concerned">关注 0</div>
@@ -27,20 +27,34 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default {
     props: {
         isLogin: {
             type: Boolean,
             default: false,
         },
+        userInfo: {
+            type: Object,
+        },
     },
-    setup() {
+    setup(props) {
+        const store = useStore();
         const router = useRouter();
         const handleLogin = () => {
             router.push("/login");
         };
+        const show = computed(() =>
+            store.state.userInfo.show
+                ? store.state.userInfo.show
+                : "这个人比较懒，没有个性签名"
+        );
+        const nickname = computed(() => store.state.userInfo.nickname);
         return {
+            show,
+            nickname,
             handleLogin,
         };
     },

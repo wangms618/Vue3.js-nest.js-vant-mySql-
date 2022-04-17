@@ -1,6 +1,6 @@
 <template>
     <div class="homepage">
-        <UserCard :is-login="isLogin"></UserCard>
+        <UserCard :is-login="isLogin" :user-info="userInfo"></UserCard>
         <div class="info">
             <van-tabs v-model:active="active">
                 <van-tab title="动态">
