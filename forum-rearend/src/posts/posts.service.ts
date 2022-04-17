@@ -32,13 +32,16 @@ export class PostsService {
   // 获取文章列表
   async findAll(query): Promise<PostsRo> {
     const qb = await getRepository(PostsEntity).createQueryBuilder('post')
-
     qb.where('1 = 1');
-    // qb.orderBy('post.create_time', 'DESC');
-
+    // 倒序
+    qb.orderBy('post.create_time', 'DESC');
+    // 获取当前数据库已有的文章数量
     const count = await qb.getCount();
+    // 第一页，10条数据
     const { pageNum = 1, pageSize = 10, ...params } = query;
+    // 单次取用的数据量
     qb.limit(pageSize);
+    // 前置量
     qb.offset(pageSize * (pageNum - 1));
 
     const posts = await qb.getMany();

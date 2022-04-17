@@ -11,6 +11,8 @@
 <script lang="ts">
 import { PostsList, EmptyTip } from "@/components";
 import TopicBar from "./components/topic-bar.vue";
+import { getPosts } from "@/api/services";
+import { onMounted, ref } from "vue";
 export default {
     name: "community-page",
     components: {
@@ -25,7 +27,12 @@ export default {
         },
     },
     setup() {
-        const listInfo = [];
+        const listInfo = ref([]);
+        onMounted(async () => {
+            const data = await getPosts();
+            console.log(data.list);
+            listInfo.value = data.list;
+        });
         return {
             listInfo,
         };

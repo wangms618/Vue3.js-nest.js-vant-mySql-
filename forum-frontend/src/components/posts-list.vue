@@ -11,27 +11,25 @@
                 <span>{{ list.title }}</span>
             </div>
             <div class="posts-context">
-                {{ list.context }}
+                {{ list.content }}
             </div>
             <div class="posts-foot">
                 <div class="posts-user">
-                    <span>@{{ list.user }}</span>
+                    <span>@{{ list.user_id }}</span>
                 </div>
                 <div class="posts-date">
-                    <span>{{ list.date }}</span>
+                    <span>{{ list.create_time }}</span>
                 </div>
             </div>
         </div>
         <div class="posts-right">
-            <div class="posts-views">
-                {{ list.views }}人围观<van-icon name="arrow" />
-            </div>
-            <div class="posts-img" v-if="list.imgUrl.length">
+            <div class="posts-views">1人围观<van-icon name="arrow" /></div>
+            <div class="posts-img" v-if="list.imgList.length">
                 <van-image
                     fit="contain"
                     width="78"
                     height="76"
-                    :src="list.imgUrl[0]"
+                    :src="list.imgList[0]"
                     radius="4"
                 />
             </div>
@@ -49,15 +47,12 @@ export default {
             default: () => [],
         },
     },
-    setup() {
-        const url =
-            "https://img2.baidu.com/it/u=2831053164,2846492010&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
+    setup(props) {
         const router = useRouter();
         const handleOpen = value => {
             router.push({ name: "posts", params: { id: 1 } });
         };
         return {
-            url,
             handleOpen,
         };
     },

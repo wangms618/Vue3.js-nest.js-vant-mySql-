@@ -5,3 +5,14 @@ export async function createPosts(payload) {
     const data = await instance.post("posts", payload);
     return data.data;
 }
+
+export async function getPosts() {
+    const data = await instance.get("posts");
+    if (data) {
+        const len = data.data.list.length;
+        for (let i = 0; i < len; i++) {
+            data.data.list[i].imgList = JSON.parse(data.data.list[i].imgList);
+        }
+    }
+    return data.data;
+}
