@@ -16,10 +16,10 @@
                 <span>登录/注册></span>
             </div>
         </div>
-        <div class="card-content">
+        <div class="card-content" v-if="isLogin">
             <span>{{ show }}</span>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" v-if="isLogin">
             <div class="card-footer__concerned">关注 0</div>
             <div class="card-footer__fans">粉丝 4</div>
         </div>

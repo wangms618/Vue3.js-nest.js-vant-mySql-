@@ -1,2 +1,4 @@
 // 这里放数据
-export const Timeout = 25920000;
+
+// 登录期限3天
+export const Timeout = 259200000;

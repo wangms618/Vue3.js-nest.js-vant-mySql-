@@ -1,4 +1,5 @@
 import instance from "../axios";
+// 创建账号
 export async function postRegister(payload) {
     const data = await instance.post("/user", payload);
     // 如果data为-1，说明已经有相同的账号了

@@ -54,7 +54,6 @@ export default {
             "https://img2.baidu.com/it/u=2831053164,2846492010&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
         const router = useRouter();
         const handleOpen = value => {
-            console.log(value);
             router.push({ name: "posts", params: { id: 1 } });
         };
         return {

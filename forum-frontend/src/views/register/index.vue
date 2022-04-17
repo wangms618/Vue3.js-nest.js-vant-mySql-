@@ -66,7 +66,7 @@ export default {
             // 页面跳转至login
         };
         const handleUpload = url => {
-            baseUrl.value = createUrl(url);
+            baseUrl.value = url;
         };
         return {
             handleConfirm,

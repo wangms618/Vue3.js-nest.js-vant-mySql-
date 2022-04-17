@@ -57,7 +57,6 @@ export default {
         const content = ref(posts.content);
         const handleSelect = item => {
             topicShow.value = false;
-            console.log(item.name);
             topic.value = item.name;
         };
         const handleChangeFileList = list => {

@@ -20,6 +20,11 @@
 <script lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { uploadFileList } from "@/hooks/useUploadFile";
+import { createPosts } from "@/api/services";
+import { useRouter } from "vue-router";
+import { Toast } from "vant";
 export default {
     props: {
         title: {
@@ -28,6 +33,8 @@ export default {
         },
     },
     setup(props, context) {
+        const router = useRouter();
+        const store = useStore();
         const route = useRoute();
         // 返回上一次页面
         const handleBack = () => {
@@ -35,10 +42,24 @@ export default {
             history.back();
         };
 
-        const handlePush = () => {
-            // 发布逻辑
-            // context.emit("push");
-            console.log("操作vuex来写");
+        const handlePush = async () => {
+            // todo 分类id需要做好
+            const { title, content, topic, fileList } = store.state.posts;
+            const user_id = store.state.userInfo.id;
+            const imgList = await uploadFileList(fileList);
+            const payload = {
+                user_id,
+                title,
+                imgList,
+                content,
+                postsTypeId: 1,
+            };
+            const data = await createPosts(payload);
+            if (data) {
+                router.push({ name: "posts", params: { id: data.id } });
+            } else {
+                Toast.fail("文章创建失败");
+            }
         };
         const isEditPosts = computed(() => {
             return route.path === "/edit-posts" ? true : false;
@@ -53,5 +74,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

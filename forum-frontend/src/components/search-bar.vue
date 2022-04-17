@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, PropType, watch } from "vue"
-import { debounce } from "lodash"
+import { ref, computed, PropType, watch } from "vue";
+import { debounce } from "lodash";
 export default {
     props: {
         placeholder: {
@@ -33,34 +33,36 @@ export default {
         },
     },
     setup(props, { emit }) {
-        const value = ref("")
+        const value = ref("");
 
-        const list = computed(() => props.listInfo)
+        const list = computed(() => props.listInfo);
 
-        const showList = computed(() => list.value.length)
+        const showList = computed(() =>
+            list.value.length == 0 ? false : true
+        );
 
         const handleSearch = debounce((val: string) => {
-            emit("search", val)
-        }, 300)
+            emit("search", val);
+        }, 300);
 
         const handleClear = () => {
-            value.value = ""
-        }
+            value.value = "";
+        };
         watch(
             () => props.listInfo,
-            (val) => {
-                console.log(val)
+            val => {
+                console.log(val);
             }
-        )
+        );
         return {
             value,
             showList,
             list,
             handleSearch,
             handleClear,
-        }
+        };
     },
-}
+};
 </script>
 
 <style lang="less" scoped>
