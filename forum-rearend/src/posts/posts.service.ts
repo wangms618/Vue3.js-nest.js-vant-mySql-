@@ -18,14 +18,14 @@ export class PostsService {
 
   // 创建文章
   async create(post: Partial<PostsEntity>): Promise<PostsEntity> {
-    const { title } = post;
-    if (!title) {
-      throw new HttpException('缺少文章标题', 403);
-    }
-    const doc = await this.postsRepository.findOne({ where: { title } });
-    if (doc) {
-      throw new HttpException('文章已存在', 403);
-    }
+    // const { title } = post;
+    // if (!title) {
+    //   throw new HttpException('缺少文章标题', 403);
+    // }
+    // const doc = await this.postsRepository.findOne({ where: { title } });
+    // if (doc) {
+    //   throw new HttpException('文章已存在', 403);
+    // }
     return await this.postsRepository.save(post);
   }
 
