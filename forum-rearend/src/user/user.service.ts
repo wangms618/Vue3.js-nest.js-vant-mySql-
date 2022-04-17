@@ -2,7 +2,8 @@ import { HttpException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { getRepository, Repository } from "typeorm";
 import { UsersEntity } from "./user.entity";
-
+import { UserInfo } from "@/interface";
+import { userInfoTransform } from "@/hooks/user/index";
 export interface UsersRo {
     list: UsersEntity[];
     count: number;
@@ -26,9 +27,24 @@ export class UserService {
         }
         return await this.usersRepository.save(userInfo);
     }
+
+    // 用户登录，返回密码就好
+    async userLogin(account) {
+        const user = await this.usersRepository.find({
+            where: { user_account: account },
+        });
+        // 如果没有这个账号，怎么办
+        if (user.length == 0) {
+            throw new HttpException(`该账号不存在`, 403);
+        }
+        return {
+            salt: user[0].user_password,
+            id: user[0].id,
+        };
+    }
+
     // 获取用户列表
     async findAll(query): Promise<UsersRo> {
-        console.log("all");
         const user = await getRepository(UsersEntity).createQueryBuilder(
             "user"
         );
@@ -40,8 +56,13 @@ export class UserService {
     }
 
     // 获取指定用户信息
-    async findById(id: number): Promise<UsersEntity> {
-        return this.usersRepository.findOne(id);
+    async findById(id: number): Promise<UserInfo> {
+        const user = await this.usersRepository.findOne(id);
+        if (!user) {
+            throw new HttpException(`此id不存在`, 403);
+        }
+        const data = userInfoTransform(user);
+        return data;
     }
 
     // 更新用户信息

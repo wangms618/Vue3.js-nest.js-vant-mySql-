@@ -8,9 +8,8 @@ import {
     Put,
     Query,
 } from "@nestjs/common";
-import { query } from "express";
 import { UserService, UsersRo } from "./user.service";
-
+import { UserInfo } from "@/interface";
 @Controller("user")
 export class UserController {
     constructor(private readonly userService: UserService) {}
@@ -60,6 +59,16 @@ export class UserController {
     @Get()
     async findAll(@Query() query): Promise<UsersRo> {
         return await this.userService.findAll(query);
+    }
+
+    /**
+     * 用户登录
+     * @param query
+     * @returns
+     */
+    @Get("login")
+    async userLogin(@Query() query) {
+        return await this.userService.userLogin(query.account);
     }
 
     /**
