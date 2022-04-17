@@ -15,7 +15,6 @@ export async function checkNickname(nickname: string) {
     });
     return data.data;
 }
-checkNickname("sadas");
 // 写一个判断账号的请求
 export async function checkAccount(account: string) {
     const data = await instance.get("/user/checkAccount", {
