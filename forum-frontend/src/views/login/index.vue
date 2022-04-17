@@ -62,7 +62,7 @@ export default {
         const password = ref("");
         const onSubmit = async values => {
             const data = await service.login(username.value);
-            if (bcryptjs.compareSync(values.password, data.salt)) {
+            if (data && bcryptjs.compareSync(values.password, data.salt)) {
                 Toast.success("登录成功");
                 const userInfo = await service.getUserInfo(data.id);
                 store.dispatch("insertUserInfo", userInfo);
