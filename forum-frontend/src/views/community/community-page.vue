@@ -30,7 +30,6 @@ export default {
         const listInfo = ref([]);
         onMounted(async () => {
             const data = await getPosts();
-            console.log(data.list);
             listInfo.value = data.list;
         });
         return {

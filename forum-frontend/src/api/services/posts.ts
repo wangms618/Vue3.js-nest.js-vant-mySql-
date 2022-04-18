@@ -1,4 +1,5 @@
 import instance from "../axios";
+import { PostsList } from "@/types";
 // 创建文章
 export async function createPosts(payload) {
     // 需要用户id、titie、content、imgList、postsTypeId
@@ -6,7 +7,7 @@ export async function createPosts(payload) {
     return data.data;
 }
 
-export async function getPosts() {
+export async function getPosts(): Promise<PostsList> {
     const data = await instance.get("posts");
     if (data) {
         const len = data.data.list.length;

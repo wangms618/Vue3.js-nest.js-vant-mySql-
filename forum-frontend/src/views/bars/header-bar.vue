@@ -46,11 +46,13 @@ export default {
             // todo 分类id需要做好
             const { title, content, topic, fileList } = store.state.posts;
             const user_id = store.state.userInfo.id;
+            const user_nickname = store.state.userInfo.nickname;
             const imgList = await uploadFileList(fileList);
             const payload = {
                 user_id,
                 title,
                 imgList,
+                user_nickname,
                 content,
                 postsTypeId: 1,
             };

@@ -15,15 +15,17 @@
             </div>
             <div class="posts-foot">
                 <div class="posts-user">
-                    <span>@{{ list.user_id }}</span>
+                    <span>@{{ list.user_nickname }}</span>
                 </div>
                 <div class="posts-date">
-                    <span>{{ list.create_time }}</span>
+                    <span>{{ timefromNow(list.create_time) }}</span>
                 </div>
             </div>
         </div>
         <div class="posts-right">
-            <div class="posts-views">1人围观<van-icon name="arrow" /></div>
+            <div class="posts-views">
+                {{ list.clickNum }}人围观 <van-icon name="arrow" />
+            </div>
             <div class="posts-img" v-if="list.imgList.length">
                 <van-image
                     fit="contain"
@@ -39,11 +41,19 @@
 
 <script lang="ts">
 import { useRouter } from "vue-router";
+import { ref, PropType } from "vue";
+import { Posts } from "@/types";
+import { timefromNow } from "@/hooks/useChangeTime";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-cn"; // import locale
+dayjs.locale("zh-cn"); // use locale
+dayjs.extend(relativeTime);
 export default {
     name: "posts-list",
     props: {
         postsList: {
-            type: Array,
+            type: Array as PropType<Posts[]>,
             default: () => [],
         },
     },
@@ -52,7 +62,9 @@ export default {
         const handleOpen = value => {
             router.push({ name: "posts", params: { id: 1 } });
         };
+
         return {
+            timefromNow,
             handleOpen,
         };
     },
