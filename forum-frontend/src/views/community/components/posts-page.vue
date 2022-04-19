@@ -2,11 +2,11 @@
     <div class="posts">
         <HeaderBar title="文章详情"></HeaderBar>
         <div class="posts-detail">
-            <UserBar></UserBar>
+            <UserBar :user-info="userInfo" v-if="userInfo"></UserBar>
             <div class="content">
-                中国传统的杀猪场面确实挺大，对猪不是很友好，但是几千年流传下来的手艺，自然有其特有的优点。看了好几个中国的杀猪视频，有一个疑点，不知道为什么杀猪的时候总有人叼着烟，有什么说法吗?
+                {{ posts.content }}
             </div>
-            <div class="picture" v-if="images.length > 0">
+            <div class="picture" v-if="images">
                 <van-image
                     v-if="showPictureOne"
                     class="picture-one"
@@ -23,6 +23,7 @@
                     class="picture-more"
                     width="112"
                     height="112"
+                    fit="cover"
                     :src="url"
                 />
             </div>
@@ -77,9 +78,10 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted, computed, ref } from "vue";
+import { onBeforeMount, computed, ref } from "vue";
 import { HeaderBar, UserBar } from "@/views/bars";
 import { ImagePreview } from "vant";
+import { getPostById } from "@/api/services/index";
 export default {
     components: {
         HeaderBar,
@@ -87,14 +89,23 @@ export default {
         [ImagePreview.Component.name]: ImagePreview.Component,
     },
     setup() {
+        const userInfo = ref(false);
         const replyValue = ref("你您");
         const route = useRoute();
-        const images = [];
-        const showPictureOne = computed(() => images.length <= 1);
+        const posts = ref("");
+        const images = computed(() => posts.value.imgList);
+        const showPictureOne = computed(() => {
+            if (posts.value !== "") {
+                return posts.value.imgList.length == 1 ? true : false;
+            } else {
+                return false;
+            }
+        });
         const showPopup = ref(false);
         const handleOpenPopup = () => {
             showPopup.value = true;
         };
+
         const showImage = position => {
             ImagePreview({
                 images,
@@ -102,12 +113,21 @@ export default {
             });
         };
         // 取到id，然后调用接口获取数据
-        onMounted(() => {
-            console.log(route.params);
+        onBeforeMount(async () => {
+            posts.value = await getPostById(route.params.id);
+            const { user_nickname, user_imgUrl, user_colleges, user_grade } =
+                posts.value;
+            userInfo.value = {
+                user_nickname,
+                user_imgUrl,
+                user_colleges,
+                user_grade,
+            };
         });
-
         return {
+            posts,
             showPopup,
+            userInfo,
             images,
             replyValue,
             showPictureOne,
@@ -135,6 +155,7 @@ export default {
     .picture {
         display: flex;
         flex-wrap: wrap;
+        margin-bottom: 10px;
         .picture-one {
             /deep/ img {
                 border-radius: 10px;

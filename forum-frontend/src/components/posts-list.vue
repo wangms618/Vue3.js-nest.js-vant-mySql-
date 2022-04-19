@@ -4,13 +4,13 @@
         class="posts-list"
         v-for="list in postsList"
         :key="list.id"
-        @click="handleOpen(list)"
+        @click="handleOpen(list.id)"
     >
         <div class="posts-left">
             <div class="posts-title">
                 <span>{{ list.title }}</span>
             </div>
-            <div class="posts-context">
+            <div class="posts-content">
                 {{ list.content }}
             </div>
             <div class="posts-foot">
@@ -28,7 +28,7 @@
             </div>
             <div class="posts-img" v-if="list.imgList.length">
                 <van-image
-                    fit="contain"
+                    fit="cover"
                     width="78"
                     height="76"
                     :src="list.imgList[0]"
@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { useRouter } from "vue-router";
-import { ref, PropType } from "vue";
+import { PropType } from "vue";
 import { Posts } from "@/types";
 import { timefromNow } from "@/hooks/useChangeTime";
 import dayjs from "dayjs";
@@ -59,8 +59,8 @@ export default {
     },
     setup(props) {
         const router = useRouter();
-        const handleOpen = value => {
-            router.push({ name: "posts", params: { id: 1 } });
+        const handleOpen = (id: number) => {
+            router.push({ name: "posts", params: { id } });
         };
 
         return {
@@ -89,8 +89,8 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .posts-context {
-            width: 150px;
+        .posts-content {
+            width: 250px;
             height: 36px;
             box-sizing: border-box;
             line-height: 18px;
@@ -101,7 +101,7 @@ export default {
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             margin-bottom: 16px;
-            font-size: 13px;
+            font-size: 16px;
             color: #726d76;
             span {
                 height: 100%;

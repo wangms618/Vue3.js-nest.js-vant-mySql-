@@ -41,6 +41,9 @@ export default {
             type: Number,
             default: 1,
         },
+        userInfo: {
+            type: Object,
+        },
     },
 
     setup(props) {
