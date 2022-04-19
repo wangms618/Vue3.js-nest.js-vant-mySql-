@@ -19,6 +19,9 @@ export class PostsEntity {
     @Column()
     user_id: number;
 
+    @Column()
+    user_nickname: string;
+
     @Column({ length: 50 })
     title: string;
 
