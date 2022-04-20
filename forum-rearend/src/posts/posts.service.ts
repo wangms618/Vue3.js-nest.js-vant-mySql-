@@ -9,7 +9,6 @@ export interface PostsRo {
     count: number;
 }
 
-// todo CRUD操作
 @Injectable()
 export class PostsService {
     constructor(

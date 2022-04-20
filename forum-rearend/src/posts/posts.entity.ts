@@ -19,6 +19,9 @@ export class PostsEntity {
     @Column()
     user_id: number;
 
+    @Column({ default: 0 })
+    topic: number;
+
     @Column()
     user_nickname: string;
 
