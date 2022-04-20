@@ -28,12 +28,12 @@
                 />
             </div>
             <div class="sort">
-                <span>#萨达</span>
+                <span>#{{ TopicOptions[posts.topic] }}</span>
             </div>
         </div>
         <div class="posts-comments">
-            <div class="comment-header">全部评论 8</div>
-            <div class="comment-content">
+            <div class="comment-header">全部评论 </div>
+            <div class="comment-content" >
                 <UserBar :type="2" :img-height="32" :img-width="32"></UserBar>
                 <div class="comment-content__info">回复在此</div>
                 <div class="comment-content__reply">
@@ -82,7 +82,7 @@ import { onBeforeMount, computed, ref } from "vue";
 import { HeaderBar, UserBar } from "@/views/bars";
 import { ImagePreview } from "vant";
 import { getPostById } from "@/api/services/index";
-
+import { TopicOptions } from "@/views/const";
 export default {
     components: {
         HeaderBar,
@@ -124,7 +124,6 @@ export default {
                 create_time,
                 clickNum,
             } = posts.value;
-            console.log(posts.value);
             userInfo.value = {
                 nickname: user_nickname,
                 url: user_imgUrl,
@@ -140,6 +139,7 @@ export default {
             userInfo,
             images,
             replyValue,
+            TopicOptions,
             showPictureOne,
             showImage,
             handleOpenPopup,

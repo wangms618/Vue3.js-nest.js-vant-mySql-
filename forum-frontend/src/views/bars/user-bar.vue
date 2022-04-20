@@ -14,7 +14,7 @@
                 {{ nickname }}
             </div>
             <div class="author-info__time" v-if="showState == 1">
-                {{ timeFormatting(createTime) }} {{ colleges }}
+                {{ timeFormatting(createTime) }}
             </div>
         </div>
     </div>

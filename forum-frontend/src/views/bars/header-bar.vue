@@ -25,6 +25,7 @@ import { uploadFileList } from "@/hooks/useUploadFile";
 import { createPosts } from "@/api/services";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
+import { TopicOptions } from "@/views/const";
 export default {
     props: {
         title: {
@@ -48,13 +49,14 @@ export default {
             const user_id = store.state.userInfo.id;
             const user_nickname = store.state.userInfo.nickname;
             const imgList = await uploadFileList(fileList);
+            const postsType = TopicOptions.indexOf(topic);
             const payload = {
                 user_id,
                 title,
                 imgList,
                 user_nickname,
                 content,
-                postsTypeId: 1,
+                topic: postsType,
             };
             const data = await createPosts(payload);
             if (data) {
