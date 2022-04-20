@@ -2,7 +2,7 @@
     <div class="posts">
         <HeaderBar title="文章详情"></HeaderBar>
         <div class="posts-detail">
-            <UserBar :user-info="userInfo" v-if="userInfo"></UserBar>
+            <UserBar :user-info="userInfo"></UserBar>
             <div class="content">
                 {{ posts.content }}
             </div>
@@ -82,6 +82,7 @@ import { onBeforeMount, computed, ref } from "vue";
 import { HeaderBar, UserBar } from "@/views/bars";
 import { ImagePreview } from "vant";
 import { getPostById } from "@/api/services/index";
+
 export default {
     components: {
         HeaderBar,
@@ -115,13 +116,22 @@ export default {
         // 取到id，然后调用接口获取数据
         onBeforeMount(async () => {
             posts.value = await getPostById(route.params.id);
-            const { user_nickname, user_imgUrl, user_colleges, user_grade } =
-                posts.value;
-            userInfo.value = {
+            const {
                 user_nickname,
                 user_imgUrl,
                 user_colleges,
                 user_grade,
+                create_time,
+                clickNum,
+            } = posts.value;
+            console.log(posts.value);
+            userInfo.value = {
+                nickname: user_nickname,
+                url: user_imgUrl,
+                colleges: user_colleges,
+                grade: user_grade,
+                createTime: create_time,
+                clickNum: clickNum,
             };
         });
         return {

@@ -116,7 +116,7 @@
             <van-picker
                 v-if="showPicker"
                 :title="isCollect ? '选择学校' : '选择年级'"
-                :columns="isCollect ? Collects : Grade"
+                :columns="isCollect ? Colleges : Grade"
                 @confirm="handlePickerConfirm"
                 @cancel="showPicker = false"
             />
@@ -128,7 +128,7 @@
 import { ref, toRefs, reactive } from "vue";
 import bcrypt from "bcryptjs";
 import dayjs from "dayjs";
-import { Collects, Grade } from "../const";
+import { Colleges, Grade } from "../const";
 import { Toast } from "vant";
 import {
     checkNickname,
@@ -184,10 +184,11 @@ export default {
         };
 
         const onSubmit = async values => {
-            const { passWord, grade } = values;
+            const { passWord, grade, college } = values;
             const salt = bcrypt.genSaltSync(12);
             const hash = bcrypt.hashSync(passWord, salt);
             values.grade = Grade.indexOf(grade);
+            values.college = Colleges.indexOf(college);
             values.passWord = hash;
             if (!(await checkAccount(values.userAccount))) {
                 Toast.fail("该账号已存在！");
@@ -211,7 +212,7 @@ export default {
         return {
             ...toRefs(userInfo),
             Grade,
-            Collects,
+            Colleges,
             isCollect,
             showPicker,
             currentDate,

@@ -18,4 +18,15 @@ export const TitleTextByType = {
     [TitleType.EDITPOSTS]: TitleText.EDITPOSTS,
     [TitleType.REPLY]: TitleText.REPLY,
     [TitleType.HOMEPAGE]: TitleText.HOMEPAGE,
-}
+};
+
+// export const Grade = [
+//     "其他",
+//     "大一",
+//     "大二",
+//     "大三",
+//     "大四",
+//     "研一",
+//     "研二",
+//     "研三",
+// ];

@@ -1,4 +1,4 @@
-export const Collects = [
+export const Colleges = [
     "其他",
     "东华理工大学",
     "江西理工大学",
@@ -15,3 +15,4 @@ export const Grade = [
     "研二",
     "研三",
 ];
+

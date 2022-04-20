@@ -31,6 +31,7 @@ export default {
             const userId = JSON.parse(localStorage.getItem("userId"));
             // 说明登录过
             if (userId) {
+                if (store.state.userInfo !== "") return;
                 const nowTime = new Date().getTime();
                 // 如果三天内未登录，就需要登录
                 if (nowTime - userId.loginTime < Timeout) {
