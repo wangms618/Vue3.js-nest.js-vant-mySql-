@@ -20,14 +20,20 @@ export const TitleTextByType = {
     [TitleType.HOMEPAGE]: TitleText.HOMEPAGE,
 };
 
-// export const Grade = [
-//     "其他",
-//     "大一",
-//     "大二",
-//     "大三",
-//     "大四",
-//     "研一",
-//     "研二",
-//     "研三",
-// ];
+export const Grade = [
+    "年级未知",
+    "大一",
+    "大二",
+    "大三",
+    "大四",
+    "研一",
+    "研二",
+    "研三",
+];
 
+export const Colleges = [
+    "未知大学",
+    "东华理工大学",
+    "江西理工大学",
+    "东华理工大学长江学院",
+];

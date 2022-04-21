@@ -44,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "posts",
         component: () => import("../views/community/components/posts-page.vue"),
     },
+    {
+        path: "/setup",
+        name: "setup",
+        component: () => import("../views/homepage/components/setup-page.vue"),
+    },
 ];
 
 const router = createRouter({

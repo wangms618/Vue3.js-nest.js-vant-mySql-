@@ -27,6 +27,7 @@ const active = ref(0);
 const listInfo = [];
 const store = useStore();
 const isLogin = computed(() => (store.state.userInfo !== "" ? true : false));
+const userInfo = computed(() => store.state.userInfo);
 </script>
 
 <style lang="less" scoped>

@@ -1,16 +1,24 @@
 <template>
     <div class="card">
+        <div
+            class="iconfont icon-shezhixitongshezhigongnengshezhishuxing"
+            @click="handleSetup"
+        ></div>
         <div class="card-header">
             <div class="card-header__img">
                 <van-image
                     round
                     width="68"
                     height="68"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                    :src="userInfo.imgUrl"
                 />
             </div>
             <div class="card-header__name" v-if="isLogin">
-                <span>{{ nickname }}</span>
+                <div class="nickname">{{ userInfo.nickname }}</div>
+                <span class="college">{{
+                    getColleges(userInfo.colleges)
+                }}</span>
+                <span class="grade">{{ getGrade(userInfo.grade) }}</span>
             </div>
             <div class="card-header__name" v-else @click="handleLogin">
                 <span>登录/注册></span>
@@ -29,7 +37,7 @@
 <script>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { getColleges, getGrade } from "@/hooks/useGradeAndColleges";
 export default {
     props: {
         isLogin: {
@@ -41,21 +49,27 @@ export default {
         },
     },
     setup(props) {
-        const store = useStore();
         const router = useRouter();
+
         const handleLogin = () => {
             router.push("/login");
         };
+
+        const handleSetup = () => {
+            router.push("/setup");
+        };
+
         const show = computed(() =>
-            store.state.userInfo.show
-                ? store.state.userInfo.show
+            props.userInfo.show
+                ? props.userInfo.show
                 : "这个人比较懒，没有个性签名"
         );
-        const nickname = computed(() => store.state.userInfo.nickname);
         return {
             show,
-            nickname,
+            getColleges,
+            getGrade,
             handleLogin,
+            handleSetup,
         };
     },
 };
@@ -70,6 +84,13 @@ export default {
     padding: 20px;
     line-height: 20px;
     color: #fff;
+    position: relative;
+    .iconfont {
+        position: absolute;
+        font-size: 28px;
+        right: 20px;
+        top: 48px;
+    }
     &-header {
         width: 100%;
         height: 80px;
@@ -79,8 +100,16 @@ export default {
         &__name {
             margin-left: 20px;
             font-size: 20px;
-            display: flex;
-            align-items: center;
+            .nickname {
+                margin: 10px 0;
+            }
+            .college {
+                font-size: 12px;
+                margin-right: 10px;
+            }
+            .grade {
+                font-size: 12px;
+            }
         }
     }
     &-content {
