@@ -32,15 +32,13 @@
             </div>
         </div>
         <div class="posts-comments">
-            <div class="comment-header">全部评论 </div>
-            <div class="comment-content" >
-                <UserBar :type="2" :img-height="32" :img-width="32"></UserBar>
-                <div class="comment-content__info">回复在此</div>
-                <div class="comment-content__reply">
-                    <span class="timer">1小时前</span>
-                    <span class="reply">回复</span>
-                </div>
-            </div>
+            <div class="comment-header">全部评论</div>
+            <ReplyPage
+                v-for="reply in postsReply"
+                :key="reply.id"
+                :reply-list="reply"
+            >
+            </ReplyPage>
         </div>
     </div>
     <div class="reply">
@@ -50,7 +48,7 @@
                 width="25"
                 height="25"
                 fit="cover"
-                src="https://img1.baidu.com/it/u=3489534312,3743866914&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=375"
+                :src="userImgUrl"
             />
             <span>我来评论</span>
         </div>
@@ -70,7 +68,7 @@
                 show-word-limit
             />
         </div>
-        <div class="reply-push">
+        <div class="reply-push" @click="handlePushReply">
             <span class="push-button">发送</span>
         </div>
     </van-popup>
@@ -78,22 +76,28 @@
 
 <script>
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import { onBeforeMount, computed, ref } from "vue";
 import { HeaderBar, UserBar } from "@/views/bars";
 import { ImagePreview } from "vant";
-import { getPostById } from "@/api/services/index";
+import { getPostById, createRootReply } from "@/api/services/index";
 import { TopicOptions } from "@/views/const";
+import ReplyPage from "./reply-page.vue";
 export default {
     components: {
+        ReplyPage,
         HeaderBar,
         UserBar,
         [ImagePreview.Component.name]: ImagePreview.Component,
     },
     setup() {
+        const store = useStore();
         const userInfo = ref(false);
-        const replyValue = ref("你您");
+        const replyValue = ref("");
         const route = useRoute();
         const posts = ref("");
+        const postsReply = computed(() => posts.value.reply);
+        const userImgUrl = computed(() => store.state.userInfo.imgUrl);
         const images = computed(() => posts.value.imgList);
         const showPictureOne = computed(() => {
             if (posts.value !== "") {
@@ -133,16 +137,34 @@ export default {
                 clickNum: clickNum,
             };
         });
+
+        const handlePushReply = async () => {
+            // 向数据库传值
+            const payload = {
+                content: replyValue.value,
+                user_id: store.state.userInfo.id,
+                postsId: route.params.id,
+                user_nickname: store.state.userInfo.nickname,
+                user_imgUrl: store.state.userInfo.imgUrl,
+            };
+            // 上传评论
+            const data = await createRootReply(payload);
+            console.log(data);
+            replyValue.value = "";
+        };
         return {
             posts,
             showPopup,
             userInfo,
             images,
+            postsReply,
+            userImgUrl,
             replyValue,
             TopicOptions,
             showPictureOne,
             showImage,
             handleOpenPopup,
+            handlePushReply,
         };
     },
 };
@@ -214,33 +236,12 @@ export default {
 .posts-comments {
     box-sizing: border-box;
     padding: 16px;
+    padding-bottom: 32px;
     .comment-header {
         font-size: 20px;
         font-weight: bold;
         height: 26px;
         line-height: 26px;
-    }
-    .comment-content {
-        box-sizing: border-box;
-        padding: 10px 0;
-        border-bottom: 1px solid rgb(244, 241, 241);
-        .author {
-            margin-bottom: 0;
-        }
-        &__info {
-            line-height: 24px;
-            font-size: 14px;
-            padding-left: 42px;
-            padding-right: 32px;
-            margin-bottom: 10px;
-        }
-        &__reply {
-            padding-left: 42px;
-            .timer {
-                color: rgb(200, 198, 196);
-                margin-right: 20px;
-            }
-        }
     }
 }
 .reply {

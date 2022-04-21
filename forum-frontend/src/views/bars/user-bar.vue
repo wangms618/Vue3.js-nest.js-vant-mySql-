@@ -43,10 +43,8 @@ export default {
     },
 
     setup(props) {
-        const url = ref("");
+        const url = ref("http://wfish.asia/%E7%A9%BA%E5%A4%B4%E5%83%8F.png");
         const nickname = ref("");
-        const colleges = ref("");
-        const grade = ref("");
         const createTime = ref("");
         const showState = computed(() => (props.type == 1 ? true : false));
         watch(
@@ -54,15 +52,11 @@ export default {
             val => {
                 url.value = val.url;
                 nickname.value = val.nickname;
-                colleges.value = val.colleges;
-                grade.value = val.grade;
                 createTime.value = val.createTime;
             }
         );
         return {
             url,
-            grade,
-            colleges,
             nickname,
             createTime,
             showState,
