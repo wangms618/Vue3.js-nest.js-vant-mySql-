@@ -33,6 +33,7 @@
         </div>
         <div class="posts-comments">
             <div class="comment-header">全部评论</div>
+
             <ReplyPage
                 v-for="reply in postsReply"
                 :key="reply.id"
@@ -96,7 +97,10 @@ export default {
         const replyValue = ref("");
         const route = useRoute();
         const posts = ref("");
-        const postsReply = computed(() => posts.value.reply);
+        const postsReply = ref([]);
+        const showReply = computed(() =>
+            postsReply.value.length == 0 ? false : true
+        );
         const userImgUrl = computed(() => store.state.userInfo.imgUrl);
         const images = computed(() => posts.value.imgList);
         const showPictureOne = computed(() => {
@@ -120,6 +124,7 @@ export default {
         // 取到id，然后调用接口获取数据
         onBeforeMount(async () => {
             posts.value = await getPostById(route.params.id);
+            postsReply.value = posts.value.reply;
             const {
                 user_nickname,
                 user_imgUrl,
@@ -149,13 +154,13 @@ export default {
             };
             // 上传评论
             const data = await createRootReply(payload);
-            console.log(data);
             replyValue.value = "";
         };
         return {
             posts,
             showPopup,
             userInfo,
+            showReply,
             images,
             postsReply,
             userImgUrl,

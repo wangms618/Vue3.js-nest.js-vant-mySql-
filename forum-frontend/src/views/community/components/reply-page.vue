@@ -1,21 +1,31 @@
 <template>
     <div class="comment-content">
-        <UserBar
-            :type="2"
-            :img-height="32"
-            :img-width="32"
-            :user-info="userInfo"
-        ></UserBar>
-        <div class="comment-content__info">{{ content }}</div>
+        <div class="author">
+            <div class="author-img">
+                <van-image
+                    round
+                    :width="32"
+                    :height="32"
+                    :src="replyList.user_imgUrl"
+                />
+            </div>
+            <div class="author-info">
+                <div class="responder-info__nickname">
+                    {{ replyList.user_nickname }}
+                </div>
+            </div>
+        </div>
+        <div class="comment-content__info">{{ replyList.content }}</div>
         <div class="comment-content__reply">
-            <span class="timer">{{ timeFormatting(createTime) }}</span>
+            <span class="timer">{{
+                timeFormatting(replyList.createTime)
+            }}</span>
             <span class="reply">回复</span>
         </div>
     </div>
 </template>
 
 <script>
-import { UserBar } from "../../bars/index";
 import { ref, watch } from "vue";
 import { timeFormatting } from "@/hooks/useChangeTime";
 export default {
@@ -23,9 +33,6 @@ export default {
         replyList: {
             type: Object,
         },
-    },
-    components: {
-        UserBar,
     },
 
     setup(props) {
@@ -60,7 +67,27 @@ export default {
     padding: 10px 0;
     border-bottom: 1px solid rgb(244, 241, 241);
     .author {
-        margin-bottom: 0;
+        box-sizing: border-box;
+        display: flex;
+        &-info {
+            margin-left: 10px;
+            line-height: 24px;
+            &__nickname {
+                height: 24px;
+                font-size: 16px;
+                letter-spacing: 6px;
+                font-family: SourceHanSansSC-bold;
+                font-weight: 600;
+            }
+            .responder-info__nickname {
+                font-weight: bold;
+                line-height: 20px;
+                height: 20px;
+            }
+            &__time {
+                color: #666970;
+            }
+        }
     }
     &__info {
         line-height: 24px;
