@@ -22,8 +22,16 @@ export class ReplyEntity {
     @Column()
     user_id: number;
 
+    // 用户名
+    @Column()
+    user_nickname: string;
+
+    // 用户头像
+    @Column()
+    user_imgUrl: string;
+
     // 回复目标评论id
-    @Column({ default: null })
+    @Column({ default: 0 })
     toCommentId: number;
 
     // 点赞数
@@ -31,8 +39,11 @@ export class ReplyEntity {
     commentLikeCount: number;
 
     // 回复顶级评论的id
-    @Column()
+    @Column({ default: 0 })
     rootCommentId: number;
+
+    @Column()
+    postsId: number;
 
     // 和文章是多对一关系
     @ManyToOne(type => PostsEntity, posts => posts.reply)
