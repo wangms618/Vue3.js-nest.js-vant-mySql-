@@ -88,16 +88,25 @@ router.beforeEach((to, form, next) => {
                 next();
             });
     } else {
-        if (to.path == "/edit-posts" && store.state.userInfo == "") {
-            Dialog.confirm({
-                message: "进入此页面需要登录，是否登录？",
-            })
-                .then(() => {
-                    next({ name: "login" });
+        if (store.state.userInfo == "") {
+            if (
+                to.path == "/community" ||
+                to.path == "/homepage" ||
+                to.path == "/login" ||
+                to.path == "/register"
+            ) {
+                next();
+            } else {
+                Dialog.confirm({
+                    message: "进入此页面需要登录，是否登录？",
                 })
-                .catch(() => {
-                    return false;
-                });
+                    .then(() => {
+                        next({ name: "login" });
+                    })
+                    .catch(() => {
+                        return false;
+                    });
+            }
         } else {
             next();
         }
