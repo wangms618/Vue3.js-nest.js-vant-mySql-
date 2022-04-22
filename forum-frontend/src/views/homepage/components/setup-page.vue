@@ -13,35 +13,39 @@
                 <span>头像</span>
                 <van-image width="40" height="40" :src="userInfo.imgUrl" />
             </div>
-            <div class="setup-info__item nickname">
+            <div class="setup-info__item nickname" @click="handleChange(1)">
                 <span>昵称</span>
                 <span>{{ userInfo.nickname }}<van-icon name="arrow" /></span>
             </div>
-            <div class="setup-info__item name">
+            <div class="setup-info__item name" @click="handleChange(2)">
                 <span>姓名</span>
                 <span>{{ userInfo.username }}<van-icon name="arrow" /></span>
             </div>
-            <div class="setup-info__item show">
+            <div class="setup-info__item show" @click="handleChange(3)">
                 <span>个性签名</span>
                 <span>{{ userInfo.show }}<van-icon name="arrow" /></span>
             </div>
-            <div class="setup-info__item sex">
+            <div class="setup-info__item sex" @click="handleChange(4)">
                 <span>性别</span>
                 <span>{{ userInfo.sex }}<van-icon name="arrow" /></span>
             </div>
-            <div class="setup-info__item birthday">
+            <div class="setup-info__item birthday" @click="handleChange(5)">
                 <span>生日</span>
                 <span>{{ userInfo.birthday }}<van-icon name="arrow" /></span>
             </div>
-            <div class="setup-info__item colleges">
+            <div class="setup-info__item colleges" @click="handleChange(6)">
                 <span>大学</span>
-                <span>{{ getColleges(userInfo.colleges)}}<van-icon name="arrow" /></span>
+                <span
+                    >{{ getColleges(userInfo.colleges) }}<van-icon name="arrow"
+                /></span>
             </div>
-            <div class="setup-info__item grade">
+            <div class="setup-info__item grade" @click="handleChange(7)">
                 <span>年级</span>
-                <span>{{ getGrade(userInfo.grade) }}<van-icon name="arrow" /></span>
+                <span
+                    >{{ getGrade(userInfo.grade) }}<van-icon name="arrow"
+                /></span>
             </div>
-            <div class="setup-info__item phone">
+            <div class="setup-info__item phone" @click="handleChange(8)">
                 <span>手机号</span>
                 <span>{{ userInfo.phone }} <van-icon name="arrow" /></span>
             </div>
@@ -52,24 +56,118 @@
         </div>
         <van-button type="primary" size="large">退出登录</van-button>
     </div>
+
+    <van-dialog v-model:show="showDialog" show-cancel-button>
+        <van-field
+            v-model="fieldValue"
+            :label-width="60"
+            :label="dialogLabel"
+            :placeholder="`请输入新${dialogLabel}`"
+        />
+    </van-dialog>
 </template>
 
 <script>
 import { Toast } from "vant";
 import { useStore } from "vuex";
 import { getColleges, getGrade } from "@/hooks/useGradeAndColleges";
+import { ref, reactive, watch } from "vue";
+import { Dialog } from "vant";
 export default {
+    components: {
+        [Dialog.Component.name]: Dialog.Component,
+    },
     setup() {
         const store = useStore();
-        const userInfo = store.state.userInfo;
+        const userInfo = reactive(store.state.userInfo);
+        const fieldValue = ref("");
+        const dialogLabel = ref("");
+        const showDialog = ref(false);
+        const handleChange = index => {
+            switch (index) {
+                case 1:
+                    handleChangeDialog("昵称", index);
+                    break;
+
+                case 2:
+                    handleChangeDialog("姓名", index);
+                    break;
+
+                case 3:
+                    handleChangeDialog("个性签名", index);
+                    break;
+
+                case 4:
+                    handleChangeDialog("性别", index);
+                    break;
+
+                case 5:
+                    handleChangeDialog("生日", index);
+                    break;
+                case 8:
+                    handleChangeDialog("手机号", index);
+                    break;
+            }
+        };
+        const handleChangeDialog = (label, index) => {
+            showDialog.value = true;
+            dialogLabel.value = label;
+            switch (index) {
+                case 1:
+                    fieldValue.value = userInfo.nickname;
+                    break;
+                case 2:
+                    fieldValue.value = userInfo.username;
+                    break;
+                case 3:
+                    fieldValue.value = userInfo.show;
+                    break;
+                case 4:
+                    fieldValue.value = userInfo.sex;
+                    break;
+                case 5:
+                    fieldValue.value = userInfo.birthday;
+                    break;
+                case 8:
+                    fieldValue.value = userInfo.phone;
+                    break;
+            }
+        };
         const onClickLeft = () => history.back();
-        const onClickRight = () => Toast("按钮");
+        const onClickRight = () => Toast("保存");
+        watch(
+            () => fieldValue.value,
+            val => {
+                if (dialogLabel.value == "昵称") {
+                    userInfo.nickname = val;
+                }
+                if (dialogLabel.value == "姓名") {
+                    userInfo.username = val;
+                }
+                if (dialogLabel.value == "个性签名") {
+                    userInfo.show = val;
+                }
+                if (dialogLabel.value == "性别") {
+                    userInfo.sex = val;
+                }
+                if (dialogLabel.value == "生日") {
+                    userInfo.birthday = val;
+                }
+                if (dialogLabel.value == "手机号") {
+                    userInfo.phone = val;
+                }
+            }
+        );
         return {
+            showDialog,
+            dialogLabel,
             userInfo,
+            fieldValue,
             getColleges,
             getGrade,
             onClickLeft,
             onClickRight,
+            handleChange,
         };
     },
 };
