@@ -26,8 +26,8 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch } from "vue";
-
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 export default {
     props: {
         // 页面名称
@@ -41,20 +41,31 @@ export default {
         // 页面名称数组
         const pages = ["冻梨社区", "发布帖子", "我的回复", "我的主页"];
         const active = ref(0);
+        const route = useRoute();
         // 页面当前标题
-        const title = computed(() => {
-            return pages[active.value];
-        });
-        // 监听传入的页面名称，激活对应Tabbar图标
+        const title = ref("冻梨社区");
         watch(
-            () => props.pagesName,
-            () => {
-                active.value = pages.indexOf(props.pagesName);
-            }
+            () => route.path,
+            val => {
+                if (val == "/community") {
+                    active.value = 0;
+                    title.value = pages[0];
+                }
+                if (val == "/edit-posts") {
+                    active.value = 1;
+                    title.value = pages[1];
+                }
+                if (val == "/reply") {
+                    active.value = 2;
+                    title.value = pages[2];
+                }
+                if (val == "/homepage") {
+                    active.value = 3;
+                    title.value = pages[3];
+                }
+            },
+            { immediate: true }
         );
-
-        // 当前所在页面下标
-
         return {
             active,
             title,

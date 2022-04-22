@@ -1,42 +1,49 @@
 <template>
     <div>
         <!-- 顶部标签栏 -->
-        <HeaderBar :title="title" @back="handlePageBack"></HeaderBar>
+        <HeaderBar :title="title"></HeaderBar>
         <router-view></router-view>
         <!-- 底部标签栏 -->
-        <TabBar @change-title="handleChangeTitle" :pagesName="title"></TabBar>
+        <TabBar></TabBar>
     </div>
 </template>
 
 <script lang="ts">
 import { TabBar, HeaderBar } from "./bars";
-import { ref} from "vue";
-import { TitleTextByType } from "./types";
+import { ref, watch } from "vue";
 
+import { useRoute } from "vue-router";
 export default {
     components: {
         HeaderBar,
         TabBar,
     },
     setup() {
-
+        const route = useRoute();
         // 对应NavBar的标题
         const title = ref("冻梨社区");
-        // 子组件Tabbar变动时，调用这个函数传给子组件Navbar标题
-        const handleChangeTitle = value => {
-            title.value = value;
-        };
-        // 返回上一次页面
-        const handlePageBack = path => {
-            const titleType = path.replace(/\//, "");
-            title.value = TitleTextByType[titleType];
-        };
+        const pages = ["冻梨社区", "发布帖子", "我的回复", "我的主页"];
+        watch(
+            () => route.path,
+            val => {
+                if (val == "/community") {
+                    title.value = pages[0];
+                }
+                if (val == "/edit-posts") {
+                    title.value = pages[1];
+                }
+                if (val == "/reply") {
+                    title.value = pages[2];
+                }
+                if (val == "/homepage") {
+                    title.value = pages[3];
+                }
+            },
+            { immediate: true }
+        );
 
         return {
             title,
-            handleChangeTitle,
-            handlePageBack,
-            // handlePush,
         };
     },
 };

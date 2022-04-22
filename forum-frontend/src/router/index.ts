@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-
+import { useStore } from "vuex";
+const store = useStore();
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",

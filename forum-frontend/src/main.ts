@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
 import store from "./store";
+import router from "./router";
 import "@/common/style/reset.css";
 import {
     Icon,
@@ -88,6 +88,18 @@ router.beforeEach((to, form, next) => {
                 next();
             });
     } else {
-        next();
+        if (to.path == "/edit-posts" && store.state.userInfo == "") {
+            Dialog.confirm({
+                message: "进入此页面需要登录，是否登录？",
+            })
+                .then(() => {
+                    next({ name: "login" });
+                })
+                .catch(() => {
+                    return false;
+                });
+        } else {
+            next();
+        }
     }
 });
