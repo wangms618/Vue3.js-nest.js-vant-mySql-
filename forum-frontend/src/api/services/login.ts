@@ -8,7 +8,5 @@ export async function login(account: string) {
     return data.data;
 }
 
-export async function getUserInfo(id: number) {
-    const data = await instance.get(`user/${id}`);
-    return data.data;
-}
+
+

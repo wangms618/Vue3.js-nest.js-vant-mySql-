@@ -49,12 +49,17 @@
                 <span>手机号</span>
                 <span>{{ userInfo.phone }} <van-icon name="arrow" /></span>
             </div>
-            <div class="setup-info__item password">
+            <div
+                class="setup-info__item password"
+                @click="handleChangePassword"
+            >
                 <span>修改密码</span>
                 <span><van-icon name="arrow" /></span>
             </div>
         </div>
-        <van-button type="primary" size="large">退出登录</van-button>
+        <van-button type="primary" size="large" @click="handleExit"
+            >退出登录</van-button
+        >
     </div>
 
     <van-dialog v-model:show="showDialog" show-cancel-button>
@@ -65,24 +70,61 @@
             :placeholder="`请输入新${dialogLabel}`"
         />
     </van-dialog>
+    <van-dialog
+        v-model:show="showPasswordDialog"
+        show-cancel-button
+        @confirm="handleCheckPassword"
+    >
+        <van-field
+            v-model="oldPassword"
+            :label-width="60"
+            label="旧密码"
+            type="password"
+            :placeholder="`请输入旧密码`"
+        />
+        <van-field
+            v-model="newPassword"
+            :label-width="60"
+            label="新密码"
+            type="password"
+            :placeholder="`请输入新密码`"
+        />
+        <van-field
+            v-model="newPasswordTwo"
+            :label-width="60"
+            label="再输一次"
+            type="password"
+            :placeholder="`重复输入新密码`"
+        />
+    </van-dialog>
 </template>
 
 <script>
 import { Toast } from "vant";
+import { modifyUserInfo, getUserInfo } from "@/api/services";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { getColleges, getGrade } from "@/hooks/useGradeAndColleges";
 import { ref, reactive, watch } from "vue";
 import { Dialog } from "vant";
+import { cloneDeep } from "lodash";
+import { checkPassword } from "@/hooks/useLogin";
+import bcrypt from "bcryptjs";
 export default {
     components: {
         [Dialog.Component.name]: Dialog.Component,
     },
     setup() {
+        const router = useRouter();
         const store = useStore();
-        const userInfo = reactive(store.state.userInfo);
+        const userInfo = reactive(cloneDeep(store.state.userInfo));
         const fieldValue = ref("");
         const dialogLabel = ref("");
         const showDialog = ref(false);
+        const oldPassword = ref("");
+        const newPassword = ref("");
+        const newPasswordTwo = ref("");
+        const showPasswordDialog = ref(false);
         const handleChange = index => {
             switch (index) {
                 case 1:
@@ -123,6 +165,7 @@ export default {
                     fieldValue.value = userInfo.show;
                     break;
                 case 4:
+                    1;
                     fieldValue.value = userInfo.sex;
                     break;
                 case 5:
@@ -134,7 +177,85 @@ export default {
             }
         };
         const onClickLeft = () => history.back();
-        const onClickRight = () => Toast("保存");
+        const onClickRight = async () => {
+            // 保存，调用接口
+            const data = await modifyUserInfo(userInfo.id, {
+                user_nickname: userInfo.nickname,
+                user_name: userInfo.username,
+                user_birthday: userInfo.birthday,
+                user_sex: userInfo.sex,
+                user_phone: userInfo.phone,
+                user_show: userInfo.show,
+            });
+            if (data) {
+                const user = await getUserInfo(userInfo.id);
+                store.dispatch("insertUserInfo", user);
+                Toast.success("更新成功");
+            }
+        };
+
+        const handleChangePassword = () => {
+            showPasswordDialog.value = true;
+        };
+
+        const handleCheckPassword = async () => {
+            if (newPassword.value == "") {
+                Toast.fail("请输入新密码");
+                return;
+            }
+            if (oldPassword.value == "") {
+                Toast.fail("请输入旧密码");
+                return;
+            }
+            if (newPasswordTwo.value == "") {
+                Toast.fail("请再次输入新密码");
+                return;
+            }
+            if (newPassword.value !== newPasswordTwo.value) {
+                Toast.fail("两次输入密码不一致！！！");
+                return;
+            }
+            // 获取到密钥
+            const flag = await checkPassword(
+                oldPassword.value,
+                store.state.userInfo
+            );
+
+            if (flag) {
+                // 修改
+                let loading = true;
+                Toast.loading({
+                    message: "修改中...",
+                    forbidClick: loading,
+                });
+                const salt = bcrypt.genSaltSync(12);
+                newPassword.value = bcrypt.hashSync(newPassword.value, salt);
+                const data = await modifyUserInfo(userInfo.id, {
+                    user_password: newPassword.value,
+                });
+                loading = false;
+                if (data) {
+                    Toast.success("修改成功！");
+                } else {
+                    Toast.fail("修改失败");
+                }
+            } else {
+                Toast.fail("原密码错误");
+                return;
+            }
+        };
+
+        const handleExit = () => {
+            Dialog.confirm({
+                title: "是否退出登录？",
+            }).then(() => {
+                // on confirm
+                localStorage.removeItem("userId");
+                store.dispatch("insertUserInfo", "");
+                Toast.success("已退出，请重新登录");
+                router.push("/login");
+            });
+        };
         watch(
             () => fieldValue.value,
             val => {
@@ -163,11 +284,18 @@ export default {
             dialogLabel,
             userInfo,
             fieldValue,
+            oldPassword,
+            newPassword,
+            newPasswordTwo,
+            showPasswordDialog,
+            handleExit,
             getColleges,
             getGrade,
             onClickLeft,
             onClickRight,
             handleChange,
+            handleChangePassword,
+            handleCheckPassword,
         };
     },
 };
