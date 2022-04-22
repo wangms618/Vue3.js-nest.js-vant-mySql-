@@ -5,6 +5,7 @@ import {
     CHANGE_FILELIST,
     CHANGE_TOPIC,
     INSERT_USER_INFO,
+    INSERT_POSTS_INFO,
 } from "./types";
 export default createStore({
     state: {
@@ -15,6 +16,7 @@ export default createStore({
             fileList: [],
         },
         userInfo: "",
+        postsList: "",
     },
     mutations: {
         [CHANGE_TITLE]({ posts }, value) {
@@ -32,6 +34,9 @@ export default createStore({
         [INSERT_USER_INFO](state, value) {
             state.userInfo = value;
         },
+        [INSERT_POSTS_INFO](state, value) {
+            state.postsList = value;
+        },
     },
     actions: {
         [CHANGE_TITLE]({ commit }, value) {
@@ -48,6 +53,9 @@ export default createStore({
         },
         [INSERT_USER_INFO]({ commit }, value) {
             commit(INSERT_USER_INFO, value);
+        },
+        [INSERT_POSTS_INFO]({ commit }, value) {
+            commit(INSERT_POSTS_INFO, value);
         },
     },
     modules: {},

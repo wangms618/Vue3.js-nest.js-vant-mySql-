@@ -10,7 +10,7 @@ export async function createPosts(payload) {
 // 获取文章列表
 export async function getPostsList(): Promise<PostsList> {
     const data = await instance.get("posts");
-    if (data) {
+    if (data.data) {
         const len = data.data.list.length;
         for (let i = 0; i < len; i++) {
             data.data.list[i].imgList = JSON.parse(data.data.list[i].imgList);
@@ -23,5 +23,21 @@ export async function getPostsList(): Promise<PostsList> {
 export async function getPostById(id: number): Promise<Posts> {
     const data = await instance.get(`posts/${id}`);
     data.data.imgList = JSON.parse(data.data.imgList);
+    return data.data;
+}
+
+// 获取单个用户所有文章
+export async function getPostByUser(id) {
+    const data = await instance.get("/posts/userId", {
+        params: {
+            id,
+        },
+    });
+    if (data.data) {
+        const len = data.data.length;
+        for (let i = 0; i < len; i++) {
+            data.data[i].imgList = JSON.parse(data.data[i].imgList);
+        }
+    }
     return data.data;
 }

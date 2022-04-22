@@ -2,6 +2,7 @@
     <div class="card">
         <div
             class="iconfont icon-shezhixitongshezhigongnengshezhishuxing"
+            v-if="showSetup"
             @click="handleSetup"
         ></div>
         <div class="card-header">
@@ -10,7 +11,7 @@
                     round
                     width="68"
                     height="68"
-                    :src="userInfo.imgUrl"
+                    :src="userInfo.imgUrl || baseUrl"
                 />
             </div>
             <div class="card-header__name" v-if="isLogin">
@@ -37,6 +38,7 @@
 <script>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { getColleges, getGrade } from "@/hooks/useGradeAndColleges";
 export default {
     props: {
@@ -49,6 +51,11 @@ export default {
         },
     },
     setup(props) {
+        const store = useStore();
+        const showSetup = computed(() =>
+            store.state.userInfo !== "" ? true : false
+        );
+        const baseUrl = "http://wfish.asia/%E7%A9%BA%E5%A4%B4%E5%83%8F.png";
         const router = useRouter();
 
         const handleLogin = () => {
@@ -66,6 +73,8 @@ export default {
         );
         return {
             show,
+            baseUrl,
+            showSetup,
             getColleges,
             getGrade,
             handleLogin,

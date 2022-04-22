@@ -25,8 +25,10 @@ export default {
                     localStorage.setItem("userId", JSON.stringify(userId));
                     // 接口请求，去获取对应id的数据
                     const userInfo = await services.getUserInfo(userId.id);
+                    const postsInfo = await services.getPostByUser(userId.id);
                     Toast.success("已登录");
                     // 将用户数据放入vuex
+                    store.dispatch("insertPostsInfo", postsInfo);
                     store.dispatch("insertUserInfo", userInfo);
                 } else {
                     localStorage.removeItem("userId");
