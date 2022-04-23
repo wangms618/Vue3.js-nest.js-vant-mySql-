@@ -2,7 +2,9 @@
     <div class="posts">
         <HeaderBar title="文章详情"></HeaderBar>
         <div class="posts-detail">
+            <div class="title">{{ posts.title }}</div>
             <UserBar :user-info="userInfo"></UserBar>
+
             <div class="content">
                 {{ posts.content }}
             </div>
@@ -80,7 +82,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { onBeforeMount, computed, ref } from "vue";
 import { HeaderBar, UserBar } from "@/views/bars";
-import { ImagePreview } from "vant";
+import { ImagePreview, Toast } from "vant";
 import { getPostById, createRootReply } from "@/api/services/index";
 import { TopicOptions } from "@/views/const";
 import ReplyPage from "./reply-page.vue";
@@ -145,6 +147,10 @@ export default {
 
         const handlePushReply = async () => {
             // 向数据库传值
+            if (replyValue.value.trim() == "") {
+                Toast.fail("请输入评论再提交");
+                return;
+            }
             const payload = {
                 content: replyValue.value,
                 user_id: store.state.userInfo.id,
@@ -155,6 +161,9 @@ export default {
             // 上传评论
             const data = await createRootReply(payload);
             replyValue.value = "";
+            showPopup.value = false;
+            posts.value = await getPostById(route.params.id);
+            postsReply.value = posts.value.reply;
         };
         return {
             posts,
@@ -181,7 +190,13 @@ export default {
     box-sizing: border-box;
     padding: 16px;
     border-bottom: 10px solid rgb(244, 241, 241);
-
+    .title {
+        line-height: 32px;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
     .content {
         line-height: 24px;
         font-size: 16px;

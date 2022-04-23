@@ -6,6 +6,7 @@
                 clearable
                 label-width="40"
                 v-model="title"
+                :maxlength="30"
                 placeholder="请输入标题"
             />
         </div>

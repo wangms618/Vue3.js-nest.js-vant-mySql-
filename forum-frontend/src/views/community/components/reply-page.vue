@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
 import { timeFormatting } from "@/hooks/useChangeTime";
 export default {
     props: {
@@ -35,26 +34,8 @@ export default {
         },
     },
 
-    setup(props) {
-        const content = ref("");
-        const userInfo = ref({});
-        const createTime = ref("");
-        watch(
-            () => props.replyList,
-            reply => {
-                content.value = reply.content;
-                createTime.value = reply.create_time;
-                userInfo.value = {
-                    nickname: reply.user_nickname,
-                    url: reply.user_imgUrl,
-                    createTime: reply.create_time,
-                };
-            }
-        );
+    setup() {
         return {
-            content,
-            userInfo,
-            createTime,
             timeFormatting,
         };
     },

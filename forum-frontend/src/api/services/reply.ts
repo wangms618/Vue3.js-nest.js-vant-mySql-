@@ -5,8 +5,18 @@ export async function createRootReply(payload) {
     console.log(data);
 }
 
-// 二级评论
-// export async function createSecondReply() {}
+// 获取一个用户的所有评论
+export async function getReplysById(user_id) {
+    const data = await instance.get("reply/userId", {
+        params: {
+            user_id,
+        },
+    });
+    return data.data;
+}
 
-// // 二级评论的评论
-// export async function createByCommentReply() {}
+// 删除对应评论
+export async function deleteReply(id) {
+    const data = await instance.delete(`reply/${id}`);
+    return data.data;
+}

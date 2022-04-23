@@ -41,3 +41,9 @@ export async function getPostByUser(id) {
     }
     return data.data;
 }
+
+// 删除文章
+export async function deletePosts(id) {
+    const data = await instance.delete(`posts/${id}`);
+    return data.data;
+}

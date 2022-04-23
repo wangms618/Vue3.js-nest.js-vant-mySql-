@@ -6,25 +6,68 @@
                     round
                     width="60"
                     height="60"
-                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                    :src="reply.user_imgUrl"
                 />
             </div>
-            <div class="list-center">
+            <div class="list-center" @click="handleIntoPosts(reply.posts.id)">
                 <div class="list-posts">
-                    <span>某某某回复了你的评论</span>
+                    <span>{{ reply.posts.title }}</span>
                 </div>
-                <div class="list-content">二级评论</div>
-                <div class="list-timer">一小时前</div>
+                <div class="list-content">{{ reply.content }}</div>
+                <div class="list-timer">
+                    {{ timefromNow(reply.update_time) }}
+                </div>
             </div>
             <div class="list-right">
-                你好我机械厂撒大声地械厂撒大声械厂撒大声阿达未收到
+                {{ reply.posts.content }}
+            </div>
+            <div class="list-delete" @click="handleDelete(reply.id)">
+                <i class="iconfont icon-shanchu"></i>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {};
+import { useRouter } from "vue-router";
+import { timefromNow } from "@/hooks/useChangeTime";
+import { Dialog, Toast } from "vant";
+import { deleteReply } from "@/api/services";
+export default {
+    props: {
+        reply: {
+            type: Object,
+        },
+    },
+    setup(props, { emit }) {
+        const router = useRouter();
+        const handleIntoPosts = id => {
+            router.push({ name: "posts", params: { id: id } });
+        };
+
+        const handleDelete = id => {
+            Dialog.confirm({
+                message: "是否删除此评论？",
+            })
+                .then(async () => {
+                    // 接口调用
+                    const data = await deleteReply(id);
+                    if (data) {
+                        emit("deleteReply");
+                    }
+                    Toast.success("已删除");
+                })
+                .catch(() => {
+                    Toast("已取消");
+                });
+        };
+        return {
+            timefromNow,
+            handleDelete,
+            handleIntoPosts,
+        };
+    },
+};
 </script>
 
 <style lang="less" scoped>
@@ -52,13 +95,13 @@ export default {};
                 font-size: 16px;
                 color: #666666;
                 margin-bottom: 10px;
-                width: 200px;
+                width: 150px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
             .list-content {
-                width: 220px;
+                width: 150px;
                 font-size: 16px;
                 margin-bottom: 10px;
                 white-space: nowrap;
@@ -82,6 +125,15 @@ export default {};
             display: -webkit-box;
             -webkit-box-orient: vertical; /*设置方向*/
             -webkit-line-clamp: 3; /*设置超过为省略号的行数*/
+        }
+        .list-delete {
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i {
+                font-size: 24px;
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import {
     CHANGE_TOPIC,
     INSERT_USER_INFO,
     INSERT_POSTS_INFO,
+    RESET_POSTS,
 } from "./types";
 export default createStore({
     state: {
@@ -36,6 +37,12 @@ export default createStore({
         },
         [INSERT_POSTS_INFO](state, value) {
             state.postsList = value;
+        },
+        [RESET_POSTS]({ posts }, value) {
+            posts.title = "";
+            posts.content = "";
+            posts.topic = "";
+            posts.fileList = [];
         },
     },
     actions: {

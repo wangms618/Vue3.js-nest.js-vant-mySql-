@@ -75,7 +75,9 @@ createApp(App)
     .use(Toast)
     .mount("#app");
 
-router.beforeEach((to, form, next) => {
+import { Timeout } from "./views/const";
+import * as services from "@/api/services";
+router.beforeEach(async (to, form, next) => {
     if (form.path == "/" && !localStorage.getItem("firstEnter")) {
         Dialog.confirm({
             message: "查询到当前您未登录，是否跳转登录页",
@@ -97,15 +99,49 @@ router.beforeEach((to, form, next) => {
             ) {
                 next();
             } else {
-                Dialog.confirm({
-                    message: "进入此页面需要登录，是否登录？",
-                })
-                    .then(() => {
-                        next({ name: "login" });
+                const userId = JSON.parse(localStorage.getItem("userId"));
+                // 说明登录过
+                if (userId) {
+                    if (store.state.userInfo !== "") return;
+                    const nowTime = new Date().getTime();
+                    // 如果三天内未登录，就需要登录
+                    if (nowTime - userId.loginTime < Timeout) {
+                        userId.loginTime = nowTime;
+                        // 登录即更新一次
+                        localStorage.setItem("userId", JSON.stringify(userId));
+                        // 接口请求，去获取对应id的数据
+                        const userInfo = await services.getUserInfo(userId.id);
+                        const postsInfo = await services.getPostByUser(
+                            userId.id
+                        );
+                        Toast.success("已登录");
+                        // 将用户数据放入vuex
+                        store.dispatch("insertPostsInfo", postsInfo);
+                        store.dispatch("insertUserInfo", userInfo);
+                        next();
+                    } else {
+                        localStorage.removeItem("userId");
+                        Dialog.confirm({
+                            message: "该账号登录状态已过期，是否重新登录",
+                        })
+                            .then(() => {
+                                router.push("/login");
+                            })
+                            .catch(() => {
+                                Toast("进入游客模式");
+                            });
+                    }
+                } else {
+                    Dialog.confirm({
+                        message: "进入此页面需要登录，是否登录？",
                     })
-                    .catch(() => {
-                        return false;
-                    });
+                        .then(() => {
+                            next({ name: "login" });
+                        })
+                        .catch(() => {
+                            return false;
+                        });
+                }
             }
         } else {
             next();
