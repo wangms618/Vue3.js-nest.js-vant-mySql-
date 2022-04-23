@@ -66,13 +66,14 @@ export class UserService {
     }
 
     // 更新用户信息
-    async updateById(id, userInfo): Promise<UsersEntity> {
+    async updateById(id, userInfo): Promise<Boolean> {
         const existUser = await this.usersRepository.findOne(id);
         if (!existUser) {
             throw new HttpException(`id为${id}的用户不存在`, 403);
         }
         const updateUser = this.usersRepository.merge(existUser, userInfo);
-        return this.usersRepository.save(updateUser);
+        this.usersRepository.save(updateUser);
+        return true;
     }
 
     // 删除用户

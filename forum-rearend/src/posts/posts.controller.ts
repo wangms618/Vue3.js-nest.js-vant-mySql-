@@ -24,6 +24,16 @@ export class PostsController {
     }
 
     /**
+     * 获取某个用户的所有文章
+     * @param id
+     * @returns postList
+     */
+    @Get("userId")
+    async findByUser(@Query() query) {
+        return await this.postsService.findByUser(query.id);
+    }
+
+    /**
      * 获取指定文章
      * @param id
      */

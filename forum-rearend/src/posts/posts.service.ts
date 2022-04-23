@@ -48,6 +48,14 @@ export class PostsService {
         return { list: posts, count: count };
     }
 
+    // 获取单个用户的所有文章
+    async findByUser(id) {
+        const data = await this.postsRepository.find({
+            where: { user_id: id },
+        });
+        return data;
+    }
+
     // 获取指定文章
     async findById(id: number) {
         const post = await this.postsRepository.findOne(id, {

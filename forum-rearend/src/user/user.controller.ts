@@ -81,13 +81,13 @@ export class UserController {
     }
 
     /**
-     * 更新文章
+     * 更新用户
      * @param id
-     * @param post
+     * @param user
      */
     @Put(":id")
-    async update(@Param("id") id, @Body() post) {
-        return await this.userService.updateById(id, post);
+    async update(@Param("id") id, @Body() user) {
+        return await this.userService.updateById(id, user);
     }
 
     /**
