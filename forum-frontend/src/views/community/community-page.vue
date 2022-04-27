@@ -45,7 +45,15 @@ export default {
             }
         };
 
-        const handleChangeTopic = index => {
+        const handleChangeTopic = async index => {
+            const data = await getPostsList(
+                pageNum.value,
+                pageSize.value,
+                type.value,
+                topic.value
+            );
+            listInfo.value = data.list;
+            list.value.$el.parentNode.addEventListener("scroll", handleScroll);
             topic.value = index;
         };
         onMounted(async () => {
