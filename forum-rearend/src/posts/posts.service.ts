@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
 import { PostsEntity } from "./posts.entity";
 import { UsersEntity } from "@/user/user.entity";
 
@@ -46,6 +46,35 @@ export class PostsService {
 
         const posts = await qb.getMany();
         return { list: posts, count: count };
+    }
+
+    async findSearch(query) {
+        const { key } = query;
+        // const data = await this.postsRepository.find({
+        //     where: {
+        //         title: Like(`%${key}%`),
+        //         content: Like(`%${key}%`),
+        //         topic: Like(`%${key}%`),
+        //         user_nickname: Like(`%${key}%`),
+        //     },
+        // });
+        const data = await this.postsRepository.find({
+            where: [
+                {
+                    title: Like(`%${key}%`),
+                },
+                {
+                    content: Like(`%${key}%`),
+                },
+                {
+                    topic: Like(`%${key}%`),
+                },
+                {
+                    user_nickname: Like(`%${key}%`),
+                },
+            ],
+        });
+        return data;
     }
 
     // 获取单个用户的所有文章

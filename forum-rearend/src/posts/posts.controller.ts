@@ -33,6 +33,11 @@ export class PostsController {
         return await this.postsService.findByUser(query.id);
     }
 
+    @Get("searchPosts")
+    async findSearch(@Query() query) {
+        return await this.postsService.findSearch(query);
+    }
+    
     /**
      * 获取指定文章
      * @param id
