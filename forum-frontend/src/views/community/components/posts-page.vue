@@ -128,6 +128,7 @@ export default {
             posts.value = await getPostById(route.params.id);
             postsReply.value = posts.value.reply;
             const {
+                user_id,
                 user_nickname,
                 user_imgUrl,
                 user_colleges,
@@ -136,6 +137,7 @@ export default {
                 clickNum,
             } = posts.value;
             userInfo.value = {
+                id: user_id,
                 nickname: user_nickname,
                 url: user_imgUrl,
                 colleges: user_colleges,

@@ -50,6 +50,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "setup",
         component: () => import("../views/homepage/components/setup-page.vue"),
     },
+    {
+        path: "/user-page/:id",
+        name: "userpage",
+        component: () => import("../components/user-page.vue"),
+    },
 ];
 
 const router = createRouter({

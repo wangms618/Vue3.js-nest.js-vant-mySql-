@@ -1,7 +1,13 @@
 <template>
-    <div class="author">
+    <div class="author" @click="handleClick(userInfo.id)">
         <div class="author-img">
-            <van-image round :width="imgWidth" :height="imgHeight" :src="url" />
+            <van-image
+                fit="cover"
+                round
+                :width="imgWidth"
+                :height="imgHeight"
+                :src="url"
+            />
         </div>
         <div class="author-info">
             <div
@@ -23,6 +29,7 @@
 <script lang="ts">
 import { computed, watch, ref } from "vue";
 import { timeFormatting } from "@/hooks/useChangeTime";
+import { useRouter } from "vue-router";
 export default {
     props: {
         imgWidth: {
@@ -43,10 +50,14 @@ export default {
     },
 
     setup(props) {
+        const router = useRouter();
         const url = ref("http://wfish.asia/%E7%A9%BA%E5%A4%B4%E5%83%8F.png");
         const nickname = ref("");
         const createTime = ref("");
         const showState = computed(() => (props.type == 1 ? true : false));
+        const handleClick = id => {
+            router.push({ name: "userpage", params: { id } });
+        };
         watch(
             () => props.userInfo,
             val => {
@@ -60,6 +71,7 @@ export default {
             nickname,
             createTime,
             showState,
+            handleClick,
             timeFormatting,
         };
     },

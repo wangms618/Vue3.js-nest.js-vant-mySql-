@@ -44,9 +44,9 @@ export default {
                 event.target.scrollHeight
             ) {
                 Toast.loading({
-                    message: "列表加载中...",
+                    message: "列表剩余加载中...",
                     forbidClick: true,
-                    duration: 100,
+                    duration: 300,
                 });
                 if (scrollEnd.value == false) {
                     Toast("已经到底啦");
