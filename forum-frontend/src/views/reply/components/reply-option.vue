@@ -6,7 +6,7 @@
                 @click="handleChange(1)"
             >
                 <div class="iconfont icon-pinglun3"></div>
-                <span>回复</span>
+                <span>评论</span>
             </div>
             <div
                 :class="`reply-option__item ${active == 2 ? 'active' : ''}`"

@@ -7,19 +7,32 @@
         >
             <template #reference>
                 <van-search
+                    @click.stop
                     v-model="value"
                     @update:model-value="handleSearch"
                     :placeholder="placeholder"
+                    @focus="handleFocus"
+                    @blur="handleBlur"
                     @clear="handleClear"
                 />
             </template>
-            <van-cell v-for="item in list" :key="item" :title="item" />
+            <div class="box">
+                <div class="empty" v-if="list.length == 0">暂无内容</div>
+                <van-cell
+                    v-else
+                    v-for="item in list"
+                    :key="item.id"
+                    :title="item.title"
+                    @click="handleIntoPosts(item.id)"
+                />
+            </div>
         </van-popover>
     </div>
 </template>
 
 <script lang="ts">
-import { ref, computed, PropType, watch } from "vue";
+import { useRouter } from "vue-router";
+import { ref, computed, PropType } from "vue";
 import { debounce } from "lodash";
 export default {
     props: {
@@ -32,34 +45,44 @@ export default {
             default: () => [],
         },
     },
+
     setup(props, { emit }) {
+        const router = useRouter();
+
         const value = ref("");
 
         const list = computed(() => props.listInfo);
 
-        const showList = computed(() =>
-            list.value.length == 0 ? false : true
-        );
+        const showList = ref(false);
 
         const handleSearch = debounce((val: string) => {
             emit("search", val);
         }, 300);
 
+        const handleFocus = () => {
+            showList.value = true;
+        };
+
+        const handleBlur = () => {
+            showList.value = true;
+        };
+
         const handleClear = () => {
             value.value = "";
         };
-        watch(
-            () => props.listInfo,
-            val => {
-                console.log(val);
-            }
-        );
+        const handleIntoPosts = id => {
+            router.push({ name: "posts", params: { id } });
+        };
+
         return {
             value,
             showList,
             list,
             handleSearch,
             handleClear,
+            handleFocus,
+            handleBlur,
+            handleIntoPosts,
         };
     },
 };
@@ -69,6 +92,18 @@ export default {
 .search {
     /deep/.van-popover__wrapper {
         width: 100%;
+    }
+}
+.box {
+    width: 100%;
+    height: 20vh;
+    position: relative;
+    overflow-y: scroll;
+    .empty {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 </style>

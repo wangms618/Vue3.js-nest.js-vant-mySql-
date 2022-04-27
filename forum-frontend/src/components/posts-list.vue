@@ -1,5 +1,4 @@
 <template>
-    <!-- TODO 搞个v-for -->
     <div
         class="posts-list"
         v-for="list in postsList"

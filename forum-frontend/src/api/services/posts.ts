@@ -47,3 +47,19 @@ export async function deletePosts(id) {
     const data = await instance.delete(`posts/${id}`);
     return data.data;
 }
+
+// 关键词搜索文章
+export async function searchPosts(key) {
+    const data = await instance.get("posts/searchPosts", {
+        params: {
+            key,
+        },
+    });
+    if (data.data) {
+        const len = data.data.length;
+        for (let i = 0; i < len; i++) {
+            data.data[i].imgList = JSON.parse(data.data[i].imgList);
+        }
+    }
+    return data.data;
+}

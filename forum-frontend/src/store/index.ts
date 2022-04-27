@@ -4,6 +4,7 @@ import {
     CHANGE_CONTENT,
     CHANGE_FILELIST,
     CHANGE_TOPIC,
+    CHANGE_KEYWORDS,
     INSERT_USER_INFO,
     INSERT_POSTS_INFO,
     RESET_POSTS,
@@ -18,6 +19,7 @@ export default createStore({
         },
         userInfo: "",
         postsList: "",
+        searchKeywords: "",
     },
     mutations: {
         [CHANGE_TITLE]({ posts }, value) {
@@ -31,6 +33,9 @@ export default createStore({
         },
         [CHANGE_TOPIC]({ posts }, value) {
             posts.topic = value;
+        },
+        [CHANGE_KEYWORDS]({ searchKeywords }, value) {
+            searchKeywords = value;
         },
         [INSERT_USER_INFO](state, value) {
             state.userInfo = value;
@@ -57,6 +62,9 @@ export default createStore({
         },
         [CHANGE_TOPIC]({ commit }, value) {
             commit(CHANGE_TOPIC, value);
+        },
+        [CHANGE_KEYWORDS]({ commit }, value) {
+            commit(CHANGE_KEYWORDS, value);
         },
         [INSERT_USER_INFO]({ commit }, value) {
             commit(INSERT_USER_INFO, value);
