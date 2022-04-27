@@ -60,7 +60,7 @@ export default {
             };
             const data = await createPosts(payload);
             if (data) {
-                store.dispatch("resetRosts");
+                store.dispatch("resetPosts");
                 router.push({ name: "posts", params: { id: data.id } });
             } else {
                 Toast.fail("文章创建失败");

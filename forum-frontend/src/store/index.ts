@@ -43,7 +43,7 @@ export default createStore({
         [INSERT_POSTS_INFO](state, value) {
             state.postsList = value;
         },
-        [RESET_POSTS]({ posts }, value) {
+        [RESET_POSTS]({ posts }) {
             posts.title = "";
             posts.content = "";
             posts.topic = "";
@@ -71,6 +71,9 @@ export default createStore({
         },
         [INSERT_POSTS_INFO]({ commit }, value) {
             commit(INSERT_POSTS_INFO, value);
+        },
+        [RESET_POSTS]({ commit }) {
+            commit(RESET_POSTS);
         },
     },
     modules: {},

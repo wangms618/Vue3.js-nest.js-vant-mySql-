@@ -18,7 +18,7 @@ export const HANDLE_PUBLISH = "handlePublish";
 export const INSERT_POSTS_INFO = "insertPostsInfo";
 
 // 重置文章
-export const RESET_POSTS = "resetRosts";
+export const RESET_POSTS = "resetPosts";
 
 // 用户
 // 更新用户数据

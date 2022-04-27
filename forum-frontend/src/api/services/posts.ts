@@ -8,8 +8,20 @@ export async function createPosts(payload) {
 }
 
 // 获取文章列表
-export async function getPostsList(): Promise<PostsList> {
-    const data = await instance.get("posts");
+export async function getPostsList(
+    pageNum = 1,
+    pageSize = 10,
+    type = 0,
+    topic = 0
+): Promise<PostsList> {
+    const data = await instance.get("posts", {
+        params: {
+            pageNum,
+            pageSize,
+            type,
+            topic,
+        },
+    });
     if (data.data) {
         const len = data.data.list.length;
         for (let i = 0; i < len; i++) {

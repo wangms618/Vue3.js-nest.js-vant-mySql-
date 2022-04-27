@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <SearchBar @search="handleSearch" :list-info="listInfo"></SearchBar>
-        <van-tabs active="active" animated swipeable>
+        <van-tabs v-model:active="active" swipeable>
             <van-tab
                 v-for="pageInfo in PageInfo"
                 :title="pageInfo.title"
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, toRefs } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { SearchBar } from "@/components";
 import CommunityPage from "./community-page.vue";
@@ -30,12 +30,9 @@ export default {
     },
     setup() {
         const store = useStore();
-        let state = reactive({
-            data: {},
-        });
         const value = ref("");
         const listInfo = ref([]);
-        const active = ref<string>("hot");
+        const active = ref(0);
         const handleSearch = async (val: string) => {
             // 更新vuex的数据
             store.dispatch("changeKeywords", val);
@@ -44,7 +41,6 @@ export default {
             listInfo.value = data;
         };
         return {
-            ...toRefs(state),
             value,
             active,
             listInfo,

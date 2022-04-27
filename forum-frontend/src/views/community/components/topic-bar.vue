@@ -16,23 +16,24 @@
 </template>
 
 <script>
-import { ref } from "vue"
-import { TopicOptions } from "../const"
+import { ref } from "vue";
+import { TopicOptions } from "../const";
 export default {
     name: "topic-page",
     props: {},
-    setup() {
-        const activeOption = ref(0)
-        const handleClick = (index) => {
-            activeOption.value = index
-        }
+    setup(props, { emit }) {
+        const activeOption = ref(0);
+        const handleClick = index => {
+            emit("handleChangeTopic", index);
+            activeOption.value = index;
+        };
         return {
             TopicOptions,
             activeOption,
             handleClick,
-        }
+        };
     },
-}
+};
 </script>
 
 <style lang="less" scoped>

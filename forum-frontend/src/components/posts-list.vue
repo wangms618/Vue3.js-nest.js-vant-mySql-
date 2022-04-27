@@ -1,38 +1,40 @@
 <template>
-    <div
-        class="posts-list"
-        v-for="list in postsList"
-        :key="list.id"
-        @click="handleOpen(list.id)"
-    >
-        <div class="posts-left">
-            <div class="posts-title">
-                <span>{{ list.title }}</span>
-            </div>
-            <div class="posts-content">
-                {{ list.content }}
-            </div>
-            <div class="posts-foot">
-                <div class="posts-user">
-                    <span>@{{ list.user_nickname }}</span>
+    <div class="posts">
+        <div
+            class="posts-list"
+            v-for="list in postsList"
+            :key="list.id"
+            @click="handleOpen(list.id)"
+        >
+            <div class="posts-left">
+                <div class="posts-title">
+                    <span>{{ list.title }}</span>
                 </div>
-                <div class="posts-date">
-                    <span>{{ timefromNow(list.create_time) }}</span>
+                <div class="posts-content">
+                    {{ list.content }}
+                </div>
+                <div class="posts-foot">
+                    <div class="posts-user">
+                        <span>@{{ list.user_nickname }}</span>
+                    </div>
+                    <div class="posts-date">
+                        <span>{{ timefromNow(list.create_time) }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="posts-right">
-            <div class="posts-views">
-                {{ list.clickNum }}人围观 <van-icon name="arrow" />
-            </div>
-            <div class="posts-img" v-if="list.imgList.length">
-                <van-image
-                    fit="cover"
-                    width="78"
-                    height="76"
-                    :src="list.imgList[0]"
-                    radius="4"
-                />
+            <div class="posts-right">
+                <div class="posts-views">
+                    {{ list.clickNum }}人围观 <van-icon name="arrow" />
+                </div>
+                <div class="posts-img" v-if="list.imgList.length">
+                    <van-image
+                        fit="cover"
+                        width="78"
+                        height="76"
+                        :src="list.imgList[0]"
+                        radius="4"
+                    />
+                </div>
             </div>
         </div>
     </div>
