@@ -46,6 +46,14 @@ export default {
         const handlePush = async () => {
             // todo 分类id需要做好
             const { title, content, topic, fileList } = store.state.posts;
+            if (title === "") {
+                Toast.fail("请填写标题");
+                return;
+            }
+            if (content === "") {
+                Toast.fail("请填写内容");
+                return;
+            }
             const user_id = store.state.userInfo.id;
             const user_nickname = store.state.userInfo.nickname;
             const imgList = await uploadFileList(fileList);

@@ -14,7 +14,7 @@ export default createStore({
         posts: {
             title: "",
             content: "",
-            topic: "",
+            topic: "其他",
             fileList: [],
         },
         userInfo: "",
@@ -46,7 +46,7 @@ export default createStore({
         [RESET_POSTS]({ posts }) {
             posts.title = "";
             posts.content = "";
-            posts.topic = "";
+            posts.topic = "其他";
             posts.fileList = [];
         },
     },
