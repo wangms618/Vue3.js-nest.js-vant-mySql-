@@ -1,5 +1,5 @@
 <template>
-    <div class="author" @click="handleClick(userInfo.id)">
+    <div class="author" @click="handleClick(userInfo)">
         <div class="author-img">
             <van-image
                 fit="cover"
@@ -30,6 +30,7 @@
 import { computed, watch, ref } from "vue";
 import { timeFormatting } from "@/hooks/useChangeTime";
 import { useRouter } from "vue-router";
+
 export default {
     props: {
         imgWidth: {
@@ -55,8 +56,9 @@ export default {
         const nickname = ref("");
         const createTime = ref("");
         const showState = computed(() => (props.type == 1 ? true : false));
-        const handleClick = id => {
-            router.push({ name: "userpage", params: { id } });
+        const handleClick = userInfo => {
+            const info = JSON.stringify(userInfo);
+            router.push({ name: "userpage", params: { userInfo: info } });
         };
         watch(
             () => props.userInfo,
@@ -73,6 +75,7 @@ export default {
             showState,
             handleClick,
             timeFormatting,
+
         };
     },
 };

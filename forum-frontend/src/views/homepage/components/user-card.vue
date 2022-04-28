@@ -8,6 +8,7 @@
         <div class="card-header">
             <div class="card-header__img">
                 <van-image
+                    fit="cover"
                     round
                     width="68"
                     height="68"

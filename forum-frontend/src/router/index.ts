@@ -51,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/homepage/components/setup-page.vue"),
     },
     {
-        path: "/user-page/:id",
+        path: "/user-page/:userInfo",
         name: "userpage",
         component: () => import("../components/user-page.vue"),
     },
