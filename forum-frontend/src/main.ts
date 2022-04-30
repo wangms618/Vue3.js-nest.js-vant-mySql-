@@ -81,14 +81,16 @@ router.beforeEach(async (to, form, next) => {
     if (form.path == "/" && !localStorage.getItem("firstEnter")) {
         Dialog.confirm({
             message: "查询到当前您未登录，是否跳转登录页",
-        })
-            .then(() => {
+        }).then(
+            () => {
                 localStorage.setItem("firstEnter", "true");
-                next({ name: "login" });
-            })
-            .catch(() => {
-                next();
-            });
+                router.push("/login");
+            },
+            () => {
+                Toast("进入游客模式");
+            }
+        );
+        next();
     } else {
         if (store.state.userInfo == "") {
             if (
@@ -134,13 +136,15 @@ router.beforeEach(async (to, form, next) => {
                 } else {
                     Dialog.confirm({
                         message: "进入此页面需要登录，是否登录？",
-                    })
-                        .then(() => {
-                            next({ name: "login" });
-                        })
-                        .catch(() => {
-                            return false;
-                        });
+                    }).then(
+                        () => {
+                            router.push("/login");
+                        },
+                        () => {
+                            Toast("进入游客模式");
+                        }
+                    );
+                    return false;
                 }
             }
         } else {

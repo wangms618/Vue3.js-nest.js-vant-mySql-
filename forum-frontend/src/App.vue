@@ -42,9 +42,6 @@ export default {
                             Toast("进入游客模式");
                         });
                 }
-            } else {
-                // 说明从未登录过
-                console.log("从未登录过");
             }
         });
     },
