@@ -40,6 +40,7 @@
                 v-for="reply in postsReply"
                 :key="reply.id"
                 :reply-list="reply"
+                @handleReplyAgain="handleReplyAgain"
             >
             </ReplyPage>
         </div>
@@ -86,6 +87,7 @@ import { ImagePreview, Toast } from "vant";
 import { getPostById, createRootReply } from "@/api/services/index";
 import { TopicOptions } from "@/views/const";
 import ReplyPage from "./reply-page.vue";
+import { filterReply } from "@/hooks/useAbstractionReply";
 export default {
     components: {
         ReplyPage,
@@ -100,6 +102,8 @@ export default {
         const route = useRoute();
         const posts = ref("");
         const postsReply = ref([]);
+        let rootCommentId = null;
+        let toCommentId = null;
         const showReply = computed(() =>
             postsReply.value.length == 0 ? false : true
         );
@@ -114,6 +118,8 @@ export default {
         });
         const showPopup = ref(false);
         const handleOpenPopup = () => {
+            // rootCommentId.value = null;
+            // toCommentId.value = null;
             showPopup.value = true;
         };
 
@@ -126,7 +132,7 @@ export default {
         // 取到id，然后调用接口获取数据
         onBeforeMount(async () => {
             posts.value = await getPostById(route.params.id);
-            postsReply.value = posts.value.reply;
+            postsReply.value = filterReply(posts.value.reply);
             const {
                 user_id,
                 user_nickname,
@@ -159,6 +165,8 @@ export default {
                 postsId: route.params.id,
                 user_nickname: store.state.userInfo.nickname,
                 user_imgUrl: store.state.userInfo.imgUrl,
+                rootCommentId,
+                toCommentId,
             };
             // 上传评论
             const data = await createRootReply(payload);
@@ -166,6 +174,13 @@ export default {
             showPopup.value = false;
             posts.value = await getPostById(route.params.id);
             postsReply.value = posts.value.reply;
+        };
+
+        // 多级评论
+        const handleReplyAgain = (rootId, commentId) => {
+            showPopup.value = true;
+            rootCommentId = rootId;
+            toCommentId = commentId;
         };
         return {
             posts,
@@ -178,9 +193,11 @@ export default {
             replyValue,
             TopicOptions,
             showPictureOne,
+            rootCommentId,
             showImage,
             handleOpenPopup,
             handlePushReply,
+            handleReplyAgain,
         };
     },
 };
