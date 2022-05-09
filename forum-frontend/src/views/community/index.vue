@@ -39,6 +39,7 @@ export default {
             // 将数据取到
             const data = await searchPosts(val);
             listInfo.value = data;
+            
         };
         return {
             value,

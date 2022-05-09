@@ -20,12 +20,12 @@
             <span class="timer">{{
                 timeFormatting(replyList.createTime)
             }}</span>
-            <span class="reply">回复</span>
+            <span class="reply" @click="handleReply">回复</span>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { timeFormatting } from "@/hooks/useChangeTime";
 export default {
     props: {
@@ -35,6 +35,9 @@ export default {
     },
 
     setup() {
+        const handleReply = () => {
+            console.log("二级评论");
+        };
         return {
             timeFormatting,
         };

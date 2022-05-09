@@ -9,8 +9,8 @@
         <div class="login-body">
             <van-form @submit="onSubmit">
                 <van-field
-                    v-model="username"
-                    name="username"
+                    v-model="userAccount"
+                    name="userAccount"
                     label="账号"
                     placeholder="请输入账号"
                     :rules="[{ required: true, message: '请填写账号' }]"
@@ -31,7 +31,7 @@
                         block
                         native-type="submit"
                     >
-                        提交
+                        登录
                     </van-button>
                 </div>
             </van-form>
@@ -58,13 +58,17 @@ export default {
     setup() {
         const store = useStore();
         const router = useRouter();
-        const username = ref("");
+        const userAccount = ref("");
         const password = ref("");
         const onSubmit = async values => {
-            const data = await service.login(username.value);
+            // 通过接口取到后端的数据
+            const data = await service.login(userAccount.value);
+            // 如果salt经过解密与当前输入password相同，就登录
             if (data && bcryptjs.compareSync(values.password, data.salt)) {
                 Toast.success("登录成功");
+                // 获取用户信息
                 const userInfo = await service.getUserInfo(data.id);
+                // 存入vuex状态管理仓库
                 store.dispatch("insertUserInfo", userInfo);
                 const time = new Date().getTime();
                 let token = {
@@ -84,7 +88,7 @@ export default {
         };
 
         return {
-            username,
+            userAccount,
             password,
             onSubmit,
             Logo,

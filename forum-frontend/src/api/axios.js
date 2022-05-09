@@ -1,7 +1,9 @@
+// 引入axios
 import axios from "axios"
 import {
     Toast
 } from "vant"
+// 生成axios实例
 const instance = axios.create({
     baseURL: "http://localhost:8081/api/forum",
     timeout: 5000 // request timeout
@@ -14,5 +16,5 @@ instance.interceptors.response.use((response) => {
     }
     return response.data
 })
-
+// 抛出实例
 export default instance
