@@ -25,14 +25,14 @@
         <div class="comment-content__comments" v-if="haveComments">
             <div class="comments" v-for="item in comments" :key="item.id">
                 <div class="comments-second" v-if="item.isSecond">
-                    <span>{{ item.user_nickname }}：</span>
-                    <span>{{ item.content }}</span>
+                    <span class="nickname">{{ item.user_nickname }}：</span>
+                    <span @click="handleReplys(item)">{{ item.content }}</span>
                 </div>
                 <div class="comments-second__down" v-else>
-                    <span>{{ item.user_nickname }}</span>
+                    <span class="nickname">{{ item.user_nickname }}</span>
                     <span> 回复 </span>
-                    <span>{{ item.replyByNickname }}：</span>
-                    <span>{{ item.content }}</span>
+                    <span class="nickname">{{ item.replyByNickname }}：</span>
+                    <span @click="handleReplys(item)">{{ item.content }}</span>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import { timeFormatting } from "@/hooks/useChangeTime";
 import { filterSecondReply } from "@/hooks/useAbstractionReply";
 // 需要做一个不同评论的展示
@@ -74,15 +74,30 @@ export default {
                 emit("handleReplyAgain", rootCommentId, id);
             }
         };
+
+        const handleReplys = item => {
+            // 用户评论多级评论，那么toCommentId应该是当前评论的id,rootCommentId是一级评论的id
+            const { id, rootCommentId } = item;
+            emit("handleReplyAgain", rootCommentId, id);
+        };
+
         const haveComments =
             props.replyList.comments.length == 0 ? false : true;
-        const comments = reactive(props.replyList.comments);
+        let comments = reactive(props.replyList.comments);
         // 需要对comments做一个处理，给他设置一个字段判断它是否是来自其他评论，如果来自其他评论，显示谁回复谁，怎么样
         filterSecondReply(comments);
+        // watch(
+        //     () => props.replyList.comments,
+        //     () => {
+        //         comments = reactive(props.replyList.comments);
+        //         filterSecondReply(comments);
+        //     }
+        // );
         return {
             comments,
             haveComments,
             handleReply,
+            handleReplys,
             timeFormatting,
         };
     },
@@ -139,6 +154,10 @@ export default {
         .comments {
             line-height: 28px;
             font-size: 12px;
+        }
+        .nickname {
+            color: #1989fa;
+            font-weight: bold;
         }
     }
 }

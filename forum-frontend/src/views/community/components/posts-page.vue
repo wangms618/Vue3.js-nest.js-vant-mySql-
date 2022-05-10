@@ -173,7 +173,7 @@ export default {
             replyValue.value = "";
             showPopup.value = false;
             posts.value = await getPostById(route.params.id);
-            postsReply.value = posts.value.reply;
+            postsReply.value = filterReply(posts.value.reply);
         };
 
         // 多级评论
