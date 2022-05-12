@@ -32,13 +32,20 @@ export class PostsService {
     // 获取文章列表
     async findAll(query): Promise<PostsRo> {
         const qb = await getRepository(PostsEntity).createQueryBuilder("post");
-        qb.where("1 = 1");
+        const { pageNum = 1, pageSize = 20, ...params } = query;
+        const { type, topic } = params;
+        if (type == 0) {
+            qb.orderBy("post.clickNum", "DESC");
+        } else if (type == 1) {
+            qb.orderBy("post.create_time", "DESC");
+        } else if (type == 2) {
+            qb.orderBy("post.create_time", "DESC");
+            qb.where({ topic: topic });
+        } else {
+            qb.orderBy("post.create_time", "DESC");
+        }
         // 倒序
-        qb.orderBy("post.create_time", "DESC");
-        // 获取当前数据库已有的文章数量
         const count = await qb.getCount();
-        // 第一页，10条数据
-        const { pageNum = 1, pageSize = 10, ...params } = query;
         // 单次取用的数据量
         qb.limit(pageSize);
         // 前置量
@@ -50,30 +57,11 @@ export class PostsService {
 
     async findSearch(query) {
         const { key } = query;
-        // const data = await this.postsRepository.find({
-        //     where: {
-        //         title: Like(`%${key}%`),
-        //         content: Like(`%${key}%`),
-        //         topic: Like(`%${key}%`),
-        //         user_nickname: Like(`%${key}%`),
-        //     },
-        // });
         const data = await this.postsRepository.find({
-            where: [
-                {
-                    title: Like(`%${key}%`),
-                },
-                {
-                    content: Like(`%${key}%`),
-                },
-                {
-                    topic: Like(`%${key}%`),
-                },
-                {
-                    user_nickname: Like(`%${key}%`),
-                },
-            ],
-        });
+            where: [{title: Like(`%${key}%`),},
+                {content: Like(`%${key}%`),},
+                {topic: Like(`%${key}%`),},
+                {user_nickname: Like(`%${key}%`),},],});
         return data;
     }
 
